@@ -1,0 +1,62 @@
+.page {
+  text-align: center;
+  min-height:100vh;
+}
+
+.bigContainer {
+  background-color: #1d2124;
+  min-height:80vh;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.bi{
+  color:#e3841f;
+}
+
+.text{
+  color:#e3841f;
+  margin-bottom: 2rem;
+}
+
+.title{
+  color:#ffffff;
+  margin-bottom: 2rem;
+}
+
+.header{
+  text-transform:capitalize;
+  color:white;
+  margin-bottom: 2rem;
+}
+
+.divider{
+  border: 3px solid #e3841f;
+}
+
+.Event{
+  width:30rem;
+}
+
+.btnCustom{
+  background-color: #e3841f;
+  border: #e3841f;
+  color:black;
+}
+
+.btnCustom:hover{
+  background-color:#e3841f8d;
+}
+
+.active-scroll-spy {
+  background-color: rgba(112, 114, 106,0.8);
+  border-radius: 15px;
+}
+
+.form{
+  display:flex;
+  margin-top:10rem;
+  margin-bottom:10rem;
+  border-radius: 5%;
+  background-color: #e3841f;
+}
