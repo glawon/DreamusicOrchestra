@@ -48,7 +48,7 @@ class About extends Component{
     render(){
         return(
             <>
-                <h1 className="header">Chi siamo</h1>
+                <h1 className="header" id="about">Chi siamo</h1>
                 <div className="container text-center">
                     <div className="row justify-content-md-center">
                         <div className="col offset-md-1">

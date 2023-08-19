@@ -49,7 +49,7 @@ const events = [
 function Eventi(){
     const [eventi] = useState(events);
     return(
-        <><h1 className="title">Prossimi eventi</h1>
+        <><h1 className="title" id="eventscroll">Prossimi eventi</h1>
         <div className="container">
             <div className = "row align-text-center mt-20">
             {eventi.map(event => (

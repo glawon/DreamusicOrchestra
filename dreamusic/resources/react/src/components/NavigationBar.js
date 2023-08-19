@@ -1,6 +1,7 @@
 //import { NavLink} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { Link } from 'react-scroll/modules';
 
 function NavigationBar(login){
 
@@ -26,11 +27,11 @@ function NavigationBar(login){
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
-                        <li>
-                            <Nav.Link href="/about" className="nav-link">Chi siamo</Nav.Link>
-                        </li>
                         <li className="nav-item">
-                            <Nav.Link href="/eventi" className="nav-link">Eventi</Nav.Link>
+                            <Link className="nav-link" activeClass='active' to="eventscroll" spy={true} smooth={true} offset={0} duration={500}> Eventi </Link>
+                        </li>
+                        <li>
+                            <Link className="nav-link" activeClass='active' to="about" spy={true} smooth={true} offset={0} duration={500}>Chi siamo</Link>
                         </li>
                         <li className="nav-item">
                             <Nav.Link href="/gallery" className="nav-link">Gallery</Nav.Link>
