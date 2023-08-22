@@ -60,7 +60,7 @@ class Evento extends Component{
 }*/
 
 function Eventi(){
-    const [eventi, setEventi] = useState(null);
+    //const [eventi, setEventi] = useState(null);
 
     useEffect(() => {
         fetch(`/api/concert/index`)
@@ -69,11 +69,12 @@ function Eventi(){
           .then((actualData) => setEventi(actualData));
       }, []);
 
-    /*const events = [
+    const events = [
     {id : 0, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 1", prezzo: "5€"},
     {id : 1, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 2", prezzo: "10€"},
     {id : 2, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 3", prezzo: "ingresso libero"}
-    ];*/
+    ];
+    const [eventi, setEventi] = useState(events);
     
     function handleClick(eId){
         eventi.map((evento) =>{

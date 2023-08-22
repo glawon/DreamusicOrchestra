@@ -28,10 +28,10 @@ function NavigationBar(login){
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" activeClass='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500}> Eventi </Link>
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClass='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500}> Eventi </Link>
                         </li>
                         <li>
-                            <Link className="nav-link" activeClass='active' to="about" spy={true} smooth={true} offset={0} duration={500}>Chi siamo</Link>
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClass='active' to="about" spy={true} smooth={true} offset={0} duration={500}>Chi siamo</Link>
                         </li>
                         <li className="nav-item">
                             <Nav.Link href="/gallery" className="nav-link">Gallery</Nav.Link>

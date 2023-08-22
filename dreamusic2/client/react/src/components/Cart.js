@@ -72,13 +72,13 @@ function AfterLogin(){
         if(a.tipo == "partitura")
         {
             return(
-                <i className="bi bi-filetype-pdf"></i>
+                <i className="bi bi-filetype-pdf align-middle"></i>
             );
         }
         else if(a.tipo == "audio")
         {
             return(
-                <i className="bi bi-music-note-beamed"></i>
+                <i className="bi bi-music-note-beamed align-middle"></i>
             );
         }
     }
@@ -126,9 +126,9 @@ function AfterLogin(){
                     {/*icona del prodotto: pdf vs audio*/}
                     {
                         acquisti.map((acquisto) => (
-                            <tr className="align-items-center" style={{backgroundColor:"black"}}>
+                            <tr className="align-items-center">
                                 <td>
-                                    <Form.Check type="checkbox" value="" checked={acquisto.checked} style={{color:"#e3841f"}}
+                                    <Form.Check className="align-top" type="checkbox" value="" checked={acquisto.checked}
                                     onChange={()=>handleCheck(acquisto.id)}/>
                                 </td>
                                 
@@ -136,22 +136,22 @@ function AfterLogin(){
                                     {getType(acquisto)}
                                 </td>
                                 <td>
-                                    <span>{acquisto.titolo}</span>
+                                    <span className="align-middle">{acquisto.titolo}</span>
                                 </td>
                                 <td>
-                                    <button className="btn" onClick={()=>decrease(acquisto.id)}>-</button>
+                                    <button className="btn align-top" onClick={()=>decrease(acquisto.id)}><i class="bi bi-dash-circle "></i></button>
                                 </td>
                                 <td>
-                                    <textarea readonly value={acquisto.quantità} style={{resize:"none", border: "none", maxWidth:"2rem", maxheight:"0.5rem"}}>{acquisto.quantità}</textarea>
+                                    <span className="align-middle">{acquisto.quantità}</span>
                                 </td>
                                 <td>
-                                    <button className="btn" onClick={()=>{increase(acquisto.id)}}>+</button>
+                                    <button className="btn align-top" onClick={()=>{increase(acquisto.id)}}><i class="bi bi-plus-circle"></i></button>
                                 </td>
                                 <td>
-                                    <span>€{acquisto.prezzo}</span>
+                                    <span className="align-middle">€{acquisto.prezzo}</span>
                                 </td>
                                 <td>
-                                    <button className="btn btn-danger" onClick={()=>{handleDelete(acquisto.id)}}>Rimuovi</button>
+                                    <button className="btn align-top" style={{backgroundColor:"#e27500"}}onClick={()=>{handleDelete(acquisto.id)}}>Rimuovi</button>
                                 </td>
                             </tr>
                         ))
