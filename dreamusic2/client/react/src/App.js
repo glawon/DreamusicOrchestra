@@ -4,10 +4,10 @@ import Page from "./page";
 const datiUtente = {isLogged: false, nome: "", cognome: "", email: "", password: "", ruolo: "user"}
 
 function App(){
-    const [backendData, setBackendData] = React.useState(null)
+    const [backendData, setBackendData] = useState(null)
     const [login, setLogin] = useState(datiUtente);
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetch("/api")
         .then( (response) => response.json())
         .then( (data) => { setBackendData(data)})

@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 
 class Musician extends Component{
     render(){
-        return(
-            
+        return(   
             <div className="container text-center">
                 <div className="row row-cols-auto" style={{paddingBottom: "30px"}}>
                     <div className="col">

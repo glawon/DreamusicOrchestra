@@ -7,7 +7,7 @@ class EventProgram extends Component{
     {return(
         <div className="row container-fluid">
             <div className="col-2">
-                <p className="title text-center">{this.props.nomeConcerto}</p>
+                <p className="title text-center">{this.props.nomeConcerto}{console.log(this.props.nomeConcerto)}</p>
                 <p className="text text-start">Data: {this.props.data}<br/>Ora: {this.props.ora}<br/>Location: {this.props.location}<br/>Prezzo: {this.props.prezzo}€</p>
                 <p className="title">Programma</p>
                 <p className="text text-start"> {this.props.programma}</p>
@@ -15,5 +15,12 @@ class EventProgram extends Component{
         </div>
     );}
 }
+
+/*function EventProgram(nomeConcerto, data, ora, location, prezzo, programma)
+{
+    return(
+        <span>Ciao</span>
+    );
+}*/
 
 export default EventProgram;
