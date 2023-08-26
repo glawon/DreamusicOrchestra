@@ -14,7 +14,7 @@ async function loginUser(credentials) {
       .then(data => data.json())
 }
 
-function SignIn({setToken}){
+function SignIn({setLogged}){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -36,12 +36,12 @@ function SignIn({setToken}){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await loginUser({
+        /*const token = await loginUser({
             email,
             password
-        });
+        });*/
     
-        setToken(token);   
+        setLogged(true);   
     }
 
     return(

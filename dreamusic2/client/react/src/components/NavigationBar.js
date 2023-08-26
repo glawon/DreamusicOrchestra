@@ -1,14 +1,25 @@
 //import { NavLink} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-scroll/modules';
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 function NavigationBar(login){
 
     function handleCartClick(){
-        alert("You have to log-in first!");
+        
     }
-
+    const navigate = useNavigate();
+    function handleClick(){
+        console.log(splitLocation);
+        if(splitLocation[1] !== "")
+        {
+           console.log("mi sposto nella home...");
+           navigate("/");
+        }        
+    }
 
     /*function showLogin(){
         if(login == false)
@@ -20,6 +31,10 @@ function NavigationBar(login){
             );
     }*/
 
+    const location = useLocation();
+    const {pathname} = location;
+    const splitLocation = pathname.split("/");
+
     return(
         <Navbar expand="lg" className="sticky-top bg-body-tertiary mb-0" data-bs-theme="dark">
             <div className="container-fluid">
@@ -28,10 +43,14 @@ function NavigationBar(login){
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClass='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500}> Eventi </Link>
-                        </li>
-                        <li>
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClass='active' to="about" spy={true} smooth={true} offset={0} duration={500}>Chi siamo</Link>
+                            <NavDropdown title="Home" id="basic-nav-dropdown" onClick={handleClick}>
+                                    <NavDropdown.Item href="/">
+                                        <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500}> Eventi </Link>
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="/">
+                                        <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="about" spy={true} smooth={true} offset={0} duration={500}>Chi siamo</Link>
+                                    </NavDropdown.Item>
+                            </NavDropdown>              
                         </li>
                         <li className="nav-item">
                             <Nav.Link href="/gallery" className="nav-link">Gallery</Nav.Link>

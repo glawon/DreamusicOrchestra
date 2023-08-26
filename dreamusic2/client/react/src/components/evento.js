@@ -1,10 +1,9 @@
 import React, {Component, useState, useEffect} from 'react';
-import { Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import "../Page.css";
 import EventProgram from './EventProgram';
 import cardImage from "../externals/locandina.png";
 
-//inserire qui dati da DB
 class Evento extends Component{
     render()
     {return(
@@ -80,6 +79,7 @@ function Eventi(){
         eventi.map((evento) =>{
             if(evento.id == eId){
                 return <>
+                <Routes>
                 <Route path="/event" element={<EventProgram
                 key={evento.id}
                 locandina={evento.locandina}
@@ -90,6 +90,7 @@ function Eventi(){
                 prezzo={evento.prezzo}
                 nomeConcerto={evento.nomeConcerto}
                 />}/>
+                </Routes>
                 <span>Ciao, sei nel programma</span>
                 </>;
             }
