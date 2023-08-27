@@ -7,11 +7,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 
 function NavigationBar(login){
-
-    function handleCartClick(){
-        
-    }
     const navigate = useNavigate();
+    function handleCartClick(){
+        if(!login)
+            navigate("/login");
+        else
+            navigate("/cart");
+    }
+    
     function handleClick(){
         console.log(splitLocation);
         if(splitLocation[1] !== "")
@@ -20,16 +23,6 @@ function NavigationBar(login){
            navigate("/");
         }        
     }
-
-    /*function showLogin(){
-        if(login == false)
-            return(
-                <a className="btn btn-primary" href="#login" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick={handleClick} style={{backgroundColor:"#e3841f", border: "#e3841f", borderRadius: '5px', color:"black" }}>Log-in</a>);
-        else
-            return(
-                <a className="btn btn-primary" href="#login" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick={handleClick} style={{backgroundColor:"#e3841f", border: "#e3841f", borderRadius: '5px', color:"black" }}>Log-out</a>
-            );
-    }*/
 
     const location = useLocation();
     const {pathname} = location;
@@ -60,7 +53,7 @@ function NavigationBar(login){
                         </li>
                     </Nav>
                     <Nav className="navbar-nav ms-auto">
-                            <Nav.Link href="/cart" className="nav-link"><i className="bi bi-cart2" onClick={handleCartClick}></i></Nav.Link>
+                            <Nav.Link href="/cart" className="nav-link"><i className="bi bi-cart2"></i></Nav.Link>
                         <li className="nav-item">
                             <Nav.Link href="/login" className="nav-link">Log-in</Nav.Link>
                         </li>

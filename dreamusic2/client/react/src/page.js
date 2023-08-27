@@ -11,23 +11,49 @@ import logo from "./externals/logo.jpg";
 import { useState } from 'react';
 import {Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
+import cardImage from "./externals/locandina.png";
+
+const events = [
+  {id : 0, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 1", prezzo: 5},
+  {id : 1, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 2", prezzo: 10},
+  {id : 2, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 3", prezzo: 0}
+  ];
 
 function Page(login, setLogin){
+    
+    const [eventi, setEventi] = useState(events);
+    /*da backend:
+    const [eventi, setEventi] = useState(null);
+    useEffect(() => {
+        fetch(`/api/concert/index`)
+          .then((response) => response.json())
+          .then((actualData) => console.log(actualData))
+          .then((actualData) => setEventi(actualData));
+      }, []);*/
+    
     const [logged, setLogged] = useState(false);
-
+    console.log("Logged?"+ logged);
+    const [eId, seteId] = useState(0);
+    const getId = () =>
+    {
+      console.log("Valore nello state:"+eId);
+      //seteId(eId);
+    }
+    
     return (
     //controllo dal back-end: loading fin quando non è arrivato tutto OPPURE progression nelle immagini degli eventi finché non arriva il messaggio
 
     <>
       <div className="page">
         <NavigationBar
-        login={login}/>
+        login={logged}/>
         <div className="bigContainer">
           <Routes>
-            <Route path="/" element={<Home/>}/>  
-            <Route path="/cart" element={<Cart/>}/>
+            <Route path="/" element={<Home eventi={eventi} getId={getId} setId={seteId}/>}/>  
+            <Route path="/cart" element={<Cart login={logged}/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="row"><Login/></div>}/>
+            <Route path="/event" element={<EventProgram key={eId} eventi={eventi}/>}/>
           </Routes>    
         </div>
         <BottomBar

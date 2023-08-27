@@ -175,9 +175,18 @@ function AfterLogin(){
     );
 }
 
-function Cart(){
-    return(
-        <AfterLogin/>
-    );
+function Cart({login}){
+    if(!login)
+        return(
+            <div classname="container-fluid text-white my-5">
+                <span className="title">Effettua il log-in per visualizzare il carrello!</span>
+                <br/><a href="/login" className="btn btnCustom">Login</a>
+            </div>
+        );
+    else
+        return(
+            
+            <AfterLogin/>
+        );
 }
 export default Cart;
