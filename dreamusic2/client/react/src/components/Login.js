@@ -4,14 +4,14 @@ import background from "../externals/locandina.png";
 
 async function loginUser(credentials) {
 
-    return fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(data => data.json())
+    return fetch('http://localhost:8000/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+        })
+        .then(data => data.json())
 }
 
 function SignIn({setLogged}){

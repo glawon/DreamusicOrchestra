@@ -24,12 +24,12 @@ function Evento({evento, getId, setId}){
 function Eventi({eventi, getId, setId}){
     //const [eventi, setEventi] = useState(null);
 
-    /*useEffect(() => {
-        fetch(`/api/concert/index`)
-          .then((response) => response.json())
-          .then((actualData) => console.log(actualData))
-          .then((actualData) => setEventi(actualData));
-      }, []);*/
+    useEffect(() => {
+        fetch('http://localhost:8000/api/concert/index', {method:"GET"})
+            .then((response) => response.json())
+            .then((actualData) => console.log(actualData))
+            .then((actualData) => setEventi(actualData));
+        }, []);
 
     /*const events = [
     {id : 0, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 1", prezzo: "5€"},
