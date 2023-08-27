@@ -1,10 +1,9 @@
 import React, {Component, useState, useEffect} from 'react';
-import { Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import "../Page.css";
 import EventProgram from './EventProgram';
 import cardImage from "../externals/locandina.png";
 
-//inserire qui dati da DB
 class Evento extends Component{
     render()
     {return(
@@ -76,44 +75,46 @@ function Eventi(){
     ];
     const [eventi, setEventi] = useState(events);
     
-    // function handleClick(eId){
-    //     eventi.map((evento) =>{
-    //         if(evento.id == eId){
-    //             return <>
-    //             <Route path="/event" element={<EventProgram
-    //             key={evento.id}
-    //             locandina={evento.locandina}
-    //             data={evento.data}
-    //             ora={evento.ora}
-    //             location={evento.location}
-    //             programma={evento.programma}
-    //             prezzo={evento.prezzo}
-    //             nomeConcerto={evento.nomeConcerto}
-    //             />}/>
-    //             <span>Ciao, sei nel programma</span>
-    //             </>;
-    //         }
-    //     })
-    // }
-    // return(
-    //     <>
-    //     <div className="container" id="eventscroll">
-    //         <h1 className="title align-text-center">Prossimi eventi</h1>
-    //         <div className = "row align-text-center mt-20">
-    //         {eventi.map(event => (
-    //             <Evento
-    //             key={event.id}
-    //             locandina={event.locandina}
-    //             data={event.data}
-    //             ora={event.ora}
-    //             location={event.location}
-    //             programma={event.programma}
-    //             prezzo={event.prezzo}
-    //             nomeConcerto={event.nomeConcerto}
-    //             onClick={handleClick}/>
-    //         ))}
-    //         </div> 
-    //     </div></>);
+    function handleClick(eId){
+        eventi.map((evento) =>{
+            if(evento.id == eId){
+                return <>
+                <Routes>
+                <Route path="/event" element={<EventProgram
+                key={evento.id}
+                locandina={evento.locandina}
+                data={evento.data}
+                ora={evento.ora}
+                location={evento.location}
+                programma={evento.programma}
+                prezzo={evento.prezzo}
+                nomeConcerto={evento.nomeConcerto}
+                />}/>
+                </Routes>
+                <span>Ciao, sei nel programma</span>
+                </>;
+            }
+        })
+    }
+    return(
+        <>
+        <div className="container" id="eventscroll">
+            <h1 className="title align-text-center">Prossimi eventi</h1>
+            <div className = "row align-text-center mt-20">
+            {eventi.map(event => (
+                <Evento
+                key={event.id}
+                locandina={event.locandina}
+                data={event.data}
+                ora={event.ora}
+                location={event.location}
+                programma={event.programma}
+                prezzo={event.prezzo}
+                nomeConcerto={event.nomeConcerto}
+                onClick={handleClick}/>
+            ))}
+            </div> 
+        </div></>);
 }
 
 export default Eventi;

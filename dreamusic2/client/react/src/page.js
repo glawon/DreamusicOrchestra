@@ -13,7 +13,7 @@ import {Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 
 function Page(login, setLogin){
-    const [token, setToken] = useState();
+    const [logged, setLogged] = useState(false);
 
     return (
     //controllo dal back-end: loading fin quando non è arrivato tutto OPPURE progression nelle immagini degli eventi finché non arriva il messaggio
