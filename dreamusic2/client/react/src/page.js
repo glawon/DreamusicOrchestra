@@ -8,7 +8,7 @@ import Cart from './components/Cart';
 import BottomBar from './components/bottomBar';
 import Gallery from './components/gallery';
 import logo from "./externals/logo.jpg";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import cardImage from "./externals/locandina.png";
@@ -21,18 +21,20 @@ const events = [
 
 function Page(login, setLogin){
     
-    const [eventi, setEventi] = useState(events);
-    /*da backend:
-    const [eventi, setEventi] = useState(null);
+    // const [eventi, setEventi] = useState(events);
+    //da backend:
+    const [eventi, setEventi] = useState([]);
     useEffect(() => {
-        fetch(`/api/concert/index`)
-          .then((response) => response.json())
-          .then((actualData) => console.log(actualData))
-          .then((actualData) => setEventi(actualData));
-      }, []);*/
+      fetch('http://localhost:8000/api/concert/index', {method:"GET"})
+        .then((response) => response.json())
+        .then((actualData) => setEventi(actualData.concerto));
+    }, []);
+    console.log(eventi);
+
+    const [user, setUser] = useState();
     
-    const [logged, setLogged] = useState(false);
-    console.log("Logged?"+ logged);
+    const [logged, setLogged] = useState(true);
+    console.log("Logged? "+ logged);
     const [eId, seteId] = useState(0);
     const getId = () =>
     {
@@ -63,5 +65,7 @@ function Page(login, setLogin){
     </>
   );
 }
+
+
 
 export default Page;

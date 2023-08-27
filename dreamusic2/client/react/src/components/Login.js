@@ -4,7 +4,7 @@ import background from "../externals/locandina.png";
 
 async function loginUser(credentials) {
 
-    return fetch('http://localhost:8000/api/login', {
+    var ciao = fetch('http://localhost:8000/api/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -12,6 +12,7 @@ async function loginUser(credentials) {
         body: JSON.stringify(credentials)
         })
         .then(data => data.json())
+        console.log(ciao);
 }
 
 function SignIn({setLogged}){
@@ -27,11 +28,12 @@ function SignIn({setLogged}){
     }
 
     function submitControl(){
-        if(password.length < 8)
+        if(password.length < 1)
         {
             alert("La password deve avere almeno 8 caratteri");
             return;
         }
+        loginUser({email, password});
     }
 
     const handleSubmit = async (e) => {

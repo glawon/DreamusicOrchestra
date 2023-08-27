@@ -8,8 +8,8 @@ function Evento({evento, getId, setId}){
             <div className="card mx-auto my-3" style={{width: 20+'rem'}}>
                 <img src={evento.locandina} className="card-img-top"/>
                 <div className="card-body">
-                    <h5 className="card-title">{evento.nomeConcerto}</h5>
-                    <p className="card-text">Data: {evento.data}<br/>Ora: {evento.ora}<br/>{evento.location}</p>
+                    <h5 className="card-title">{evento.nome}</h5>
+                    <p className="card-text">Data: {evento.data}<br/>Ora: {evento.ora}<br/>{evento.citta}<br/>{evento.teatro}  </p>
                     <a href="/event" className="btn btnCustom" onClick={()=>{
                         console.log("Id dell'evento:"+evento.id);
                         setId(evento.id);
@@ -22,14 +22,6 @@ function Evento({evento, getId, setId}){
 }
 
 function Eventi({eventi, getId, setId}){
-    //const [eventi, setEventi] = useState(null);
-
-    useEffect(() => {
-        fetch('http://localhost:8000/api/concert/index', {method:"GET"})
-            .then((response) => response.json())
-            .then((actualData) => console.log(actualData))
-            .then((actualData) => setEventi(actualData));
-        }, []);
 
     /*const events = [
     {id : 0, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 1", prezzo: "5€"},
@@ -50,7 +42,7 @@ function Eventi({eventi, getId, setId}){
                 getId={getId}
                 setId={setId}/>
             })}
-            </div> 
+            </div>
         </div></>);
 }
 
