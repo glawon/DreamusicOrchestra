@@ -1,33 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from 'react-bootstrap/Alert';
+import Toast from 'react-bootstrap/Toast';
 import {loginUser} from './services/user.js';
-//import AuthStore from './AuthStore';
 import background from "../externals/locandina.png";
 //import SignIn from "./Sign-in";
 
-function Successful({navigate, show, setShow}){
-    function redirect()
-    {
-        setShow(false);
-        navigate("/");
-    }
+function ErrorNotify({show, setShow})
+{
     return(
-        <div className="container-fluid">
-            <Alert show={show} style={{backgroundColor:"rgba(0,0,0,0.9)", border:"rgba(0,0,0,0.9)"}}>
-            <Alert.Heading className="title">Bentornato!</Alert.Heading>
-            <hr/>
-            <button className="btn btnCustom" onClick={redirect}>Continua sul sito</button>
-            </Alert>
-        </div>
-        
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Toast.Header className="justify-content-space-between">
+            <i className="bi bi-exclamation-triangle me-1" style={{color:"red"}}></i>
+            <strong className="mx-auto">Errore</strong>
+          </Toast.Header>
+          <Toast.Body>Parametri errati</Toast.Body>
+        </Toast>
     );
 }
 
 function SignIn({setUser, setLogged}){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [show, setShow] = useState(false);
+    const [show, setShow]  = useState(false);
     const navigate = useNavigate();
 
     function handleEmailChange(e){
@@ -52,6 +46,8 @@ function SignIn({setUser, setLogged}){
                 setUser(user.user);
                 setLogged(user.logged);
                 if(user.logged)
+                    navigate("/");
+                else
                     setShow(true);
             })
             .catch(error => alert("Errore nel caricare i dati\n"+error));
@@ -62,11 +58,9 @@ function SignIn({setUser, setLogged}){
 
     return(
         <div className="col-8 bg-image d-flex my-0 align-items-center"
-        style={{backgroundImage: `url(${background}`, backgroundSize:"cover", height: "700px"}}>
-            <div className="col-6 justify-content-center pt-5">
-                {show&&
-                    <Successful navigate={navigate} show={show} setShow={setShow}/>      
-                }   
+        style={{backgroundImage: `url(${background}`, backgroundSize:"cover", backgroundPosition:"center", height: "700px"}}>
+            <div className="col-6 justify-content-start pt-5">
+                <ErrorNotify show={show} setShow={setShow}/>
             </div>
             <div className="col-6">
                 <form className="container-fluid justify-content-center">

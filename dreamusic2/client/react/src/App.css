@@ -1,11 +1,15 @@
 .page {
   text-align: center;
   min-height:100vh;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .bigContainer {
   background-color: #1d2124;
   min-height:80vh;
+  padding-left: 0;
+  padding-right: 0;  
 }
 
 .bi{
@@ -29,7 +33,7 @@
 }
 
 .divider{
-  border: 3px solid #e3841f;
+  border: 1px solid #e3841f;
 }
 
 .Event{

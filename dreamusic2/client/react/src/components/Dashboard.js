@@ -39,7 +39,7 @@ function Lista({state, setState}) {
 function GestioneMusicisti({musicians, setMusicians}){
     const [show, setShow] = useState(true);
     
-    const [isActive, setActive] = useState(false);
+    //const [isActive, setActive] = useState(false);
     const [musicianStates, setMusicianStates] = useState(
         musicians.map((musician) => ({ id: musician.id, modifica: false, alertShow: false }))
       );
@@ -96,10 +96,10 @@ function GestioneMusicisti({musicians, setMusicians}){
     return(
         <form className = "container-fluid py-4 px-0 mt-5" id="#about">
             <h5 className = "title text">Gestione musicisti</h5>
-            <Accordion flush>
+            <Accordion flush defaultActiveKey={0}>
                 <Accordion.Item eventKey='0'>
-                    <Accordion.Header style={{backgroundColor: "yellow"}}
-                    onClick={() => setActive(!isActive)}>
+                    <Accordion.Header
+                    >
                         <strong className="mx-auto">Lista musicisti</strong>
                         <button className='btn btnCustom'>Aggiungi</button>
                     </Accordion.Header>

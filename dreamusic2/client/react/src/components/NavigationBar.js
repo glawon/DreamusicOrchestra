@@ -4,6 +4,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-scroll/modules';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getLogin } from './services/user';
+import { useState } from 'react';
 
 
 function NavigationBar({setUser, setLogged, user, login}){
@@ -44,7 +45,7 @@ function NavigationBar({setUser, setLogged, user, login}){
         <Navbar expand="lg" className="sticky-top bg-body-tertiary mb-0" data-bs-theme="dark">
             <div className="container-fluid">
                 <Nav.Link href="/" className="navbar-brand active px-1" aria-current="page">Dreamusic Orchestra</Nav.Link>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
                         <li className="nav-item">

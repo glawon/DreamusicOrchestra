@@ -9,8 +9,6 @@ export async function fetchConcerts() {
     }
 }
 
-
-
 export async function fetchSingle(id)
 {
     try {
@@ -21,4 +19,17 @@ export async function fetchSingle(id)
         alert("Errore nel caricare i concerti: ", error);
         return null;
     }
+}
+
+export async function sendReservation(q, u)
+{
+    const data = {user: u, quantita: q};
+    return fetch('/api'), {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+    .then(data => data.json())
 }
