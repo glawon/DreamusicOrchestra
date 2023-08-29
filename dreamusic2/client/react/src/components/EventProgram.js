@@ -40,8 +40,9 @@ function Prenotazione({evento}){
                 </div>
             </div>
             <div className="row justify-content-center">
-                    <span className="text-white">Totale: {totale} €</span>
-                </div>
+                <span className="text-white">Totale: {totale} €</span>
+            </div>
+            <input type="submit" className="btn btnCustom"/>
         </form>
     );
 }
@@ -49,27 +50,29 @@ function Program({evento}){
     return(
         <div className="row container-fluid justify-content-center">
             <div className="col-6">
-                <h1 className="title text-center">{evento.concerto}</h1>
-                <p className="text-white text-start"><strong>Data:</strong> <span className="text">{evento.data}</span>
-                <br/><strong>Ora:</strong> <span className="text">{evento.ora}</span>
-                <br/><strong>Location:</strong> <span className="text">{evento.città} - {evento.teatro}</span>
-                <br/><strong>Prezzo:</strong><span className="text"> {evento.prezzo}€</span></p>
+                <h1 className="title text-center">{evento.nome}</h1>
+                <p className="text-white text-start"><strong>Data:</strong> {evento.data}<span className="text"></span>
+                <br/><strong>Ora:</strong> {evento.ora}<span className="text"></span>
+                <br/><strong>Location:</strong> {evento.citta}<span className="text"> - {evento.teatro}</span>
+                <br/><strong>Prezzo:</strong><span className="text">€</span></p>
                 <hr className="divider"/>
                 <p className="title">Programma</p>
-                <p className="text text-start"> {evento.programma}</p>
+                <p className="text text-start">{evento.programma}</p>
             </div>
         </div>
     );
 }
 
-function EventProgram({id}){
-    console.log(id);
+function EventProgram({eventi, evento}){
+    console.log(evento);
+    console.log(eventi);
+    //console.log("Id preso: "+ eventId);*/
 
     return(
         <div className="container-fluid">
-            <Program />
+            <Program evento={evento}/>
             <hr className="divider"/>
-            <Prenotazione />
+            <Prenotazione evento={evento}/>
         </div>
         
     );

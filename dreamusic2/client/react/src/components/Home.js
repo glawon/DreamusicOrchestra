@@ -6,7 +6,7 @@ import Eventi from './evento';
 import About from './About';
 import logo from "../externals/logo.jpg";
 
-function Home({eventi, setEventId, musicians}){
+function Home({eventi, setEventId, setCambia, musicians}){
   function useScrollToTop(){
       const location = useLocation();
       useEffect(() => {
@@ -23,7 +23,7 @@ function Home({eventi, setEventId, musicians}){
               </div>
               <Bio />
               <section className="section py-5" id="eventscroll">
-                <Eventi eventi={eventi} setEventId={setEventId}/>
+                <Eventi eventi={eventi} setEventId={setEventId} setCambia={setCambia}/>
               </section>
               <section className="section py-5" id="about" style={{backgroundColor: "#333a3f"}}>
                 <About musicians={musicians}/>

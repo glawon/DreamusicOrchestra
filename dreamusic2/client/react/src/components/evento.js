@@ -3,16 +3,12 @@ import moment from 'moment';
 import { fetchSingle } from './services/concerts';
 import "../App.css";
 
-function Evento({evento, setEventId}){
-    /*const [event, setEvento] = useState();
-    useEffect(() => {
-        fetch('http://localhost:8000/api/concert/${eventId}/show', {method:"GET"})
-            .then((response) => response.json())
-        }, []);
-    console.log(event);*/
+function Evento({evento, setEventId, setCambia}){
+    
+    //sistemare con un'altra funzione di App che cambia direttamente lì lo stato
     function handleClick(id){
         setEventId(id);
-        //fetchSingle(id);
+        setCambia(true);
     }
 
     const ora = moment(evento.ora, 'HH:mm:ss').format('HH:mm');
@@ -24,14 +20,14 @@ function Evento({evento, setEventId}){
                     <h5 className="card-title">{evento.nome}</h5>
                     <p className="card-text">{evento.data}<br/>{ora}<br/><br/><strong><span className="text" style={{textTransform: "uppercase"}}>{evento.citta}</span></strong>
                     <br/><span className="text">{evento.teatro}</span>  </p>
-                    <a href="/event" className="btn btnCustom" onClick={() => handleClick(evento.id)}>Descrizione</a>
+                    <btn clbtnssName="btn btnCustom" onClick={() => handleClick(evento.id)}>Descrizione</btn>
                 </div>
             </div>
         </div>
     );
 }
 
-function Eventi({eventi, setEventId}){
+function Eventi({eventi, setEventId, setCambia}){
 
     return(
         <>
@@ -42,6 +38,7 @@ function Eventi({eventi, setEventId}){
                 return <Evento
                 key={event.id}
                 evento={event}
+                setCambia={setCambia}
                 setEventId={setEventId}/>
             })}
             </div>
