@@ -1,46 +1,48 @@
 import React, {Component, useState, useEffect} from 'react';
-import "../Page.css";
-import EventProgram from './EventProgram';
+import moment from 'moment';
+import { fetchSingle } from './services/concerts';
+import "../App.css";
 
-function Evento({evento, getId, setId}){
+function Evento({evento, setEventId}){
+    /*const [event, setEvento] = useState();
+    useEffect(() => {
+        fetch('http://localhost:8000/api/concert/${eventId}/show', {method:"GET"})
+          .then((response) => response.json())
+      }, []);
+    console.log(event);*/
+    function handleClick(id){
+        setEventId(id);
+        fetchSingle(id);
+    }
+
+    const ora = moment(evento.ora, 'HH:mm:ss').format('HH:mm');
     return(
         <div className="col justify-content-center">
-            <div className="card mx-auto my-3" style={{width: 20+'rem'}}>
-                <img src={evento.locandina} className="card-img-top"/>
+            <div className="card mx-auto my-3" style={{width: "20 rem"}}>
+                <img src={evento.locandina} className="card-img-top" style={{width: "20 rem", height: "15rem"}} alt="Locandina"/>
                 <div className="card-body">
                     <h5 className="card-title">{evento.nome}</h5>
-                    <p className="card-text">Data: {evento.data}<br/>Ora: {evento.ora}<br/>{evento.citta}<br/>{evento.teatro}  </p>
-                    <a href="/event" className="btn btnCustom" onClick={()=>{
-                        console.log("Id dell'evento:"+evento.id);
-                        setId(evento.id);
-                        getId();}
-                        }>Descrizione</a>
+                    <p className="card-text">{evento.data}<br/>{ora}<br/><br/><strong><span className="text" style={{textTransform: "uppercase"}}>{evento.citta}</span></strong>
+                    <br/><span className="text">{evento.teatro}</span>  </p>
+                    <a href="/event" className="btn btnCustom" onClick={() => handleClick(evento.id)}>Descrizione</a>
                 </div>
             </div>
         </div>
     );
 }
 
-function Eventi({eventi, getId, setId}){
-
-    /*const events = [
-    {id : 0, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 1", prezzo: "5€"},
-    {id : 1, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 2", prezzo: "10€"},
-    {id : 2, locandina : cardImage, location: "luogo", programma: "programma", data : "gg/mm/aaaa", ora : "00:00", nomeConcerto : "concerto 3", prezzo: "ingresso libero"}
-    ];
-    const [eventi, setEventi] = useState(events);*/
+function Eventi({eventi, setEventId}){
 
     return(
         <>
-        <div className="container" id="eventscroll">
+        <div className="container" >
             <h1 className="title align-text-center">Prossimi eventi</h1>
             <div className = "row align-text-center mt-20">
             {eventi.map(event => {
                 return <Evento
                 key={event.id}
                 evento={event}
-                getId={getId}
-                setId={setId}/>
+                setEventId={setEventId}/>
             })}
             </div>
         </div></>);

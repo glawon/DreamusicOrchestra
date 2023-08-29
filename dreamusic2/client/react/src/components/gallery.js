@@ -29,7 +29,7 @@ function Gallery(){
 
     return (
         <>
-            <h1 className="header">Gallery</h1>
+            <h1 className="header pt-3">Gallery</h1>
             <Carousel activeIndex={index} onSelect={handleSelect}>
             <Carousel.Item>
                 <img src={gallery1} className="img-fluid w-25 text-center" alt=""/>

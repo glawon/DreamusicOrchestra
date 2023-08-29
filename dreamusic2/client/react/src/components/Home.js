@@ -1,12 +1,12 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
-import "../Page.css";
+import "../App.css";
 import Bio from './bio';
 import Eventi from './evento';
 import About from './About';
 import logo from "../externals/logo.jpg";
 
-function Home({eventi, getId, setId}){
+function Home({eventi, setEventId, musicians}){
   function useScrollToTop(){
       const location = useLocation();
       useEffect(() => {
@@ -18,14 +18,16 @@ function Home({eventi, getId, setId}){
   
       return(
           <>
-              <div className="container text-center mb-5">
+              <div className="container text-center py-5">
                   <img src={logo} className="img-fluid" style={{width:45+'rem'}}/>
               </div>
               <Bio />
-              {console.log({getId})};
-              <Eventi eventi={eventi} getId={getId} setId={setId}/>
-              <hr className="divider"/>
-              <About/>
+              <section className="section py-5" id="eventscroll">
+                <Eventi eventi={eventi} setEventId={setEventId}/>
+              </section>
+              <section className="section py-5" id="about" style={{backgroundColor: "#333a3f"}}>
+                <About musicians={musicians}/>
+              </section>
         </>
       )
 }

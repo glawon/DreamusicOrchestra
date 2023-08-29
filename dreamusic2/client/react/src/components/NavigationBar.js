@@ -1,19 +1,13 @@
-//import { NavLink} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-scroll/modules';
 import { useLocation, useNavigate } from "react-router-dom";
+import { getLogin } from './services/user';
 
 
-function NavigationBar(login){
+function NavigationBar({setUser, setLogged, user, login}){
     const navigate = useNavigate();
-    function handleCartClick(){
-        if(!login)
-            navigate("/login");
-        else
-            navigate("/cart");
-    }
     
     function handleClick(){
         console.log(splitLocation);
@@ -27,7 +21,25 @@ function NavigationBar(login){
     const location = useLocation();
     const {pathname} = location;
     const splitLocation = pathname.split("/");
+    
+    let isLogged, userData;
+    let response = getLogin();
+    //console.log(response);
+    /*if (response !== null)
+    {
+        response.then((data) =>{
+            userData = data.user;
+            isLogged = data.logged;
+        })
+    }
 
+    const setter = async() => {
+        await response;
+        
+        setUser(userData);
+        setLogged(isLogged);
+    }
+    setter();*/
     return(
         <Navbar expand="lg" className="sticky-top bg-body-tertiary mb-0" data-bs-theme="dark">
             <div className="container-fluid">
@@ -53,10 +65,33 @@ function NavigationBar(login){
                         </li>
                     </Nav>
                     <Nav className="navbar-nav ms-auto">
-                            <Nav.Link href="/cart" className="nav-link"><i className="bi bi-cart2"></i></Nav.Link>
-                        <li className="nav-item">
-                            <Nav.Link href="/login" className="nav-link">Log-in</Nav.Link>
-                        </li>
+                        {login && user.ruolo == "admin" &&
+                            <li className="nav-item">
+                                <Nav.Link href="/dashboard" className="nav-link">Dashboard</Nav.Link>
+                            </li>
+                        }
+                        {login && user.ruolo == "user" &&
+                            <li className="nav-item">
+                                <Nav.Link className="nav-link" style={{cursor:"default"}}>{user.nome} {user.cognome}</Nav.Link>
+                            </li>
+                        }
+                        {login && user.ruolo == "user" &&
+                            <li className="nav-item">
+                                <Nav.Link href="/cart" className="nav-link"><i className="bi bi-cart2"></i></Nav.Link>
+                            </li>
+                        }
+                        
+                        {login &&
+                            <li className="nav-item">
+                                <Nav.Link href="/" className="nav-link">Log-out</Nav.Link>
+                            </li>
+                        }
+                        {!login &&
+                            <li className="nav-item">
+                                <Nav.Link href="/login" className="nav-link">Log-in</Nav.Link>
+                            </li>
+                        }
+                        
                     </Nav> 
                 </Navbar.Collapse>  
             </div>

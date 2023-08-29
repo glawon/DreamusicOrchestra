@@ -27,7 +27,7 @@ class ConcertSeeder extends Seeder
             [
                 'data'=>'2023-10-17',
                 'ora'=>'21:30:00',
-                'locandina'=>'https://cdn.pixabay.com/photo/2019/09/19/18/05/clapboard-4489924_1280.png',
+                'locandina'=>'https://cdn.pixabay.com/photo/2015/01/11/09/19/film-596009_1280.jpg',
                 'citta'=>'Bronte',
                 'teatro'=>'Parco Urbano',
                 'nome'=>'Tributo ad Hans Zimmer',

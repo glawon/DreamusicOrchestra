@@ -3,8 +3,9 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import microphone from "../externals/microphone.png";
 import radio from "../externals/radio.png";
-import "../Page.css";
+import "../App.css";
 import RecapOrdine from './recapOrdine';
+import background from '../externals/Cart.png';
 
 /*function handleDelete(aId) {
     const acquisti = this.state.acquisti.filter(acquisto => acquisto.id !== aId)
@@ -17,14 +18,14 @@ const lista = [
     {id:2, tipo:"partitura", titolo:"Principe Alì", quantità:1, prezzo: 15.00, checked: true}
 ];
 
-function AfterLogin(){
+function Cart({user}){
     const [acquisti, setAcquisti] = useState(lista);
     let tot=0;
     acquisti.map((a) =>{
         tot+=a.prezzo;
     })
     const [totale, setTot] = useState(tot);
-    
+
     function increase(aId)
     {//funzionante
         const updated = acquisti.map((a, id) => {
@@ -107,16 +108,16 @@ function AfterLogin(){
         })
         setAcquisti(updated);
     }
-
+    
     return(
-        <><h1 className="header">Benvenuto, nome cognome</h1>
+        <><h1 className="header">Benvenuto, {user.nome} {user.cognome}</h1>
         <hr className="divider"/>
         <div className="row row-cols-3">
         <div className="col align-self-center">
             <img className="img-fluid w-50" src={radio} alt=""/>
         </div>
         <div className="col d-flex align-items-center justify-content-center">
-            <Table responsive className="align-self-center">
+            <Table responsive className="align-self-center" >
                 <thead>
                     <tr>
                         <th className="title" colSpan="8">Carrello</th>
@@ -169,24 +170,8 @@ function AfterLogin(){
         <RecapOrdine
             acquisti={acquisti}
             totale={totale}
-        />
-        
+        />   
         </>
     );
-}
-
-function Cart({login}){
-    if(!login)
-        return(
-            <div classname="container-fluid text-white my-5">
-                <span className="title">Effettua il log-in per visualizzare il carrello!</span>
-                <br/><a href="/login" className="btn btnCustom">Login</a>
-            </div>
-        );
-    else
-        return(
-            
-            <AfterLogin/>
-        );
 }
 export default Cart;

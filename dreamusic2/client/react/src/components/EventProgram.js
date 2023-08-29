@@ -49,10 +49,10 @@ function Program({evento}){
     return(
         <div className="row container-fluid justify-content-center">
             <div className="col-6">
-                <h1 className="title text-center">{evento.nomeConcerto}{console.log(evento.nomeConcerto)}</h1>
+                <h1 className="title text-center">{evento.concerto}</h1>
                 <p className="text-white text-start"><strong>Data:</strong> <span className="text">{evento.data}</span>
                 <br/><strong>Ora:</strong> <span className="text">{evento.ora}</span>
-                <br/><strong>Location:</strong> <span className="text">{evento.location}</span>
+                <br/><strong>Location:</strong> <span className="text">{evento.città} - {evento.teatro}</span>
                 <br/><strong>Prezzo:</strong><span className="text"> {evento.prezzo}€</span></p>
                 <hr className="divider"/>
                 <p className="title">Programma</p>
@@ -62,20 +62,14 @@ function Program({evento}){
     );
 }
 
-function EventProgram({eventi, id}){
-    console.log({eventi});
+function EventProgram({id}){
     console.log(id);
-    const evento= eventi.map((e)=>{
-        if(e.id === id)
-            return e;
-    });
-    console.log({evento});
 
     return(
         <div className="container-fluid">
-            <Program evento={evento}/>
+            <Program />
             <hr className="divider"/>
-            <Prenotazione evento={evento}/>
+            <Prenotazione />
         </div>
         
     );

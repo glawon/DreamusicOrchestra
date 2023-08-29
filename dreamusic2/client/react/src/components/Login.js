@@ -1,23 +1,34 @@
-import { useState } from "react";
-import PropTypes from 'prop-types';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
+import {loginUser} from './services/user.js';
+//import AuthStore from './AuthStore';
 import background from "../externals/locandina.png";
+//import SignIn from "./Sign-in";
 
-async function loginUser(credentials) {
-
-    var ciao = fetch('http://localhost:8000/api/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-        })
-        .then(data => data.json())
-        console.log(ciao);
+function Successful({navigate, show, setShow}){
+    function redirect()
+    {
+        setShow(false);
+        navigate("/");
+    }
+    return(
+        <div className="container-fluid">
+            <Alert show={show} style={{backgroundColor:"rgba(0,0,0,0.9)", border:"rgba(0,0,0,0.9)"}}>
+            <Alert.Heading className="title">Bentornato!</Alert.Heading>
+            <hr/>
+            <button className="btn btnCustom" onClick={redirect}>Continua sul sito</button>
+            </Alert>
+        </div>
+        
+    );
 }
 
-function SignIn({setLogged}){
+function SignIn({setUser, setLogged}){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [show, setShow] = useState(false);
+    const navigate = useNavigate();
 
     function handleEmailChange(e){
         setEmail(e.target.value);
@@ -27,36 +38,43 @@ function SignIn({setLogged}){
         setPassword(e.target.value);
     }
 
-    function submitControl(){
+    function submitControl(){       
         if(password.length < 1)
         {
             alert("La password deve avere almeno 8 caratteri");
             return;
         }
-        loginUser({email, password});
-    }
+     
+        function setter(){
+            loginUser({email, password})
+            .then(user =>{
+                console.log(user);
+                setUser(user.user);
+                setLogged(user.logged);
+                if(user.logged)
+                    setShow(true);
+            })
+            .catch(error => alert("Errore nel caricare i dati\n"+error));
+        }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        /*const token = await loginUser({
-            email,
-            password
-        });*/
-    
-        setLogged(true);   
+        setter();      
     }
 
     return(
         <div className="col-8 bg-image d-flex my-0 align-items-center"
         style={{backgroundImage: `url(${background}`, backgroundSize:"cover", height: "700px"}}>
-            <div className="col-6"></div>
+            <div className="col-6 justify-content-center pt-5">
+                {show&&
+                    <Successful navigate={navigate} show={show} setShow={setShow}/>      
+                }   
+            </div>
             <div className="col-6">
-                <form className="container-fluid justify-content-center" onSubmit={handleSubmit}>
+                <form className="container-fluid justify-content-center">
                     <span className="text text-black mt-5 mb-5">Hai già un account?</span>
-                    <h1 className="title">Sign in</h1>
+                    <h1 className="title">Log-in</h1>
                     <div className="row my-3 justify-content-center">
                         <div className="col-auto">
-                            <label htmlFor="usermail" className="form-label text-white">Email address</label>
+                            <label htmlFor="usermail" className="form-label text-white">Email</label>
                             <input type="email" className="form-control" id="usermail" placeholder="name@example.com" onChange={(event)=>handleEmailChange(event)}/>
                         </div>
                         <div className="col-auto">
@@ -67,7 +85,7 @@ function SignIn({setLogged}){
                     </div>
                     <div className="row justify-content-center">
                         <div className="col-auto mt-3 justify-content-center">
-                            <button type="button" className="btn btnCustom" onClick={submitControl}>Submit</button>
+                            <button type="button" className="btn btnCustom" onClick={submitControl}>Conferma</button>
                         </div>
                     </div>
                 </form>
@@ -76,13 +94,12 @@ function SignIn({setLogged}){
     );
 }
 
-function SignUp({setToken}){
+function SignUp({handleLogin}){
     const data={nome:"", cognome:"", email:"", password:"", ruolo: "user"};
     const [login, setLogin] = useState(data);
 
     function handleFirstNameChange(e){
         setLogin({...login, nome: e.target.value});
-        console.log("Nome: "+e.target.value)
     }
 
     function handleLastNameChange(e){
@@ -105,16 +122,10 @@ function SignUp({setToken}){
         }
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const token = await loginUser(login);
-        setToken(token);   
-    }
-
     return(
         <div className="col-4 align-self-center my-0">
-            <form className="container-fluid" onSubmit={handleSubmit}>
-                <h1 className="title">Sign Up</h1>
+            <form className="container-fluid">
+                <h1 className="title">Registrati</h1>
                 <div className="row g-3 mt-3 justify-content-center">
                     <div className="col-auto">
                         <label htmlFor="firstName" className="form-label text-white">Nome:</label>
@@ -127,7 +138,7 @@ function SignUp({setToken}){
                 </div>
                 <div className="row g-3 my-3 justify-content-center">
                     <div className="col-auto">
-                        <label htmlFor="usermail" className="form-label text-white">Email address</label>
+                        <label htmlFor="usermail" className="form-label text-white">Email</label>
                         <input type="email" className="form-control" id="usermail" placeholder="name@example.com" onChange={(event)=>handleEmailChange(event)}/>
                     </div>
                     <div className="col-auto">
@@ -139,7 +150,7 @@ function SignUp({setToken}){
                 <div className="row justify-content-center">
                     <div className="col-auto mt-3">
                         <button type="button" className="btn" style={{color: "black", backgroundColor: "#e3841f", border:"#e3841f"}}
-                        onSubmit={submitControl}>Submit</button>
+                        onSubmit={submitControl}>Conferma</button>
                     </div>
                 </div>
             </form>
@@ -147,17 +158,14 @@ function SignUp({setToken}){
     );
 }
 
-function Login({setToken}){
+function Login({setUser, setLogged}){
     return(
         <>
-        <SignUp setToken={setToken}/>
-        <SignIn setToken={setToken}/>   
+        <SignUp setUser={setUser} setLogged={setLogged}/>
+        <SignIn setUser={setUser} setLogged={setLogged}/>
+
         </>
     );
 }
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired  
-}  
 
 export default Login;

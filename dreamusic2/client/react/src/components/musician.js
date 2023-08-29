@@ -6,9 +6,7 @@ class Musician extends Component{
             <div className="container text-center">
                 <div className="row row-cols-auto" style={{paddingBottom: "30px"}}>
                     <div className="col">
-                        <div className="view overlay zoom">
                         <img src={this.props.picture} className="img-fluid" style={{width:'10rem', height:'10rem'}}/>
-                        </div>
                     </div>
                     <div className="col" style={{textAlign:"center"}}>
                         <h4 className="title">{this.props.noun}</h4>
