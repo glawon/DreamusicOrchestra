@@ -7,12 +7,12 @@ function Evento({evento, setEventId}){
     /*const [event, setEvento] = useState();
     useEffect(() => {
         fetch('http://localhost:8000/api/concert/${eventId}/show', {method:"GET"})
-          .then((response) => response.json())
-      }, []);
+            .then((response) => response.json())
+        }, []);
     console.log(event);*/
     function handleClick(id){
         setEventId(id);
-        fetchSingle(id);
+        //fetchSingle(id);
     }
 
     const ora = moment(evento.ora, 'HH:mm:ss').format('HH:mm');

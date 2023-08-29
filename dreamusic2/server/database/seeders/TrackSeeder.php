@@ -13,7 +13,7 @@ class TrackSeeder extends Seeder
      */
     public function run(): void
     {
-        Track::insert(
+        Track::insert([
             [
                 'nome'=>'Brano 1',
                 'organico'=>'organico 1',
@@ -32,7 +32,7 @@ class TrackSeeder extends Seeder
                 'film'=>'film 3',
                 'durata'=>'5.20'
             ]
-        );
+        ]);
     }
 }
 // non so perché non funziona l'inserimento degli altri due record
