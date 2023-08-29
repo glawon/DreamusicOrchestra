@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ConcertSeeder::class, 
             UserSeeder::class,
-            TrackSeeder::class
+            TrackSeeder::class,
+            ScoreSeeder::class
     ]);
     }
 }
