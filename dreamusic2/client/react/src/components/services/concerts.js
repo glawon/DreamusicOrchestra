@@ -11,8 +11,14 @@ export async function fetchConcerts() {
 
 
 
-export function fetchSingle(id)
+export async function fetchSingle(id)
 {
-    fetch('http://localhost:8000/api/concert/${eventId}/show', {method:"GET"})
-          .then((response) => response.json())
+    try {
+        const response = await fetch(`http://localhost:8000/api/concert/${id}/show`, { method: "GET" });
+        const data = await response.json();
+        return data.concerto;
+    } catch (error) {
+        alert("Errore nel caricare i concerti: ", error);
+        return null;
+    }
 }

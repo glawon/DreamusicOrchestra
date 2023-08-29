@@ -2,8 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './App.css'
 import { useState, useEffect } from 'react';
-import {Route, Routes } from 'react-router-dom';
-import {fetchConcerts} from './components/services/concerts';
+import {Route, Routes, useNavigate } from 'react-router-dom';
+import {fetchConcerts, fetchSingle} from './components/services/concerts';
 /*import * as Components from './components';
 import {NavigationBar, Home, EventProgram, Cart, BottomBar, Gallery, Dashboard, Login} from 'Components';*/
 import NavigationBar from './components/NavigationBar';
@@ -44,14 +44,38 @@ function App(){
             const concerts = await fetchConcerts();
             setEventi(concerts);
         } catch (error) {
-            alert("Errore nel caricare i concerti: ", error);
+            //alert("Errore nel caricare i concerti: ", error);
         }
       }
       getConcerts();
     }, []);
 
     const[eventId, setEventId] = useState(-1);
-
+    const[event, setEvent] = useState();
+    const[cambia, setCambia] = useState(false);
+    console.log("Id preso: "+ eventId);
+    /*SISTEMARE QUESTA FUNZIONE
+    function getId(id)
+    {
+      setEventId(id);
+      console.log("Id:");
+    }*/
+    const navigate = useNavigate();
+    if(cambia)
+    {
+      setCambia(false);
+      async function getSingle(eventId) {
+        try {
+          const concerto = await fetchSingle(eventId);
+          console.log(concerto);
+          setEvent(concerto);
+        } catch(error) {
+          alert("Errore nel trovare il concerto: ", error);
+        }
+      }
+      getSingle(eventId);
+      navigate("/event");
+    }
 
     const [user, setUser] = useState({id:"", nome:"", cognome:"", email:"", password:""});
     const [logged, setLogged] = useState(false);
@@ -76,12 +100,12 @@ function App(){
         user={user} login={logged} setUser={setUser} setLogged={setLogged}/>
         <div className="bigContainer">
           <Routes>
-            <Route path="/" element={<Home eventi={eventi} musicians={musicians} setEventId={setEventId}/>}/>  
+            <Route path="/" element={<Home eventi={eventi} musicians={musicians} setEventId={setEventId} setCambia={setCambia}/>}/>  
             <Route path="/cart" element={<Cart user={user}/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="row"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
             <Route path="/dashboard" element={<Dashboard musicians={musicians} setMusicians={setMusicians}/>}/>
-            <Route path="/event" element={<EventProgram eventi={eventi}/>}/>
+            <Route path="/event" element={<EventProgram eventi={eventi} evento={event}/>}/>
           </Routes>    
         </div>
         <BottomBar
