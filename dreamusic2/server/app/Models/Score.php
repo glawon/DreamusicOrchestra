@@ -9,4 +9,9 @@ class Score extends Model
 {
     use HasFactory;
     protected $table = 'scores';
+
+    //polimorfico
+    public function items(){
+        return $this->morphOne(Item::class, 'oggettificabile');
+    }
 }

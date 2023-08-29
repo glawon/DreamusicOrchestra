@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('ticket_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("idConcerto");
-            $table->double("prezzo");
-            //aggiungere tipologia: tribuna o platea
-            //$table->string("posto"); //tipo A2
-            //$table->boolean("stato")->nullable();
+            $table->unsignedBigInteger("idTicket");
+            $table->unsignedBigInteger("idUser");
+            $table->string("posto")->nullable(); //per adesso nullable
             
-            $table->foreign("idConcerto")->references("id")->on("concert");
+            $table->foreign("idTicket")->references("id")->on("tickets");
+            $table->foreign("idUser")->references("id")->on("users");
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('ticket_user');
     }
 };

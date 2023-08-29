@@ -26,14 +26,21 @@ class UserSeeder extends Seeder
                 'nome'=>'Adriana',
                 'cognome'=>'C',
                 'email'=>'2@email.com',
-                'password'=>Hash::make('ciao1'),
+                'password'=>Hash::make('ciao2'),
                 'ruolo'=>'admin'
             ],
             [
                 'nome'=>'Rory',
                 'cognome'=>'C',
                 'email'=>'3@email.com',
-                'password'=>Hash::make('ciao2'),
+                'password'=>Hash::make('ciao3'),
+                'ruolo'=>'user'
+            ],
+            [
+                'nome'=>'Ettore',
+                'cognome'=>'C',
+                'email'=>'4@email.com',
+                'password'=>Hash::make('ciao4'),
                 'ruolo'=>'user'
             ]
         ]);

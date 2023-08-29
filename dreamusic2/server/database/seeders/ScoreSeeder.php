@@ -15,16 +15,13 @@ class ScoreSeeder extends Seeder
     {
         Score::insert([
             [
-                'nome'=>'Partitura 1',
-                'prezzo'=>'5.00'
+                'nome'=>'Partitura 1'
             ],
             [
-                'nome'=>'Partitura 2',
-                'prezzo'=>'7.00'
+                'nome'=>'Partitura 2'
             ],
             [
-                'nome'=>'Partitura 3',
-                'prezzo'=>'11.00'
+                'nome'=>'Partitura 3'
             ]
         ]);
     }
