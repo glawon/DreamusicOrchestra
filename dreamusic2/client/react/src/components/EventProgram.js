@@ -64,10 +64,6 @@ function Program({evento}){
 }
 
 function EventProgram({eventi, evento}){
-    console.log(evento);
-    console.log(eventi);
-    //console.log("Id preso: "+ eventId);*/
-
     return(
         <div className="container-fluid">
             <Program evento={evento}/>

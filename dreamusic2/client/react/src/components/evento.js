@@ -20,7 +20,7 @@ function Evento({evento, setEventId, setCambia}){
                     <h5 className="card-title">{evento.nome}</h5>
                     <p className="card-text">{evento.data}<br/>{ora}<br/><br/><strong><span className="text" style={{textTransform: "uppercase"}}>{evento.citta}</span></strong>
                     <br/><span className="text">{evento.teatro}</span>  </p>
-                    <btn clbtnssName="btn btnCustom" onClick={() => handleClick(evento.id)}>Descrizione</btn>
+                    <button className="btn btnCustom" onClick={() => handleClick(evento.id)}>Descrizione</button>
                 </div>
             </div>
         </div>

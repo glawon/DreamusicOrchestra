@@ -35,8 +35,8 @@ const persone= [
 
 
 function App(){
-  
-  //da backend:
+  const navigate = useNavigate();
+  //gestione eventi
     const [eventi, setEventi] = useState([]);
     useEffect(() => {
       async function getConcerts() {
@@ -53,30 +53,31 @@ function App(){
     const[eventId, setEventId] = useState(-1);
     const[event, setEvent] = useState();
     const[cambia, setCambia] = useState(false);
-    console.log("Id preso: "+ eventId);
+
     /*SISTEMARE QUESTA FUNZIONE
     function getId(id)
     {
       setEventId(id);
       console.log("Id:");
     }*/
-    const navigate = useNavigate();
+    
     if(cambia)
     {
       setCambia(false);
       async function getSingle(eventId) {
         try {
           const concerto = await fetchSingle(eventId);
-          console.log(concerto);
+          //console.log(concerto);
           setEvent(concerto);
+          navigate("/event");
         } catch(error) {
           alert("Errore nel trovare il concerto: ", error);
         }
       }
       getSingle(eventId);
-      navigate("/event");
     }
 
+    //gestione utenti
     const [user, setUser] = useState({id:"", nome:"", cognome:"", email:"", password:""});
     const [logged, setLogged] = useState(false);
     
@@ -110,8 +111,7 @@ function App(){
         </div>
         <BottomBar
           logo={logo}/>
-      </div>
-      
+      </div>      
     </>
   );
 }
