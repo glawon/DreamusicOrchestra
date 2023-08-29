@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("idConcerto");
             $table->double("prezzo");
-            $table->string("posto"); //tipo A2
-            $table->boolean("stato")->nullable();
+            //$table->string("posto"); //tipo A2
+            //$table->boolean("stato")->nullable();
             
             $table->foreign("idConcerto")->references("id")->on("concert");
             $table->timestamps();

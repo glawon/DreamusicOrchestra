@@ -13,7 +13,7 @@ class ScoreSeeder extends Seeder
      */
     public function run(): void
     {
-        Score::insert(
+        Score::insert([
             [
                 'nome'=>'Partitura 1',
                 'prezzo'=>'5.00'
@@ -26,6 +26,6 @@ class ScoreSeeder extends Seeder
                 'nome'=>'Partitura 3',
                 'prezzo'=>'11.00'
             ]
-        );
+        ]);
     }
 }

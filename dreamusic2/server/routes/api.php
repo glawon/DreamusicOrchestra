@@ -32,6 +32,5 @@ Route::controller(UserController::class)->prefix('user')->group(function($router
 });
 
 Route::controller(TrackController::class)->prefix('/shop/track')->group(function($router){
-    Route::post('register', 'register');
-    Route::post('login', 'login');
+    //
 });
