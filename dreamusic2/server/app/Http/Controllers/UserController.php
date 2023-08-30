@@ -57,12 +57,15 @@ class UserController extends Controller
     {
         // $request->password = Hash::make($request->password);
         // $user = User::where('email', $request->email)->first();
+
         $token= Auth::attempt($request->all());
         $user = Auth::user();
+        $token2 = $user->createToken('token')->plainTextToken;
         return response()->json([
             'user'=>$user,
-            'logged'=>$token
-            ]);
+            'token1'=> $token,
+            'token2'=>$token2
+        ]);
     }
 
 

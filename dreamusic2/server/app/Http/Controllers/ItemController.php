@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -13,7 +14,18 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        // $items = Item::all();
+        // return response()->json(
+        //     [
+        //         'status'=>'catalogo caricato con successo',
+        //         'items'=>$items
+        //     ]
+        // );
+
+        $user2 = Auth::user();
+        return $user2;
+
+        $items = Item::with('oggettificabile')->get(); //questo è per prendere anche le informazioni dell'oggetto in se
         return response()->json(
             [
                 'status'=>'catalogo caricato con successo',
@@ -35,7 +47,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
