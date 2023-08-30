@@ -9,7 +9,15 @@
   background-color: #1d2124;
   min-height:80vh;
   padding-left: 0;
-  padding-right: 0;  
+  padding-right: 0;
+  max-width: inherit;
+}
+
+.backCustom {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+  background-position:"center";
+  background-size:"cover";
+  height:"400px"
 }
 
 .bi{
@@ -19,6 +27,12 @@
 .text{
   color:#e3841f;
   margin-bottom: 2rem;
+}
+
+.textProgram{
+  font-size: 1.5rem;
+  color: white;
+  text-justify: center;
 }
 
 .title{

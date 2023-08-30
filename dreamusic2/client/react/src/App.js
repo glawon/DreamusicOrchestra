@@ -15,7 +15,7 @@ import Gallery from './components/gallery';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 
-import logo from "./externals/logo.jpg";
+import logo from "./externals/logo2.png";
 
 import musician1 from "./externals/violin.png";
 import musician2 from "./externals/double-bass.png";
@@ -104,13 +104,15 @@ function App(){
             <Route path="/" element={<Home eventi={eventi} musicians={musicians} setEventId={setEventId} setCambia={setCambia}/>}/>  
             <Route path="/cart" element={<Cart user={user}/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
-            <Route path="/login" element={<div className="row"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
+            <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
             <Route path="/dashboard" element={<Dashboard musicians={musicians} setMusicians={setMusicians}/>}/>
+            <Route path="/shop" />
             <Route path="/event" element={<EventProgram eventi={eventi} evento={event}/>}/>
-          </Routes>    
+          </Routes>
         </div>
-        <BottomBar
-          logo={logo}/>
+        <div className="container-fluid">
+          <BottomBar logo={logo}/>
+        </div>
       </div>      
     </>
   );

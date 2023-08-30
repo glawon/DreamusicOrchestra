@@ -57,29 +57,28 @@ function SignIn({setUser, setLogged}){
     }
 
     return(
-        <div className="col-8 bg-image d-flex my-0 align-items-center"
+        <div className="col-8 bg-image d-flex align-items-center"
         style={{backgroundImage: `url(${background}`, backgroundSize:"cover", backgroundPosition:"center", height: "700px"}}>
             <div className="col-6 justify-content-start pt-5">
                 <ErrorNotify show={show} setShow={setShow}/>
             </div>
             <div className="col-6">
                 <form className="container-fluid justify-content-center">
-                    <span className="text text-black mt-5 mb-5">Hai già un account?</span>
-                    <h1 className="title">Log-in</h1>
+                    <h1 className="title text-black">Accedi</h1>
                     <div className="row my-3 justify-content-center">
                         <div className="col-auto">
-                            <label htmlFor="usermail" className="form-label text-white">Email</label>
+                            <label htmlFor="usermail" className="form-label text-black">Email</label>
                             <input type="email" className="form-control" id="usermail" placeholder="name@example.com" onChange={(event)=>handleEmailChange(event)}/>
                         </div>
                         <div className="col-auto">
-                            <label htmlFor="inputPassword" className="form-label text-white">Password</label>
+                            <label htmlFor="inputPassword" className="form-label text-black">Password</label>
                             <input type="password" id="inputPassword" className="form-control" placeholder="password"aria-describedby="passwordHelpInline"
                             onChange={(event)=>handlePasswordChange(event)}/>
                         </div>
                     </div>
                     <div className="row justify-content-center">
                         <div className="col-auto mt-3 justify-content-center">
-                            <button type="button" className="btn btnCustom" onClick={submitControl}>Conferma</button>
+                            <button type="button" className="btn" style={{backgroundColor:"#1d2124", color:"white"}} onClick={submitControl}>Conferma</button>
                         </div>
                     </div>
                 </form>
@@ -154,11 +153,10 @@ function SignUp({handleLogin}){
 
 function Login({setUser, setLogged}){
     return(
-        <>
-        <SignUp setUser={setUser} setLogged={setLogged}/>
-        <SignIn setUser={setUser} setLogged={setLogged}/>
-
-        </>
+            <div className="row">
+                <SignUp setUser={setUser} setLogged={setLogged}/>
+                <SignIn setUser={setUser} setLogged={setLogged}/>
+            </div>
     );
 }
 

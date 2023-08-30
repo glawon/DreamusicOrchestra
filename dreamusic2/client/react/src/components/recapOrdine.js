@@ -16,7 +16,7 @@ function CustomToggle({ children, eventKey }) {
 
 function RecapOrdine({acquisti, totale}) {
   return (
-    <Accordion defaultactiveKey="0" className="justify-content-center mt-5">
+    <Accordion defaultActiveKey="0" className="container justify-content-center py-5">
       <Card>
         <Card.Header style={{backgroundColor:"#e3841f", border:"#e3841f"}}>
           <CustomToggle eventKey="0">Procedi all'acquisto</CustomToggle>

@@ -11,12 +11,14 @@ function NavigationBar({setUser, setLogged, user, login}){
     const navigate = useNavigate();
     
     function handleClick(){
-        console.log(splitLocation);
         if(splitLocation[1] !== "")
         {
-           console.log("mi sposto nella home...");
            navigate("/");
         }        
+    }
+
+    function setNavBar(){
+
     }
 
     const location = useLocation();
@@ -49,20 +51,19 @@ function NavigationBar({setUser, setLogged, user, login}){
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <NavDropdown title="Home" id="basic-nav-dropdown" onClick={handleClick}>
-                                    <NavDropdown.Item href="/">
-                                        <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500}> Eventi </Link>
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/">
-                                        <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="about" spy={true} smooth={true} offset={0} duration={500}>Chi siamo</Link>
-                                    </NavDropdown.Item>
-                            </NavDropdown>              
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="home" spy={true} smooth={true} offset={-10} duration={500} onClick={handleClick}>Home</Link>          
                         </li>
                         <li className="nav-item">
-                            <Nav.Link href="/gallery" className="nav-link">Gallery</Nav.Link>
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500} onClick={handleClick}>Eventi</Link>          
                         </li>
                         <li className="nav-item">
-                            <Nav.Link href="/shop" className="nav-link">Shop</Nav.Link>
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="about" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Chi siamo</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="gallery" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Gallery</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="shop" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Shop</Link>
                         </li>
                     </Nav>
                     <Nav className="navbar-nav ms-auto">
@@ -84,12 +85,12 @@ function NavigationBar({setUser, setLogged, user, login}){
                         
                         {login &&
                             <li className="nav-item">
-                                <Nav.Link href="/" className="nav-link">Log-out</Nav.Link>
+                                <Nav.Link href="/" className="nav-link">Esci</Nav.Link>
                             </li>
                         }
                         {!login &&
                             <li className="nav-item">
-                                <Nav.Link href="/login" className="nav-link">Log-in</Nav.Link>
+                                <Nav.Link href="/login" className="nav-link">Accedi</Nav.Link>
                             </li>
                         }
                         

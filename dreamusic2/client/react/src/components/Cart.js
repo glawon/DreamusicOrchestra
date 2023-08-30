@@ -1,11 +1,13 @@
 import React, {Component, useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
 import microphone from "../externals/microphone.png";
 import radio from "../externals/radio.png";
 import "../App.css";
 import RecapOrdine from './recapOrdine';
 import background from '../externals/Cart.png';
+import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
 /*function handleDelete(aId) {
     const acquisti = this.state.acquisti.filter(acquisto => acquisto.id !== aId)
@@ -114,10 +116,14 @@ function Cart({user}){
         <hr className="divider"/>
         <div className="row row-cols-3">
         <div className="col align-self-center">
-            <img className="img-fluid w-50" src={radio} alt=""/>
+            <ListGroup>
+                <ListGroup.Item> Torna allo shop
+                </ListGroup.Item>
+                <ListGroup.Item>Il tuo profilo</ListGroup.Item>
+            </ListGroup>
         </div>
         <div className="col d-flex align-items-center justify-content-center">
-            <Table responsive className="align-self-center" >
+            <Table striped responsive className="align-self-center" >
                 <thead>
                     <tr>
                         <th className="title" colSpan="8">Carrello</th>
@@ -166,11 +172,12 @@ function Cart({user}){
         <div className="col align-self-center">
             <img className="img-fluid w-25" src={microphone} alt=""/>
         </div>
-        </div>
         <RecapOrdine
             acquisti={acquisti}
             totale={totale}
-        />   
+        /> 
+        </div>
+          
         </>
     );
 }

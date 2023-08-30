@@ -1,5 +1,8 @@
-import React, {Component, useState} from "react";
+import React, {Component, useState, useEffect} from "react";
+import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 import background from '../externals/score.jpg';
+import "../App.css";
 import { sendReservation } from "./services/concerts";
 
 function Prenotazione({evento}){
@@ -65,16 +68,19 @@ function Prenotazione({evento}){
     );
 }
 function Program({evento}){
+    const ora = moment(evento.ora, 'HH:mm:ss').format('HH:mm');
+    const data = moment(evento.data, 'yyyy/mm/DD').format('DD/mm/yyyy');
+
     return(
         <div className="row container-fluid justify-content-center py-5">
             <div className="col-6">
                 <h1 className="title text-center">{evento.nome}</h1>
-                <p className="text-white text-start"><strong>Data:</strong> {evento.data}<span className="text"></span>
-                <br/><strong>Ora:</strong> {evento.ora}<span className="text"></span>
-                <br/><strong>Location:</strong> {evento.citta}<span className="text"> - {evento.teatro}</span>
-                <br/><strong>Prezzo:</strong><span className="text">€</span></p>
+                <p className="text-center textProgram"><strong>Data:</strong> <span className="text">{data}</span>
+                <br/><strong>Ora:</strong> <span className="text">{ora}</span>
+                <br/><strong>Location:</strong> <span className="text">{evento.citta} - {evento.teatro}</span>
+                <br/><strong>Prezzo:</strong><span className="text"> €</span></p>
                 <hr className="divider"/>
-                <p className="title">Programma</p>
+                <p className="textProgram">Programma</p>
                 <p className="text text-start">{evento.programma}</p>
             </div>
         </div>
@@ -82,11 +88,20 @@ function Program({evento}){
 }
 
 function EventProgram({eventi, evento}){
+    function useScrollToTop(){
+        const location = useLocation();
+        useEffect(() => {
+          window.scrollTo({ top: 0 });
+        }, [location]);
+      };
+    
+      useScrollToTop();
     return(
         <div className="container-fluid">
             <Program evento={evento}/>
-            <section className="bg-image m-0 px-0 py-5" style={{backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url(${background}`, backgroundPosition:"center",
-            backgroundSize:"cover", height:"400px"}}>
+            <section className="bg-image m-0 px-0 py-5"
+            style={{backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url(${background}`,
+            backgroundPosition:"center", backgroundSize:"cover", height:"400px"}}>
                 <Prenotazione evento={evento}/>
             </section>
         </div>
