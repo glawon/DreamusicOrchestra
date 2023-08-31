@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('musician', function (Blueprint $table) {
+        Schema::create('musicians', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string("nome");
+            $table->string("cognome");
+            $table->string("strumento");
         });
     }
 

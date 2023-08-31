@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MusicianController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ShopController;
@@ -49,4 +50,8 @@ Route::controller(ItemController::class)->prefix('items')->group(function($route
 
 Route::controller(CartController::class)->prefix('carts')->group(function($router){
     Route::get('mycart', 'mycart');
+});
+
+Route::controller(MusicianController::class)->prefix('musicians')->group(function($router){
+    Route::get('index', 'index');
 });

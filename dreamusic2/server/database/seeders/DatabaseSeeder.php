@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             ScoreSeeder::class,
             TicketSeeder::class,
             TicketUserSeeder::class,
-            ItemSeeder::class
+            ItemSeeder::class,
+            MusicianSeeder::class
         ]);
     }
 }
