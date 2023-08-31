@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -59,12 +60,12 @@ class UserController extends Controller
         // $user = User::where('email', $request->email)->first();
 
         $token= Auth::attempt($request->all());
+        Cookie::queue('bearer_token', $token, 60);
         $user = Auth::user();
-        $token2 = $user->createToken('token')->plainTextToken;
+        // $token2 = $user->createToken('token')->plainTextToken;
         return response()->json([
             'user'=>$user,
-            'token1'=> $token,
-            'token2'=>$token2
+            'token1'=> $token
         ]);
     }
 

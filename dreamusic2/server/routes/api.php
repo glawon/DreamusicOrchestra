@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,8 @@ Route::controller(TicketController::class)->prefix('tickets')->group(function($r
 
 Route::controller(ItemController::class)->prefix('items')->group(function($router){
     Route::get('index', 'index');
+});
+
+Route::controller(CartController::class)->prefix('carts')->group(function($router){
+    Route::get('mycart', 'mycart');
 });
