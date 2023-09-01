@@ -9,11 +9,11 @@ function ErrorNotify({show, setShow})
 {
     return(
         <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-          <Toast.Header className="justify-content-space-between">
+          <Toast.Header>
             <i className="bi bi-exclamation-triangle me-1" style={{color:"red"}}></i>
             <strong className="mx-auto">Errore</strong>
           </Toast.Header>
-          <Toast.Body>Parametri errati</Toast.Body>
+          <Toast.Body style={{backgroundColor:"black", color:"white"}}>Parametri errati</Toast.Body>
         </Toast>
     );
 }
@@ -44,8 +44,8 @@ function SignIn({setUser, setLogged}){
             .then(user =>{
                 console.log(user);
                 setUser(user.user);
-                setLogged(user.logged);
-                if(user.logged)
+                setLogged(user.token1);
+                if(user.token1)
                     navigate("/");
                 else
                     setShow(true);
@@ -58,7 +58,7 @@ function SignIn({setUser, setLogged}){
 
     return(
         <div className="col-8 bg-image d-flex align-items-center"
-        style={{backgroundImage: `url(${background}`, backgroundSize:"cover", backgroundPosition:"center", height: "700px"}}>
+        style={{backgroundImage: `url(${background}`, backgroundSize:"cover", backgroundPosition:"center", height: "80vh"}}>
             <div className="col-6 justify-content-start pt-5">
                 <ErrorNotify show={show} setShow={setShow}/>
             </div>

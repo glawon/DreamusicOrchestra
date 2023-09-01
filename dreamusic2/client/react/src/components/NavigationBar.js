@@ -10,11 +10,19 @@ import { useState } from 'react';
 function NavigationBar({setUser, setLogged, user, login}){
     const navigate = useNavigate();
     
-    function handleClick(){
+    function handleClick(sectionId){
         if(splitLocation[1] !== "")
         {
-           navigate("/");
-        }        
+            window.location.href = '/';
+            
+        }
+        window.addEventListener('load', () => {
+            const targetElement = document.getElementById(sectionId);
+            console.log("Elemento: "+targetElement);
+            if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });      
     }
 
     function setNavBar(){
@@ -24,25 +32,7 @@ function NavigationBar({setUser, setLogged, user, login}){
     const location = useLocation();
     const {pathname} = location;
     const splitLocation = pathname.split("/");
-    
-    let isLogged, userData;
-    let response = getLogin();
-    //console.log(response);
-    /*if (response !== null)
-    {
-        response.then((data) =>{
-            userData = data.user;
-            isLogged = data.logged;
-        })
-    }
 
-    const setter = async() => {
-        await response;
-        
-        setUser(userData);
-        setLogged(isLogged);
-    }
-    setter();*/
     return(
         <Navbar expand="lg" className="sticky-top bg-body-tertiary mb-0" data-bs-theme="dark">
             <div className="container-fluid">
@@ -51,10 +41,12 @@ function NavigationBar({setUser, setLogged, user, login}){
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="home" spy={true} smooth={true} offset={-10} duration={500} onClick={handleClick}>Home</Link>          
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="home" spy={true}
+                            smooth={true} offset={-10} duration={500} onClick={()=>handleClick("home")}>Home</Link>          
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="eventscroll" spy={true} smooth={true} offset={-10} duration={500} onClick={handleClick}>Eventi</Link>          
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="eventscroll" spy={true}
+                            smooth={true} offset={-10} duration={500} onClick={()=>handleClick("eventscroll")}>Eventi</Link>          
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="about" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Chi siamo</Link>
@@ -74,7 +66,7 @@ function NavigationBar({setUser, setLogged, user, login}){
                         }
                         {login && user.ruolo == "user" &&
                             <li className="nav-item">
-                                <Nav.Link className="nav-link" style={{cursor:"default"}}>{user.nome} {user.cognome}</Nav.Link>
+                                <Nav.Link href="/user" className="nav-link">{user.nome} {user.cognome}</Nav.Link>
                             </li>
                         }
                         {login && user.ruolo == "user" &&
