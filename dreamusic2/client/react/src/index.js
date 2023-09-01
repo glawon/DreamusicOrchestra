@@ -5,13 +5,16 @@ import './index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, ScrollRestoration} from "react-router-dom";
+import { AuthProvider } from './components/services/AuthProvider';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>  
     </BrowserRouter> 
   </React.StrictMode>
 );
