@@ -1,8 +1,22 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Musician from './musician';
+import { fetchMusicians } from './services/admin';
 
-
-function About({musicians}){
+function About(){
+    const [musicians, setMusicians] = useState([]);
+    
+    useEffect(()=>{
+        async function getMusicians() {
+            try {
+                const musicians = await fetchMusicians();
+                console.log(musicians);
+                setMusicians(musicians);
+            } catch (error) {
+                alert("Errore nel caricare i musicisti: ", error);
+            }
+          }
+          getMusicians();
+    }, []);
 
     function renderEvenMusician(musician){
         if(musician.id % 2 == 0)
@@ -39,12 +53,12 @@ function About({musicians}){
                     <div className="row justify-content-md-center">
                         <div className="col offset-md-1">
                             {musicians.map(musician=>(
-                            renderEvenMusician(musician)
+                                renderOddMusician(musician)      
                             ))}
                         </div>
                         <div className="col offset-md-1">
                             {musicians.map(musician=>(
-                                renderOddMusician(musician)
+                                renderEvenMusician(musician)
                             ))}
                         </div>
                     </div>

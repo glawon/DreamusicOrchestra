@@ -36,7 +36,7 @@ function NavigationBar({setUser, setLogged, user, login}){
     return(
         <Navbar expand="lg" className="sticky-top bg-body-tertiary mb-0" data-bs-theme="dark">
             <div className="container-fluid">
-                <Nav.Link href="/" className="navbar-brand active px-1" aria-current="page">Dreamusic Orchestra</Nav.Link>
+                <Nav.Link href="/" className="navbar-brand active me-auto px-1" aria-current="page">Dreamusic Orchestra</Nav.Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">

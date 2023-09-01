@@ -7,8 +7,8 @@ import videoPoster from "../externals/posterVideo.png";
 function Video(){
     return(
         <>
-            <h1 className="title">Video</h1>
-            <span className="text">Visita la nostra pagina YouTube</span>
+            <h1 className="title mt-5 mb-0">Video</h1>
+            <span className="text mt-0">Visita la nostra pagina YouTube</span>
             <div className="mt-3">
                 <a href="https://www.youtube.com/watch?v=KaR5VUd1_Rs">
                     <video className="img-fluid text-center w-50" poster={videoPoster}>
@@ -29,7 +29,7 @@ function Gallery(){
 
     return (
         <>
-            <h1 className="header pt-3">Gallery</h1>
+            <h1 className="header pt-3">Foto</h1>
             <Carousel activeIndex={index} onSelect={handleSelect}>
             <Carousel.Item>
                 <img src={gallery1} className="img-fluid w-25 text-center" alt=""/>
@@ -38,7 +38,6 @@ function Gallery(){
                 <img src={gallery2} className="img-fluid w-50 text-center" alt=""/>
             </Carousel.Item>
             </Carousel>
-            <hr className='divider'/>
             <Video/>
         </>
 

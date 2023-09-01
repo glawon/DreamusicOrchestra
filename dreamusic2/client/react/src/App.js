@@ -4,6 +4,7 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
 import {fetchConcerts, fetchSingle} from './components/services/concerts';
+import { fetchMusicians } from './components/services/admin';
 /*import * as Components from './components';
 import {NavigationBar, Home, EventProgram, Cart, BottomBar, Gallery, Dashboard, Login} from 'Components';*/
 import NavigationBar from './components/NavigationBar';
@@ -23,16 +24,6 @@ import musician3 from "./externals/trumpet.png";
 import musician4 from "./externals/trombone.png";
 import musician5 from "./externals/piano.png";
 import musician6 from "./externals/drums.png";
-
-const persone= [
-    {id: 0, foto: musician1, nome: "Musician 1", strumento: "Violino"},
-    {id: 1, foto: musician2, nome:"Musician 2", strumento: "Contrabbasso"},
-    {id: 2, foto: musician3, nome: "Musician 3", strumento: "Tromba"},
-    {id: 3, foto: musician4, nome: "Musician 4", strumento: "Trombone"}, 
-    {id: 4, foto: musician5, nome: "Musician 5", strumento: "Pianoforte"},
-    {id: 5, foto: musician6, nome: "Musician 6", strumento: "Batteria"}
-  ]
-
 
 function App(){
   const navigate = useNavigate();
@@ -81,8 +72,6 @@ function App(){
     const [user, setUser] = useState({id:"", nome:"", cognome:"", email:"", password:""});
     const [logged, setLogged] = useState(false);
     
-    const [musicians, setMusicians]=useState(persone);
-
     /*function handleLogin()
     {
       console.log("Primo ingresso nella handleLogin");
@@ -101,11 +90,11 @@ function App(){
         user={user} login={logged} setUser={setUser} setLogged={setLogged}/>
         <div className="bigContainer">
           <Routes>
-            <Route path="/" element={<Home eventi={eventi} musicians={musicians} setEventId={setEventId} setCambia={setCambia}/>}/>  
+            <Route path="/" element={<Home eventi={eventi} setEventId={setEventId} setCambia={setCambia}/>}/>  
             <Route path="/cart" element={<Cart user={user}/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
-            <Route path="/dashboard" element={<Dashboard musicians={musicians} setMusicians={setMusicians}/>}/>
+            <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/shop" />
             <Route path="/event" element={<EventProgram eventi={eventi} evento={event}/>}/>
           </Routes>
