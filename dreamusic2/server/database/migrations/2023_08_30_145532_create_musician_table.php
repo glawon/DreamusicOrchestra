@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string("nome");
             $table->string("cognome");
             $table->string("strumento");
+
+            $table->timestamps();
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('musician');
+        Schema::dropIfExists('musicians');
     }
 };

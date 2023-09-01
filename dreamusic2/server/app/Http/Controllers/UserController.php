@@ -41,15 +41,16 @@ class UserController extends Controller
             ]);
 
             $user = User::create($request->all());
+            $token = Auth::attempt($request->all());
             return response()->json([
             'user'=>$user,
-            'logged'=>true
+            'token'=>$token
             ]);
         } 
         catch(\Exception $e){
             return response()->json([
                 'message'=>"c'è stato un errore",
-                'logged'=>false
+                'token'=>false
                 ]);
         }
     }
@@ -59,13 +60,13 @@ class UserController extends Controller
         // $request->password = Hash::make($request->password);
         // $user = User::where('email', $request->email)->first();
 
-        $token= Auth::attempt($request->all());
+        $token = Auth::attempt($request->all());
         Cookie::queue('bearer_token', $token, 60);
         $user = Auth::user();
         // $token2 = $user->createToken('token')->plainTextToken;
         return response()->json([
             'user'=>$user,
-            'token1'=> $token
+            'token'=> $token
         ]);
     }
 

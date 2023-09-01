@@ -53,5 +53,9 @@ Route::controller(CartController::class)->prefix('carts')->group(function($route
 });
 
 Route::controller(MusicianController::class)->prefix('musicians')->group(function($router){
-    Route::get('index', 'index');
+    Route::get('index', 'index'); //mostro tutti i musicisti
+    Route::post('store', 'store'); //aggiunta di nuovi 
+    Route::delete('{id}/delete', 'destroy'); // elimina musicisti
+    Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista
+    Route::put('{id}', 'update'); //effettiva modifica in DB 
 });
