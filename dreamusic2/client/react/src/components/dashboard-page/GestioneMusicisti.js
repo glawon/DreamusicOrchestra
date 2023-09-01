@@ -93,7 +93,6 @@ export default function GestioneMusicisti(){
             <Table responsive striped bordered variant="dark">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Nome</th>
                         <th>Cognome</th>
                         <th>Strumento</th>
@@ -106,7 +105,6 @@ export default function GestioneMusicisti(){
                     const musician = musicians.find((m) => m.id === musicianState.id);
                     return (
                         <tr key={musician.id} className = "mb-0 pb-0">
-                            <td>{musician.id}</td>
                             <td>
                                 {musicianState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "#2c3034", color: "white"}}
