@@ -85,7 +85,7 @@ export default function GestioneMusicisti(){
     }
     return(
         <div className = "container-fluid py-4 px-0 mt-5" id="#about">
-            <h3 className = "title text">Musicisti <i class="bi bi-music-note-beamed"></i></h3>
+            <h3 className = "title text">Musicisti <i className="bi bi-music-note-beamed"></i></h3>
             <button className ="btn btnCustom mb-3" onClick={()=>setShowModal(true)}>Aggiungi</button>
             {showModal &&
                 <InsertDataModal />

@@ -30,6 +30,11 @@ class MusicianSeeder extends Seeder
                 'strumento'=>'violino'
             ],
             [
+                'nome'=>'Adriana',
+                'cognome'=>'Cannata',
+                'strumento'=>'viola'
+            ],
+            [
                 'nome'=>'Laura',
                 'cognome'=>'Cantone',
                 'strumento'=>'violoncello'
@@ -37,12 +42,7 @@ class MusicianSeeder extends Seeder
             [
                 'nome'=>'Emanuele',
                 'cognome'=>'Schinocca',
-                'strumento'=>'viola'
-            ],
-            [
-                'nome'=>'Roberto',
-                'cognome'=>'Falsaperla',
-                'strumento'=>'contrabbasso'
+                'strumento'=>'tastiera'
             ],
             [
                 'nome'=>'Davide',
@@ -72,7 +72,7 @@ class MusicianSeeder extends Seeder
             [
                 'nome'=>'Gabriele',
                 'cognome'=>'Vasta',
-                'strumento'=>'batteria'
+                'strumento'=>'percussioni'
             ]
         ]);
     }

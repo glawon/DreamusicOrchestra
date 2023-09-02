@@ -45,8 +45,7 @@ export async function deleteMusician(musician)
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(musician)
+        }
         })
         .then(response => {
             if (!response.ok) {
