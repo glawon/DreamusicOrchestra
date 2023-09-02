@@ -16,9 +16,9 @@ class TicketController extends Controller
     //     return $ticket->concert;
     // }
 
-    public function prova(){
+    public function showUserTicketsandConcerts(){
         $userId = 2;
-        $bigliettiUtente = User::with('ticket_user.ticket.concert')->find($userId);
+        $bigliettiUtente = User::with('ticket_user.ticket.concert')->where('id', $userId)->get();
         //$ticket = TicketUser::with('ticket.concert', 'user')->get();
         return $bigliettiUtente;
     }

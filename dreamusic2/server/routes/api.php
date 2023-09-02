@@ -41,7 +41,7 @@ Route::controller(ShopController::class)->prefix('shop')->group(function($router
 });
 
 Route::controller(TicketController::class)->prefix('tickets')->group(function($router){
-    Route::get('prova', 'prova');
+    Route::get('show', 'showUserTicketsAndConcerts');
 });
 
 Route::controller(ItemController::class)->prefix('items')->group(function($router){
