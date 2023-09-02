@@ -71,3 +71,7 @@
 textArea:hover{
   opacity: 0.5;
 }
+
+.modalHeader{
+  background-color: #e3841f;
+}

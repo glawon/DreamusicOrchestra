@@ -1,8 +1,9 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import gallery1 from "../externals/gallery1.jpg";
 import gallery2 from "../externals/gallery2.jpg";
 import videoPoster from "../externals/posterVideo.png";
+import { fetchImages } from './services/admin';
 
 function Video(){
     return(
@@ -26,17 +27,35 @@ function Gallery(){
         const handleSelect = (selectedIndex) => {
             setIndex(selectedIndex);
         };
+        const[images, setImages] = useState([]);
+
+        useEffect(()=>{
+            async function getImages() {
+                try {
+                    const images = await fetchImages();
+                    console.log(images);
+                    setImages(images);
+                } catch (error) {
+                    alert("Errore nel caricare le immagini: ", error);
+                }
+              }
+              getImages();
+        }, [])
 
     return (
         <>
             <h1 className="header pt-3">Foto</h1>
             <Carousel activeIndex={index} onSelect={handleSelect}>
-            <Carousel.Item>
-                <img src={gallery1} className="img-fluid w-25 text-center" alt=""/>
-            </Carousel.Item>
-            <Carousel.Item>
-                <img src={gallery2} className="img-fluid w-50 text-center" alt=""/>
-            </Carousel.Item>
+                
+            {images.map(i=>
+            {
+                return (
+                    <Carousel.Item>
+                        <img src={i} className="img-fluid w-25 text-center" alt=""/>
+                    </Carousel.Item>
+                )
+            })
+            }   
             </Carousel>
             <Video/>
         </>

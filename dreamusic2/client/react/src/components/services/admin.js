@@ -86,3 +86,16 @@ export async function createMusician(musician)
         .catch(error => reject(error));
     })
 }
+
+export async function fetchImages()
+{
+    try {
+        const response = await fetch('http://localhost:8000/api/images/gallery', { method: "GET" });
+        const data = await response.json();
+        console.log("Dati:", data.gallery);
+        return data.gallery;
+    } catch (error) {
+        alert("Errore nel caricare i musicisti: ", error);
+        return null;
+    }
+}
