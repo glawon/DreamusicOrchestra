@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Musician extends Model
+class GalleryImages extends Model
 {
     use HasFactory;
-    protected $table = 'musicians';
-    protected $fillable = ['nome', 'cognome', 'strumento', 'immagine'];
+    protected $table = 'gallery';
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConcertController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MusicianController;
 use App\Http\Controllers\UserController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 
+use App\Models\MusicianImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +60,9 @@ Route::controller(MusicianController::class)->prefix('musicians')->group(functio
     Route::delete('{id}/delete', 'destroy'); // elimina musicisti
     Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista
     Route::put('{id}', 'update'); //effettiva modifica in DB 
+});
+
+Route::controller(ImageController::class)->prefix('images')->group(function($router){
+    // Route::get('musicisti','getAllMusicisti');
+    Route::get('gallery','getAllGallery');
 });

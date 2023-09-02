@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GalleryImages;
 use App\Models\Image;
+use App\Models\MusicianImages;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    public function uploadImage(Request $request)
+    public function uploadImageMusicisti(Request $request)
     {
         // Codice per gestire il caricamento delle immagini
         // Memorizza il percorso dell'immagine nel database
@@ -15,10 +17,10 @@ class ImageController extends Controller
         // Caricamento e salvataggio di un'immagine
         $uploaded = $request->file('immagine');
         $imageName = $uploaded->getClientOriginalName();
-        $imagePath = '/public/images' . $imageName;
-        $uploaded->storeAs('public', $imagePath);
+        $imagePath = 'musicisti/' . $imageName;
+        $uploaded->storeAs('public', $imageName);
 
-        $image = new Image;
+        $image = new MusicianImages;
         $image->nome = $imageName;
         $image->percorso = $imagePath;
         $image->save();
@@ -26,20 +28,29 @@ class ImageController extends Controller
         // Restituisci una risposta o reindirizza come necessario
     }
 
-    public function getImage($id)
-    {
-        // Codice per recuperare e visualizzare un'immagine dal database
-
-        $image = Image::find($id);
-
-        if (!$image) {
-            // Immagine non trovata, gestisci l'errore
+    public function getAllMusicisti(){
+        $images = MusicianImages::all();
+        if (!$images) {
+            return response()->json([
+                'errore'=>"immagini non pervenute"
+            ]);
         }
+        return response()->json([
+            'musicisti'=> $images
+        ]);
+    }
 
-        // Costruisci l'URL completo per l'immagine basato sul percorso salvato nel database
-        $imageUrl = asset('storage/' . $image->percorso);
-
-        // Restituisci l'URL dell'immagine o visualizza l'immagine come necessario
+    public function getAllGallery()
+    {
+        $images = GalleryImages::all();
+        if (!$images) {
+            return response()->json([
+                'errore'=>"immagini non pervenute"
+            ]);
+        }
+        return response()->json([
+            'gallery'=> $images
+        ]);
     }
 
     public function deleteImage($id)
