@@ -4,6 +4,7 @@ use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MusicianController;
+use App\Http\Controllers\TicketUserController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ShopController;
@@ -44,6 +45,10 @@ Route::controller(ShopController::class)->prefix('shop')->group(function($router
 
 Route::controller(TicketController::class)->prefix('tickets')->group(function($router){
     Route::get('show', 'showUserTicketsAndConcerts');
+});
+
+Route::controller(TicketUserController::class)->prefix('ticket-user')->group(function($router){
+    Route::post('book', 'store'); //prenotazione aggiunge un record in ticketUser
 });
 
 Route::controller(ItemController::class)->prefix('items')->group(function($router){

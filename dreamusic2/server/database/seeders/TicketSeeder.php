@@ -19,10 +19,6 @@ class TicketSeeder extends Seeder
                 'prezzo'=>'5.00'
             ],
             [
-                'idConcerto'=>'1',
-                'prezzo'=>'10.00'
-            ],
-            [
                 'idConcerto'=>'2',
                 'prezzo'=>'5.00'
             ],

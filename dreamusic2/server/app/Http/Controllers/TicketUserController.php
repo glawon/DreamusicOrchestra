@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
 use App\Models\TicketUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TicketUserController extends Controller
@@ -35,7 +37,34 @@ class TicketUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+        $request->validate([
+            'idConcerto' => 'required|exists:concert,id',
+            'nome' => 'required|string',
+            'cognome' => 'required|string',
+            'email' => 'required|string',
+            'quantita' => 'integer|max:10'
+        ]);}
+        catch(\Exception $e){
+            return response()->json([
+                'message'=>"uno dei campi non è valido"
+                ]);
+        }
+
+        $id_ticket = Ticket::where('idConcerto', $request->idConcerto)->first()->id;
+        $id_user = User::where('email', $request->input('email'))->first()->id;
+
+        $ticketUser = TicketUser::insert([
+            'idTicket' => $id_ticket,
+            'idUser' => $id_user,
+            'quantita' => $request->input('quantita'),
+        ]);
+
+        // $ticketUser->save();
+
+        return response()->json([
+            'ticket prenotato'=>$ticketUser
+        ]);
     }
 
     /**

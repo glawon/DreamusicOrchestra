@@ -21,7 +21,7 @@ class ConcertSeeder extends Seeder
                 'citta'=>'Catania',
                 'teatro'=>'Teatro Ambasciatori',
                 'nome'=>'Lello Analfino e Tinturia',
-                'programma'=>'boh',
+                'programma'=>'Un\'indimenticabile serata di omaggio alla musica ti attende all\'evento "Tributo a Lello Analfino e Tinturia". Questa straordinaria performance celebra due talenti unici della scena musicale italiana. Sarai trasportato dalle canzoni e dalle melodie che hanno reso famosi Lello Analfino e i Tinturia, interpretate con passione e rispetto da artisti eccezionali. Un\'esperienza da non perdere per tutti gli appassionati della musica italiana. Un omaggio alla musica e all\'arte che lascerà il pubblico incantato.',
                 'totPosti'=>'100'
             ],
             [
@@ -31,7 +31,7 @@ class ConcertSeeder extends Seeder
                 'citta'=>'Bronte',
                 'teatro'=>'Parco Urbano',
                 'nome'=>'Tributo ad Hans Zimmer',
-                'programma'=>'boh',
+                'programma'=>'Un\'emozionante serata di musica epica e colonna sonora cinematografica ti aspetta al concerto "Tributo ad Hans Zimmer". Un viaggio attraverso le straordinarie composizioni di Hans Zimmer, che hanno dato vita alle colonne sonore dei film più iconici. Un\'esperienza da non perdere per gli amanti della musica e del cinema.',
                 'totPosti'=>'120'
             ],
             [
@@ -41,7 +41,7 @@ class ConcertSeeder extends Seeder
                 'locandina'=>'https://cdn.pixabay.com/photo/2014/12/21/07/50/christmas-tree-574742_1280.jpg',
                 'teatro'=>'Teatro Politeama Garibaldi',
                 'nome'=>'Concerto di Natale',
-                'programma'=>'boh',
+                'programma'=>'Un incantevole Concerto di Natale con la Dreamusic Orchestra, dedicato alle melodie natalizie dei classici Disney. La magia delle festività incontra la magia Disney in un\'esperienza musicale unica. Unisciti a noi per un Natale pieno di gioia e incanto con le canzoni indimenticabili dei tuoi film Disney preferiti.',
                 'totPosti'=>'150'
             ]
         ]);
