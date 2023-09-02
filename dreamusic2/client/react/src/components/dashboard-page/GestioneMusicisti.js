@@ -3,30 +3,27 @@ import Alert from 'react-bootstrap/Alert';
 import { useEffect, useState } from 'react';
 import { updateMusician, fetchMusicians, deleteMusician } from '../services/admin';
 import InsertDataModal from './DataModal';
+import "../../App.css";
 
 export default function GestioneMusicisti(){
     const [musicians, setMusicians] = useState([]);
     const [musicianStates, setMusicianStates] = useState([]);
-
-    useEffect(()=>{
-        async function getMusicians() {
-            try {
-                const musicians = await fetchMusicians();
-                console.log(musicians);
-                setMusicians(musicians);
-                setMusicianStates(musicians.map((musician) =>
-                ({ id: musician.id, modifica: false, alertShow: false })
-                ));
-            } catch (error) {
-                alert("Errore nel caricare i musicisti: ", error);
-            }
-          }
-        getMusicians();
-    }, []);
-
     const [show, setShow] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    
+
+    async function getMusicians() {
+        try {
+            const musicians = await fetchMusicians();
+            console.log(musicians);
+            setMusicians(musicians);
+            setMusicianStates(musicians.map((musician) =>
+            ({ id: musician.id, modifica: false, alertShow: false })
+            ));
+        } catch (error) {
+            alert("Errore nel caricare i musicisti: ", error);
+        }
+      }
+      
     function handleModificaToggle(musician, stato) {
         setMusicianStates((prevStates) =>
             prevStates.map((state) =>
@@ -83,13 +80,16 @@ export default function GestioneMusicisti(){
         setMusicians(musicians.filter(m => m.id !== musician.id));
         deleteMusician(musician);
     }
+
+    useEffect(()=>{ 
+        getMusicians();
+    }, []);
+
     return(
         <div className = "container-fluid py-4 px-0 mt-5" id="#about">
             <h3 className = "title text">Musicisti <i className="bi bi-music-note-beamed"></i></h3>
-            <button className ="btn btnCustom mb-3" onClick={()=>setShowModal(true)}>Aggiungi</button>
-            {showModal &&
-                <InsertDataModal />
-            }
+            <button className ="btn btnCustom mb-3" onClick={()=>{setShowModal(true); console.log("Modal:"+showModal)}}>Aggiungi</button>
+            <InsertDataModal show={showModal} setShow={setShowModal} getMusicians={getMusicians}/>
             <Table responsive striped bordered variant="dark">
                 <thead>
                     <tr>
@@ -104,14 +104,14 @@ export default function GestioneMusicisti(){
                     {musicianStates.map((musicianState) => {
                     const musician = musicians.find((m) => m.id === musicianState.id);
                     return (
-                        <tr key={musician.id} className = "mb-0 pb-0">
+                        <tr className="rowCustom mb-0 pb-0" key={musician.id}>
                             <td>
                                 {musicianState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "#2c3034", color: "white"}}
                                     onChange={(e) => {handleNameChange(e, musician.id)}}
                                     value={musician.nome}/>
                                     ) : (
-                                    <span>{musician.nome}</span>
+                                    <span className='names'>{musician.nome}</span>
                                 )}
                             </td>
                             <td>
@@ -120,7 +120,7 @@ export default function GestioneMusicisti(){
                                     onChange={(e) => {handleSurnameChange(e, musician.id)}}
                                     value={musician.cognome}/>
                                     ) : (
-                                    <span>{musician.cognome}</span>
+                                    <span className='names'>{musician.cognome}</span>
                                 )}
                             </td>
                             <td>
@@ -129,7 +129,7 @@ export default function GestioneMusicisti(){
                                     onChange={(e) => {handleInstrumentChange(e, musician)}}
                                     value={musician.strumento}/>
                                     ) : (
-                                    <span>{musician.strumento}</span>
+                                    <span className='names'>{musician.strumento}</span>
                                 )}
                             </td>
                             <td>
@@ -153,7 +153,7 @@ export default function GestioneMusicisti(){
                                 }
                                 <Alert className="container-fluid d-block mb-0" show={musicianState.alertShow} style={{backgroundColor:"rgba(0,0,0,0.9)", border:"rgba(0,0,0,0.9)"}}>
                                     <Alert.Heading className="title">Stai eliminando:<br/>{musician.nome}, {musician.strumento}</Alert.Heading>
-                                    <button className="btn btnCustom me-3" onClick={()=> confirmDelete(musician)}>Conferma</button>
+                                    <button className="btn btnCustom me-3" onClick={()=> {confirmDelete(musician); setShow(!show)}}>Conferma</button>
                                     <button className="btn btn-danger ms-3" onClick={()=> handleAlertShow(musician.id)}>Annulla</button>
                                 </Alert>
                             </td>

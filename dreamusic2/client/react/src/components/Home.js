@@ -6,11 +6,10 @@ import Eventi from './evento';
 import About from './About';
 import Gallery from './gallery';
 import ShopPreview from './ShopPreview';
-import logo from "../externals/logo2.png";
 import image from "../externals/giradischi.jpg";
 import back from "../externals/galleryBack.jpg";
 
-function Home({eventi, setEventId, setCambia, musicians}){
+function Home({eventi, logo, setEventId, setCambia, musicians}){
   function useScrollToTop(){
       const location = useLocation();
       useEffect(() => {
@@ -24,7 +23,7 @@ function Home({eventi, setEventId, setCambia, musicians}){
           <>
               <section className="section" id="home" style={{backgroundColor: "black"}}>
                 <div className="container text-center py-5">
-                    <img src={logo} className="img-fluid" style={{width:45+'rem'}}/>
+                    <img src={logo} className="img-fluid w-50"/>
                 </div>
                 <Bio />
               </section>

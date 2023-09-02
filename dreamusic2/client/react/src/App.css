@@ -20,6 +20,10 @@
   height:"400px"
 }
 
+.names{
+  text-transform: capitalize;
+}
+
 .bi{
   color:#e3841f;
 }
@@ -64,15 +68,6 @@
   background-color:#e3841f8d;
 }
 
-.active-scroll-spy {
-  background-color: rgba(112, 114, 106,0.8);
-  border-radius: 15px;
-}
-
-.form{
-  display:flex;
-  margin-top:10rem;
-  margin-bottom:10rem;
-  border-radius: 5%;
-  background-color: #e3841f;
+textArea:hover{
+  opacity: 0.5;
 }

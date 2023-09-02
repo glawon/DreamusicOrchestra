@@ -17,13 +17,7 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 
 import logo from "./externals/logo2.png";
-
-import musician1 from "./externals/violin.png";
-import musician2 from "./externals/double-bass.png";
-import musician3 from "./externals/trumpet.png";
-import musician4 from "./externals/trombone.png";
-import musician5 from "./externals/piano.png";
-import musician6 from "./externals/drums.png";
+import dreamLogo from "./externals/logo_dreamusic.png";
 
 function App(){
   const navigate = useNavigate();
@@ -35,7 +29,7 @@ function App(){
             const concerts = await fetchConcerts();
             setEventi(concerts);
         } catch (error) {
-            //alert("Errore nel caricare i concerti: ", error);
+            alert("Errore nel caricare i concerti: ", error);
         }
       }
       getConcerts();
@@ -90,7 +84,7 @@ function App(){
         user={user} login={logged} setUser={setUser} setLogged={setLogged}/>
         <div className="bigContainer">
           <Routes>
-            <Route path="/" element={<Home eventi={eventi} setEventId={setEventId} setCambia={setCambia}/>}/>  
+            <Route path="/" element={<Home logo={dreamLogo} eventi={eventi} setEventId={setEventId} setCambia={setCambia}/>}/>  
             <Route path="/cart" element={<Cart user={user}/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
@@ -100,7 +94,7 @@ function App(){
           </Routes>
         </div>
         <div className="container-fluid">
-          <BottomBar logo={logo}/>
+          <BottomBar logo={dreamLogo}/>
         </div>
       </div>      
     </>

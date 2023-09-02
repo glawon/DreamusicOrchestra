@@ -9,7 +9,7 @@ class BottomBar extends Component{
                 2023
             </div>
             <div className="col align-self-center" style={{width:"33.33%"}}>
-                <img src={this.props.logo} className="img-fluid" style={{width:20+'rem'}}/>
+                <img src={this.props.logo} className="img-fluid w-25" style={{width:20+'rem'}}/>
             </div>
             <div className="col text-center" style={{width:"33.33%"}}>
                 <h5 className="title mb-1">Contatti:</h5>
