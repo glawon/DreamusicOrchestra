@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             TicketUserSeeder::class,
             ItemSeeder::class,
             MusicianSeeder::class,
-            GallerySeeder::class,
-            MusicianImagesSeeder::class
+            GallerySeeder::class
+            // MusicianImagesSeeder::class
         ]);
     }
 }

@@ -40,8 +40,7 @@ class ImageController extends Controller
         ]);
     }
 
-    public function getAllGallery()
-    {
+    public function getAllGallery(){
         $images = GalleryImages::all();
         if (!$images) {
             return response()->json([
