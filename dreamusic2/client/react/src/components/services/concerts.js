@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import EventContext from "./EventHandler";
+
 export async function fetchConcerts() {
     try {
         const response = await fetch('http://localhost:8000/api/concert/index', { method: "GET" });
@@ -12,24 +15,38 @@ export async function fetchConcerts() {
 export async function fetchSingle(id)
 {
     try {
+        const evento = {dettagli:{}, prezzo:0};
         const response = await fetch(`http://localhost:8000/api/concert/${id}/show`, { method: "GET" });
         const data = await response.json();
-        return data.concerto;
+        //console.log("Dati presi: ", data);
+        evento.dettagli = data.concerto;
+        evento.prezzo = data.prezzo;
+        return(evento);
     } catch (error) {
-        alert("Errore nel caricare i concerti: ", error);
+        alert("Errore nel caricare il concerto ", error);
         return null;
     }
 }
 
-export async function sendReservation(q, u)
+export async function sendReservation(q, u, eId)
 {
-    const data = {user: u, quantita: q};
-    return fetch('/api'), {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }
-    .then(data => data.json())
+    const data = {nome: u.nome, cognome: u.cognome, email: u.email, idConcerto: eId, quantita: q};
+    console.log(data);
+    return new Promise ((resolve, reject) => {
+        fetch('http://localhost:8000/api/ticket-user/book', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => resolve(data))
+        .catch(err => reject(err));
+    })
 }

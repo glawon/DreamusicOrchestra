@@ -6,6 +6,8 @@ function SignUp(){
     const data={nome:"", cognome:"", email:"", password:"", ruolo: "user"};
     const [credentials, setCredentials] = useState(data);
     const [show, setShow] = useState(false);
+    const [header, setHeader] = useState("Benvenuto!");
+    const [body, setBody] = useState("Accedi per continuare sul sito");
 
     function handleFirstNameChange(e){
         setCredentials({...credentials, nome: e.target.value});
@@ -56,7 +58,7 @@ function SignUp(){
     return(
         <div className="col-4 align-self-center my-0">
             <div className="d-flex justify-content-center my-2">
-                <SuccessNotify className="" show={show} setShow={setShow}/>
+                <SuccessNotify show={show} setShow={setShow} header={header} body={body}/>
             </div>
             
             <form className="container-fluid">

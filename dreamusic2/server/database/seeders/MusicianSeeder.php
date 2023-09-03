@@ -17,73 +17,73 @@ class MusicianSeeder extends Seeder
                 'nome'=>'Cristiana',
                 'cognome'=>'Cunsolo',
                 'strumento'=>'flauto',
-                'immagine'=>'public/musicisti/Cristiana.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Cristiana.jpg'
             ],
             [
                 'nome'=>'Carlotta',
                 'cognome'=>'Cosentino',
                 'strumento'=>'violino',
-                'immagine'=>'public/musicisti/Carlotta.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Carlotta.jpg'
             ],
             [
                 'nome'=>'Chiara',
                 'cognome'=>'Impellizzeri',
                 'strumento'=>'violino',
-                'immagine'=>'public/musicisti/Chiara.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Chiara.jpg'
             ],
             [
                 'nome'=>'Adriana',
                 'cognome'=>'Cannata',
                 'strumento'=>'viola',
-                'immagine'=>'public/musicisti/Adriana.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Adriana.jpg'
             ],
             [
                 'nome'=>'Laura',
                 'cognome'=>'Cantone',
                 'strumento'=>'violoncello',
-                'immagine'=>'public/musicisti/Laura.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Laura.jpg'
             ],
             [
                 'nome'=>'Emanuele',
                 'cognome'=>'Schinocca',
                 'strumento'=>'tastiera',
-                'immagine'=>'public/musicisti/Emanuele.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Emanuele.jpg'
             ],
             [
                 'nome'=>'Davide',
                 'cognome'=>'Di Maria',
                 'strumento'=>'piano',
-                'immagine'=>'public/musicisti/Davide.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Davide.jpg'
             ],
             [
                 'nome'=>'Antonio',
                 'cognome'=>'Fiorenza',
                 'strumento'=>'tromba',
-                'immagine'=>'public/musicisti/Antonio F.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Antonio F.jpg'
             ],
             [
                 'nome'=>'Flavio',
                 'cognome'=>'Pennisi',
                 'strumento'=>'trombone',
-                'immagine'=>'public/musicisti/Flavio.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Flavio.jpg'
             ],
             [
                 'nome'=>'Antonio',
                 'cognome'=>'Vassallo',
                 'strumento'=>'percussioni',
-                'immagine'=>'public/musicisti/Antonio V.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Antonio V.jpg'
             ],
             [
                 'nome'=>'Giulio',
                 'cognome'=>'Di Prima',
                 'strumento'=>'percussioni',
-                'immagine'=>'public/musicisti/Giulio.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Giulio.jpg'
             ],
             [
                 'nome'=>'Gabriele',
                 'cognome'=>'Vasta',
                 'strumento'=>'percussioni',
-                'immagine'=>'public/musicisti/Gabriele.jpg'
+                'immagine'=>'http://localhost:8000/storage/musicisti/Gabriele.jpg'
             ]
         ]);
 

@@ -1,14 +1,20 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import moment from 'moment';
 import { fetchSingle } from './services/concerts';
+import { useNavigate } from 'react-router-dom';
+import EventContext from './services/EventHandler';
 import "../App.css";
 
 function Evento({evento, setEventId, setCambia}){
-    
+    const navigate = useNavigate();
+    const { setEvent } = useContext(EventContext);
     //sistemare con un'altra funzione di App che cambia direttamente lì lo stato
     function handleClick(id){
-        setEventId(id);
-        setCambia(true);
+        /*setEventId(id);
+        setCambia(true);*/
+
+        setEvent(id);
+        navigate("/event");
     }
 
     const ora = moment(evento.ora, 'HH:mm:ss').format('HH:mm');

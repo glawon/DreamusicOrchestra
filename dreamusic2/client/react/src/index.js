@@ -6,6 +6,7 @@ import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, ScrollRestoration} from "react-router-dom";
 import { AuthProvider } from './components/services/AuthProvider';
+import { EventHandler } from './components/services/EventHandler';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <EventHandler>
+          <App />
+        </EventHandler>
       </AuthProvider>  
     </BrowserRouter> 
   </React.StrictMode>

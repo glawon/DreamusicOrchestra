@@ -8,6 +8,7 @@ import "../../App.css";
 export default function GestioneMusicisti(){
     const [musicians, setMusicians] = useState([]);
     const [musicianStates, setMusicianStates] = useState([]);
+    const [musicianData, setMusicianData] = useState({id: -1, nome:"", cognome:"", strumento:"", immagine: null});
     const [show, setShow] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
@@ -30,13 +31,18 @@ export default function GestioneMusicisti(){
             state.id === musician.id ? { ...state, modifica: !state.modifica } : state
         ));
         if(stato === "salva")
-            updateMusician(musician);
+        {
+            console.log("Sto aggiornando: ", musicianData);
+            updateMusician(musicianData);
+        }
+            
     }
       
     function handleNameChange(event, id)
     {
         let updated = musicians.find((m) => m.id === id);
         updated.nome = event.target.value;
+        setMusicianData({id: updated.id, nome: updated.nome, cognome: updated.cognome, strumento: updated.strumento, immagine: updated.immagine});
         setMusicians([...musicians, updated]);
     }
 
@@ -44,6 +50,7 @@ export default function GestioneMusicisti(){
     {
         let updated = musicians.find((m) => m.id === id);
         updated.cognome = event.target.value;
+        setMusicianData({id: updated.id, nome: updated.nome, cognome: updated.cognome, strumento: updated.strumento, immagine: updated.immagine});
         setMusicians([...musicians, updated]);
     }
     
@@ -51,6 +58,7 @@ export default function GestioneMusicisti(){
     {
         let updated = musicians.find((m) => m.id === id);
         updated.strumento = event.target.value;
+        setMusicianData({id: updated.id, nome: updated.nome, cognome: updated.cognome, strumento: updated.strumento, immagine: updated.immagine});
         setMusicians([...musicians, updated]);
     }
 
@@ -60,10 +68,11 @@ export default function GestioneMusicisti(){
         let updated = musicians.find((m) => m.id === id);
         if(file)
         {
-            updated.foto = URL.createObjectURL(file);
+            updated.immagine = URL.createObjectURL(file);
+            console.log(updated);
             setMusicians([...musicians, updated]);
+            setMusicianData({id: updated.id, nome: updated.nome, cognome: updated.cognome, strumento: updated.strumento, immagine:file});
         }
-        
     }
     function handleAlertShow(id)
     {
@@ -107,7 +116,7 @@ export default function GestioneMusicisti(){
                         <tr className="rowCustom mb-0 pb-0" key={musician.id}>
                             <td>
                                 {musicianState.modifica ? (
-                                    <textarea style={{resize: "none", border: "none", backgroundColor: "#2c3034", color: "white"}}
+                                    <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
                                     onChange={(e) => {handleNameChange(e, musician.id)}}
                                     value={musician.nome}/>
                                     ) : (
@@ -116,7 +125,7 @@ export default function GestioneMusicisti(){
                             </td>
                             <td>
                                 {musicianState.modifica ? (
-                                    <textarea style={{resize: "none", border: "none", backgroundColor: "#2c3034", color: "white"}}
+                                    <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
                                     onChange={(e) => {handleSurnameChange(e, musician.id)}}
                                     value={musician.cognome}/>
                                     ) : (
@@ -125,7 +134,7 @@ export default function GestioneMusicisti(){
                             </td>
                             <td>
                                 {musicianState.modifica ? (
-                                    <textarea style={{resize: "none", border: "none", backgroundColor: "#2c3034", color: "white"}}
+                                    <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
                                     onChange={(e) => {handleInstrumentChange(e, musician)}}
                                     value={musician.strumento}/>
                                     ) : (
@@ -134,10 +143,10 @@ export default function GestioneMusicisti(){
                             </td>
                             <td>
                                 {musicianState.modifica ? (
-                                    <><img src={musician.foto} alt="foto" style={{ width: "5em", height: "5em" }}/><br/>
+                                    <><img src={musician.immagine} style={{ width: "8em", height: "5em" }} alt="foto"/><br/>
                                     <input type="file" name="foto" accept="image/png, image/jpeg" onChange={(e)=>handlePicChange(e, musician.id)}/></>
                                     ) : (
-                                    <img src={musician.foto} alt="foto" style={{ width: "5em", height: "5em" }}/>
+                                    <img src={musician.immagine} alt="foto" style={{ width: "8em", height: "5em" }}/>
                                 )}
                                 
                             </td>

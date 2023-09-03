@@ -24,7 +24,7 @@ function About(){
           return(
             <Musician
             key={musician.id}
-              picture={musician.foto}
+              picture={musician.immagine}
               noun={musician.nome}
               instrument={musician.strumento}
             />
@@ -38,7 +38,7 @@ function About(){
             return(
             <Musician
                 key={musician.id}
-                picture={musician.foto}
+                picture={musician.immagine}
                 noun={musician.nome}
                 instrument={musician.strumento}
             />

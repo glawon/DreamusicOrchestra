@@ -17,7 +17,7 @@ function Home({eventi, logo, setEventId, setCambia, musicians}){
       }, [location]);
     };
   
-    useScrollToTop();
+  useScrollToTop();
   
       return(
           <>

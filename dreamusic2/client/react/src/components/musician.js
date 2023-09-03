@@ -4,9 +4,9 @@ class Musician extends Component{
     render(){
         return(   
             <div className="container d-flex justify-content-center">
-                <div className="row row-cols-3" style={{paddingBottom: "30px"}}>
+                <div className="row row-cols-3 pb-5">
                     <div className="col">
-                        <img src={this.props.picture} className="img-fluid" style={{width:'10rem', height:'10rem'}}/>
+                        <img src={this.props.picture} className="img-fluid w-100"/>
                     </div>
                     <div className="col d-flex align-self-center justify-content-center">
                         <div className="container-fluid al">

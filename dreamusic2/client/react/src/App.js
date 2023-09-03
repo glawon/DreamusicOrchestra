@@ -4,7 +4,6 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
 import {fetchConcerts, fetchSingle} from './components/services/concerts';
-import { fetchMusicians } from './components/services/admin';
 /*import * as Components from './components';
 import {NavigationBar, Home, EventProgram, Cart, BottomBar, Gallery, Dashboard, Login} from 'Components';*/
 import NavigationBar from './components/NavigationBar';
@@ -52,7 +51,7 @@ function App(){
       async function getSingle(eventId) {
         try {
           const concerto = await fetchSingle(eventId);
-          //console.log(concerto);
+          console.log(concerto);
           setEvent(concerto);
           navigate("/event");
         } catch(error) {
@@ -90,7 +89,7 @@ function App(){
             <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/shop" />
-            <Route path="/event" element={<EventProgram eventi={eventi} evento={event}/>}/>
+            <Route path="/event" element={<EventProgram evento={event}/>}/>
           </Routes>
         </div>
         <div className="container-fluid">

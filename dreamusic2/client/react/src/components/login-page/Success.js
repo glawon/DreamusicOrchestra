@@ -1,14 +1,16 @@
 import Toast from 'react-bootstrap/Toast';
 
-export default function SuccessNotify({show, setShow})
+export default function SuccessNotify({show, setShow, header, body})
 {
     return(
-        <Toast onClose={() => setShow(false)} show={show} >
+        <Toast show={show} delay={3000} autohide onClose={() => setShow(false)}>
           <Toast.Header>
             <i className="bi bi-check-lg me-1" style={{color:"green"}}></i>
-            <strong className="mx-auto">Benvenuto!</strong>
+            <strong className="mx-auto">{header}</strong>
           </Toast.Header>
-          <Toast.Body style={{backgroundColor:"black", color:"white"}}>Accedi per continuare sul sito</Toast.Body>
+          {body !== "" &&
+            <Toast.Body style={{backgroundColor:"black", color:"white"}}>{body}</Toast.Body>
+          }
         </Toast>
     );
 }
