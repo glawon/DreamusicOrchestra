@@ -48,7 +48,11 @@ Route::controller(TicketController::class)->prefix('tickets')->group(function($r
 });
 
 Route::controller(TicketUserController::class)->prefix('ticket-user')->group(function($router){
+    Route::get('index', 'index'); // mostra tutti i biglietti prenotati
     Route::post('book', 'store'); //prenotazione aggiunge un record in ticketUser
+    Route::delete('{id}/delete', 'destroy'); //elimina un biglietto con id {id}
+    Route::get('{id}/edit', 'edit'); 
+    Route::put('{id}/update', 'update');
 });
 
 Route::controller(ItemController::class)->prefix('items')->group(function($router){
