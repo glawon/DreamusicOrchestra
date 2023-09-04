@@ -9,16 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('tracks', function (Blueprint $table) {
-            $table->id();
-            $table->string("nome");
-            $table->string("organico");
-            $table->string("film");
-            $table->double("durata");
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('tracks', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->string("nome");
+    //         $table->string("organico");
+    //         $table->string("film");
+    //         $table->double("durata");
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

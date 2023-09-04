@@ -10,17 +10,14 @@ use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){//
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request){
-        //
+    
+    public function index(){
+        $users = User::all();
+        return response()->json(
+            [
+                'users'=>$users
+            ]
+        );
     }
 
     public function register(Request $request)
@@ -70,28 +67,59 @@ class UserController extends Controller
         ]);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        return response()->json(
+            [
+                'user'=>$user
+            ]
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nome'=>'required|string',
+            'cognome'=>'required|string',
+            'email'=>'required|email',  //|unique:users
+            'password'=>'required|string'
+        ]);
+
+        $user = User::find($id);
+        // $olduser = $user->replicate();
+
+        $user->nome = $request->nome;
+        $user->cognome = $request->cognome;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+
+        return response()->json(
+            [
+                'messaggio' => 'user aggiornato con successo',
+                // 'old user' => $olduser,
+                'new user' => $user
+            ]
+        );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function edit(string $id)
+    {
+        $user = User::find($id);
+        return response()->json([
+            'user selezionato per la modifica'=>$user
+        ]);
+    }
+
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(
+            [
+                'messaggio' => 'user eliminato con successo'
+            ]
+        );
     }
 }

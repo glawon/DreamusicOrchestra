@@ -9,17 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('cart', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("idUser");
-            $table->unsignedBigInteger("idItem");
+    // public function up(): void
+    // {
+    //     Schema::create('cart', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->unsignedBigInteger("idUser");
+    //         $table->unsignedBigInteger("idItem");
 
-            $table->foreign("idUser")->references("id")->on("users");
-            $table->foreign("idItem")->references("id")->on("items");
-        });
-    }
+    //         $table->foreign("idUser")->references("id")->on("users");
+    //         $table->foreign("idItem")->references("id")->on("items");
+    //     });
+    // }
 
     /**
      * Reverse the migrations.
