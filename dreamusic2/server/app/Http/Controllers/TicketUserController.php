@@ -42,8 +42,9 @@ class TicketUserController extends Controller
             'idConcerto' => 'required|exists:concert,id',
             'nome' => 'required|string',
             'cognome' => 'required|string',
-            'email' => 'required|string',
-            'quantita' => 'integer|max:10'
+            'email' => 'required|string|email',
+            'quantita' => 'integer|max:10',
+            'posto' => 'nullable|string' //sostituire nullable con required
         ]);}
         catch(\Exception $e){
             return response()->json([
@@ -54,13 +55,23 @@ class TicketUserController extends Controller
         $id_ticket = Ticket::where('idConcerto', $request->idConcerto)->first()->id;
         $id_user = User::where('email', $request->input('email'))->first()->id;
 
-        $ticketUser = TicketUser::insert([
+        if (!$id_ticket || !$id_user) {
+            return response()->json([
+                'message' => "biglietto o utente non trovato"
+            ], 404);
+        }
+        
+
+        $ticketUser = TicketUser::create(
+            [
             'idTicket' => $id_ticket,
             'idUser' => $id_user,
             'quantita' => $request->input('quantita'),
-        ]);
+            'posto'=> $request->posto
+        ]
+    );
 
-        // $ticketUser->save();
+        $ticketUser->save();
 
         return response()->json([
             'ticket prenotato'=>$ticketUser

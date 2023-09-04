@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Musician;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MusicianController extends Controller
 {
@@ -23,7 +24,7 @@ class MusicianController extends Controller
             'nome'=>'required|string',
             'cognome'=>'required|string',
             'strumento'=>'required|string',
-            'immagine'=>'required|file'
+            'immagine'=>'file'
         ]);
 
         //devo fare il path di file prima di salvare il record
@@ -43,33 +44,35 @@ class MusicianController extends Controller
 
     public function update(Request $request, $id)
     {
-        // try{
-            // Caricamento e salvataggio di un'immagine
-            $uploaded = $request->file('immagine');
-            $imageName = $request->nome . ".jpg";
+        // Caricamento e salvataggio di un'immagine
+        // return $request;
+        $uploaded = $request->file('immagine');
+        
+        if ($uploaded !== null) {
+
+            // $uploadedFile->getClientOriginalName();
+            $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
             $pathToStorage = 'public/musicisti/' . $imageName;
             $uploaded->storeAs($pathToStorage);
-            
-            //creo il path da mettere nell'attributo 'immagine'
-            $imagePath = 'http://localhost:8000/storage/musicisti/' . $imageName;
-
-            $musician = Musician::find($id);
-            $musician->nome = $request->input('nome');
-            $musician->cognome = $request->input('cognome');
-            $musician->strumento = $request->input('strumento');
-            $musician->immagine = $imagePath;
-            $musician->save();
-
+        } else {
             return response()->json([
-                'message' => 'Musicista aggiornato con successo',
-                'musician' => $musician
-            ]);
-        // }
-        // catch(\Exception $e){
-        //     return response()->json([
-        //         'message' => 'Errore durante il salvataggio del file',
-        //     ], 500);
-        // }
+                'message' => 'Nessun file caricato.',
+            ], 400);
+        }
+        //creo il path da mettere nell'attributo 'immagine'
+        $imagePath = 'http://localhost:8000/storage/musicisti/' . $imageName;
+
+        $musician = Musician::find($id);
+        $musician->nome = $request->input('nome');
+        $musician->cognome = $request->input('cognome');
+        $musician->strumento = $request->input('strumento');
+        $musician->immagine = $imagePath;
+        $musician->save();
+
+        return response()->json([
+            'message' => 'Musicista aggiornato con successo',
+            'musician' => $musician
+        ]);
     }
 
     public function destroy(string $id)

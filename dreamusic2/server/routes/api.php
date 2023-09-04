@@ -64,7 +64,7 @@ Route::controller(MusicianController::class)->prefix('musicians')->group(functio
     Route::post('store', 'store'); //aggiunta di nuovi 
     Route::delete('{id}/delete', 'destroy'); // elimina musicisti
     Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista
-    Route::put('{id}', 'update'); //effettiva modifica in DB 
+    Route::put('{id}/update', 'update'); //effettiva modifica in DB 
 });
 
 Route::controller(ImageController::class)->prefix('images')->group(function($router){
