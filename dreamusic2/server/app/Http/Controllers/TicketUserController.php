@@ -17,14 +17,6 @@ class TicketUserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -36,7 +28,7 @@ class TicketUserController extends Controller
             'cognome' => 'required|string',
             'email' => 'required|string|email',
             'quantita' => 'integer|max:10',
-            'posto' => 'nullable|string' //sostituire nullable con required
+            'posto' => 'nullable|string' //sostituire nullable con required poi quando sarà
         ]);}
         catch(\Exception $e){
             return response()->json([
@@ -56,14 +48,20 @@ class TicketUserController extends Controller
 
         $ticketUser = TicketUser::create(
             [
-            'idTicket' => $id_ticket,
-            'idUser' => $id_user,
-            'quantita' => $request->input('quantita'),
-            'posto'=> $request->posto
-        ]
-    );
+                'idTicket' => $id_ticket,
+                'idUser' => $id_user,
+                'quantita' => $request->input('quantita'),
+                'posto'=> $request->posto
+            ]
+        );
 
         $ticketUser->save();
+
+        if($ticketUser){
+            $concerto = Concert::find($id_ticket);
+            $new_quantita = $concerto->biglietti_prenotati + $ticketUser->quantita;
+            $concerto->update(['biglietti_prenotati' => $new_quantita]);
+        }
 
         return response()->json([
             'ticket prenotato'=>$ticketUser

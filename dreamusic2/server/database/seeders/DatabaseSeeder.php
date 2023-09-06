@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ConcertSeeder::class, 
             UserSeeder::class,
-            // TrackSeeder::class,
-            // ScoreSeeder::class,
             TicketSeeder::class,
             TicketUserSeeder::class,
-            // ItemSeeder::class,
             MusicianSeeder::class,
             GallerySeeder::class
+            // ItemSeeder::class,
+            // ScoreSeeder::class,
+            // TrackSeeder::class,
             // MusicianImagesSeeder::class
         ]);
     }

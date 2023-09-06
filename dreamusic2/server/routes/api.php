@@ -34,8 +34,9 @@ Route::controller(ConcertController::class)->prefix('concert')->group(function($
     Route::get('index', 'index'); //fatta
     Route::get('{id}/show', 'show'); //fatta
     Route::get('{id}/edit', 'edit'); //fatta
-    Route::put('{id}/update', 'update'); 
-    Route::delete('{id}/delete', 'destroy');  //eliminazione concerto
+    Route::put('{id}/update', 'update'); //NO
+    Route::post('store', 'store'); //NO
+    Route::delete('{id}/delete', 'destroy'); //fatta
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function($router){
@@ -62,11 +63,11 @@ Route::controller(TicketController::class)->prefix('tickets')->group(function($r
 });
 
 Route::controller(MusicianController::class)->prefix('musicians')->group(function($router){
-    Route::get('index', 'index'); //mostro tutti i musicisti
-    Route::post('store', 'store'); //aggiunta di nuovi 
-    Route::delete('{id}/delete', 'destroy'); // elimina musicisti
-    Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista
-    Route::put('{id}/update', 'update'); //effettiva modifica in DB 
+    Route::get('index', 'index'); //mostro tutti i musicisti FATTO
+    Route::post('store', 'store'); //aggiunta di nuovi FATTO
+    Route::delete('{id}/delete', 'destroy'); // elimina musicisti FATTO
+    Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista FATTO
+    Route::put('{id}/update', 'update'); //effettiva modifica in DB FATTO
 });
 
 Route::controller(ImageController::class)->prefix('images')->group(function($router){
