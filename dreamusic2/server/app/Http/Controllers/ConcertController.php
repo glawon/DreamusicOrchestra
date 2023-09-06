@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Models\Concert;
+use Illuminate\Support\Carbon;
 
 class ConcertController extends Controller
 {
@@ -33,10 +34,47 @@ class ConcertController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        // return $request;
+        $uploaded = $request->file('locandina');
+        // return $uploaded;
+        if ($uploaded !== null) {
+            // $uploadedFile->getClientOriginalName();
+            $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
+            $pathToStorage = 'public/eventi/' . $imageName;
+            $uploaded->storeAs($pathToStorage);
+        } else {
+            return response()->json([
+                'message' => 'Nessun file caricato.',
+            ], 400);
+        }
+
+        //creo il path da mettere nell'attributo 'immagine'
+        $imagePath = 'http://localhost:8000/storage/eventi/' . $imageName;
+
+        $concerto = Concert::create([
+            'data' => $request->input('data'),
+            'ora' => $request->input('ora'),
+            'citta' => $request->input('citta'),
+            'teatro' => $request->input('teatro'),
+            'nome' => $request->input('nome'),
+            'programma' => $request->input('programma'),
+            'tot_posti' => $request->input('tot_posti'),
+            'biglietti_prenotati' => $request->input('biglietti_prenotati'),
+            'locandina' => $imagePath
+        ]);
+        return response()->json([
+            'concerto creato'=>$concerto
+        ]);
+    }
+
     public function update(Request $request, $id)
     {
+        // return $request;
         // locandina
         $uploaded = $request->file('locandina');
+        // return $uploaded;
         if ($uploaded !== null) {
 
             // $uploadedFile->getClientOriginalName();
@@ -66,12 +104,22 @@ class ConcertController extends Controller
         ]);
         $concerto->update($data);
         $concerto->locandina = $imagePath;
-        return $concerto;
+        // return $concerto;
         $concerto->save();
 
         return response()->json([
             'message' => 'Evento aggiornato con successo',
             'concerto' => $concerto
+        ]);
+    }
+
+    public function destroy(string $id)
+    {
+        $concerto = Concert::find($id);
+        $nome = $concerto->nome;
+        $concerto->delete();
+        return response()->json([
+            'message'=>"concerto $nome eliminato"
         ]);
     }
 }

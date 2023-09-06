@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->date("data");
             $table->time("ora");
-            $table->string("locandina");
+            $table->string("locandina")->nullable();
             $table->string("citta");
             $table->string("teatro");
             $table->string("nome");
             $table->text("programma");
             $table->integer("tot_posti");
-            // $table->double("incasso")->default('0');
             $table->integer("biglietti_prenotati")->default('0');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

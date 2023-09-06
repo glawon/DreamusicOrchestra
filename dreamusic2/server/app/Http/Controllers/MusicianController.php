@@ -27,10 +27,30 @@ class MusicianController extends Controller
             'immagine'=>'file'
         ]);
 
-        //devo fare il path di file prima di salvare il record
-        $musician = Musician::create($request->all());
+        $uploaded = $request->file('immagine');
+        
+        if ($uploaded !== null) {
+            // $uploadedFile->getClientOriginalName();
+            $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
+            $pathToStorage = 'public/musicisti/' . $imageName;
+            $uploaded->storeAs($pathToStorage);
+        } else {
+            return response()->json([
+                'message' => 'Nessun file caricato.',
+            ], 400);
+        }
+
+        //creo il path da mettere nell'attributo 'immagine'
+        $imagePath = 'http://localhost:8000/storage/musicisti/' . $imageName;
+
+        $musician = Musician::create([
+            'nome' => $request->input('nome'),
+            'cognome' => $request->input('cognome'),
+            'strumento' => $request->input('strumento'),
+            'immagine' => $imagePath
+        ]);
         return response()->json([
-            'musician'=>$musician
+            'musician creato'=>$musician
         ]);
     }
 
