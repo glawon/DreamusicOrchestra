@@ -5,11 +5,11 @@ export default function Lista({state, setState}) {
     const [selected, setSelected] = useState();
     function handleShow(key){
         if(key === "about")
-            setState({aboutShow: true, eventShow: false, shopShow: false});
+            setState({aboutShow: true, eventShow: false, ticketShow: false});
         else if(key === "event")
-            setState({aboutShow: false, eventShow: true, shopShow: false});
-        else if(key === "shop")
-            setState({aboutShow: false, eventShow: false, shopShow: true});
+            setState({aboutShow: false, eventShow: true, ticketShow: false});
+        else if(key === "tickets")
+            setState({aboutShow: false, eventShow: false, ticketShow: true});
         setSelected(key);    
     }
   return (
@@ -23,9 +23,9 @@ export default function Lista({state, setState}) {
       onClick={()=>{handleShow("event")}}>
         Eventi
       </ListGroup.Item>
-      <ListGroup.Item key="shop" action href="#link3" style={{backgroundColor: selected === "shop" ? "orange" : "", border: selected === "shop" ? "orange" : ""}}
-      onClick={()=>{handleShow("shop")}}>
-        Shop
+      <ListGroup.Item key="tickets" action href="#link3" style={{backgroundColor: selected === "tickets" ? "orange" : "", border: selected === "tickets" ? "orange" : ""}}
+      onClick={()=>{handleShow("tickets")}}>
+        Biglietti
       </ListGroup.Item>
     </ListGroup></>
   );

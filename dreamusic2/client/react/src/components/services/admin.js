@@ -14,7 +14,7 @@ export async function updateMusician(musician)
 {   
     const id = musician.id;
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/musicians/${id}`,
+        fetch(`http://localhost:8000/api/musicians/${id}/update`,
         {
         method: "PUT",
         headers: {
@@ -84,6 +84,83 @@ export async function createMusician(musician)
             resolve(data);
         })
         .catch(error => reject(error));
+    })
+}
+
+export async function createEvent(event)
+{
+    return new Promise((resolve, reject) => {
+        fetch('http://localhost:8000/api/concert/store',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(event)
+        })
+        .then(response => {
+            if(!response.ok) 
+            {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => reject(error));
+    })
+}
+
+export async function updateEvent(event)
+{   
+    const id = event.id;
+    return new Promise((resolve, reject) => {
+        fetch(`http://localhost:8000/api/concert/${id}/update`,
+        {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
+    })
+}
+
+export async function deleteEvents(event)
+{
+    const id = event.id;
+    return new Promise((resolve, reject) => {
+        fetch(`http://localhost:8000/api/concert/${id}/delete`,
+        {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
     })
 }
 
