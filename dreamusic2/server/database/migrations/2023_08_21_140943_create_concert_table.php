@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string("teatro");
             $table->string("nome");
             $table->text("programma");
-            $table->integer("totPosti");
-            $table->double("incasso")->default('0');
-            $table->integer("bigliettiVenduti")->default('0');
+            $table->integer("tot_posti");
+            // $table->double("incasso")->default('0');
+            $table->integer("biglietti_prenotati")->default('0');
             $table->timestamps();
         });
     }

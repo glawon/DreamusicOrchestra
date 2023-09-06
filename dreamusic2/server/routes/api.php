@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MusicianController;
 use App\Http\Controllers\TicketUserController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 
-use App\Models\MusicianImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,32 +22,61 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
+
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::controller(ConcertController::class)->prefix('concert')->group(function($router){
-    Route::get('{id}/show', 'show');
-    Route::get('index', 'index');
+    Route::get('index', 'index'); //fatta
+    Route::get('{id}/show', 'show'); //fatta
+    Route::get('{id}/edit', 'edit'); //fatta
+    Route::put('{id}/update', 'update'); 
+    Route::delete('{id}/delete', 'destroy');  //eliminazione concerto
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function($router){
-    Route::post('register', 'register');
+    Route::get('index', 'index'); //mostra tutti gli utenti
+    Route::get('{id}/show', 'show');  //mostra informazioni utente con {id}
+    Route::put('{id}/update', 'update');
+    Route::get('{id}/edit', 'edit');
+    Route::delete('{id}/delete', 'destroy');  //eliminazione utente
+
+    Route::post('register', 'register'); 
     Route::post('login', 'login');
 });
 
-Route::controller(ShopController::class)->prefix('shop')->group(function($router){
-    Route::get('index', 'index'); //per mostrare tutti gli items nello shop
+Route::controller(TicketUserController::class)->prefix('ticket-user')->group(function($router){
+    Route::get('index', 'index'); // mostra tutti i biglietti prenotati
+    Route::post('book', 'store'); //prenotazione aggiunge un record in ticketUser
+    Route::delete('{id}/delete', 'destroy'); //elimina un biglietto con id {id}
+    Route::get('{id}/edit', 'edit'); 
+    Route::put('{id}/update', 'update');
 });
 
 Route::controller(TicketController::class)->prefix('tickets')->group(function($router){
     Route::get('show', 'showUserTicketsAndConcerts');
 });
 
-Route::controller(TicketUserController::class)->prefix('ticket-user')->group(function($router){
-    Route::post('book', 'store'); //prenotazione aggiunge un record in ticketUser
+Route::controller(MusicianController::class)->prefix('musicians')->group(function($router){
+    Route::get('index', 'index'); //mostro tutti i musicisti
+    Route::post('store', 'store'); //aggiunta di nuovi 
+    Route::delete('{id}/delete', 'destroy'); // elimina musicisti
+    Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista
+    Route::put('{id}/update', 'update'); //effettiva modifica in DB 
+});
+
+Route::controller(ImageController::class)->prefix('images')->group(function($router){
+    // Route::get('musicisti','getAllMusicisti');
+    Route::get('gallery','getAllGallery');
+});
+
+/*
+Route::controller(ShopController::class)->prefix('shop')->group(function($router){
+    Route::get('index', 'index'); //per mostrare tutti gli items nello shop
 });
 
 Route::controller(ItemController::class)->prefix('items')->group(function($router){
@@ -58,16 +86,4 @@ Route::controller(ItemController::class)->prefix('items')->group(function($route
 Route::controller(CartController::class)->prefix('carts')->group(function($router){
     Route::get('mycart', 'mycart');
 });
-
-Route::controller(MusicianController::class)->prefix('musicians')->group(function($router){
-    Route::get('index', 'index'); //mostro tutti i musicisti
-    Route::post('store', 'store'); //aggiunta di nuovi 
-    Route::delete('{id}/delete', 'destroy'); // elimina musicisti
-    Route::get('{id}/edit', 'edit'); //pagina di modifica del musicista
-    Route::put('{id}', 'update'); //effettiva modifica in DB 
-});
-
-Route::controller(ImageController::class)->prefix('images')->group(function($router){
-    // Route::get('musicisti','getAllMusicisti');
-    Route::get('gallery','getAllGallery');
-});
+*/

@@ -9,7 +9,7 @@ class TicketUser extends Model
 {
     use HasFactory;
     protected $table = 'ticket_user';
-    protected $fillable = ['idConcerto', 'idUser', 'quantita'];
+    protected $fillable = ['idTicket', 'idUser', 'quantita'];
 
     //hasone users
     //hasone tickets

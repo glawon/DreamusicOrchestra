@@ -20,6 +20,7 @@ class GallerySeeder extends Seeder
         foreach ($paths as $imagePath) {
             // estrazione del nome del file senza estensione
             $imageName = pathinfo($imagePath, PATHINFO_FILENAME);
+            $imagePath = "http://localhost:8000/storage/gallery/" . $imageName;
 
             GalleryImages::insert([
                 'nome' => $imageName,

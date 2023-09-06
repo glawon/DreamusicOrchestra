@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("nome");
             $table->string("cognome");
             $table->string("strumento");
-            $table->string("immagine");
+            $table->string("immagine")->nullable();
 
             $table->timestamps();
         });

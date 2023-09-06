@@ -13,14 +13,23 @@ export async function fetchMusicians()
 export async function updateMusician(musician)
 {   
     const id = musician.id;
+    const FormData = require('form-data');
+    const form = new FormData();
+
+    form.append('id', musician.id);
+    form.append('nome', musician.nome);
+    form.append('cognome', musician.cognome);
+    form.append('strumento', musician.strumento);
+    form.append('immagine', musician.immagine, { filename: 'nome_file.jpg' });
+
     return new Promise((resolve, reject) => {
         fetch(`http://localhost:8000/api/musicians/${id}/update`,
         {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(musician)
+            method: "PUT",
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            body: form
         })
         .then(response => {
             if (!response.ok) {
