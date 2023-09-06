@@ -117,16 +117,11 @@ function EventProgram(){
       const {event} = useContext(EventContext); //id dell'evento
 
       useEffect(() =>{
-        let r = fetchSingle(event)
+        const id = sessionStorage.getItem('id');
+        fetchSingle(id)
         .then(response => {console.log("Dati dalla fetch: ", response); setEvento(response)})
         .catch(err => alert("Errore nel caricamento del concerto", err));
 
-        async function print()
-        {
-            await r;
-            //console.log("Evento:", evento);
-        }
-        print();
       }, []);
       
     return(

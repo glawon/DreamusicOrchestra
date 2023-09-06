@@ -14,7 +14,8 @@ function Evento({evento, setEventId, setCambia}){
         setCambia(true);*/
 
         setEvent(id);
-        navigate("/event");
+        sessionStorage.setItem('id', id);
+        id && navigate("/event");
     }
 
     const ora = moment(evento.ora, 'HH:mm:ss').format('HH:mm');
