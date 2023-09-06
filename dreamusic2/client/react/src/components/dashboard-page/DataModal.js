@@ -76,7 +76,7 @@ function InsertDataModal({show, setShow, getter, type})
   return(
     <Modal show={show} onHide={()=>setShow(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>{type === "musician" ? <span>Nuovo musicista</span> : <span>Nuovo evento</span>}</Modal.Title>
+        <Modal.Title>{type === "musician" ? "Nuovo musicista" : "Nuovo evento"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
