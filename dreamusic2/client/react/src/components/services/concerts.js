@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import EventContext from "./EventHandler";
-
 export async function fetchConcerts() {
     try {
         const response = await fetch('http://localhost:8000/api/concert/index', { method: "GET" });

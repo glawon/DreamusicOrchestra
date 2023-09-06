@@ -1,3 +1,17 @@
+export async function fetchImages()
+{
+    try {
+        const response = await fetch('http://localhost:8000/api/images/gallery', { method: "GET" });
+        const data = await response.json();
+        //console.log("Dati:", data.gallery);
+        return data.gallery;
+    } catch (error) {
+        alert("Errore nel caricare i musicisti: ", error);
+        return null;
+    }
+}
+
+//musicisti
 export async function fetchMusicians()
 {
     try {
@@ -98,16 +112,23 @@ export async function createMusician(musician)
     })
 }
 
+//eventi
 export async function createEvent(event)
 {
+    const form = new FormData();
+    form.append('id', event.id);
+    form.append('nome', event.nome);
+    form.append('data', event.data);
+    form.append('ora', event.ora);
+    form.append('citta', event.citta);
+    form.append('teatro', event.teatro);
+    form.append('programma', event.programma);
+    form.append('locandina', event.locandina);
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8000/api/concert/store',
+        fetch('http://localhost:8000/api/concert/store?_method=PUT',
         {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(event)
+            body: form
         })
         .then(response => {
             if(!response.ok) 
@@ -127,14 +148,21 @@ export async function createEvent(event)
 export async function updateEvent(event)
 {   
     const id = event.id;
+    const form = new FormData();
+    form.append('id', event.id);
+    form.append('nome', event.nome);
+    form.append('data', event.data);
+    form.append('ora', event.ora);
+    form.append('citta', event.citta);
+    form.append('teatro', event.teatro);
+    form.append('programma', event.programma);
+    form.append('locandina', event.locandina);
+
     return new Promise((resolve, reject) => {
         fetch(`http://localhost:8000/api/concert/${id}/update`,
         {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(event)
+        method: "POST",
+        body: form
         })
         .then(response => {
             if (!response.ok) {
@@ -175,13 +203,14 @@ export async function deleteEvents(event)
     })
 }
 
-export async function fetchImages()
+//biglietti
+export async function fetchTickets()
 {
     try {
-        const response = await fetch('http://localhost:8000/api/images/gallery', { method: "GET" });
+        const response = await fetch('http://localhost:8000/api/ticket-user/index', { method: "GET" });
         const data = await response.json();
-        //console.log("Dati:", data.gallery);
-        return data.gallery;
+        console.log("Dati:", data);
+        return data;
     } catch (error) {
         alert("Errore nel caricare i musicisti: ", error);
         return null;

@@ -102,8 +102,8 @@ function InsertDataModal({show, setShow, getter, type})
             <Form.Control className="autofocusCustom" type="time" autofocus onChange={(e) => handleTimeChange(e)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="input6">
-            <Form.Label>Programma</Form.Label>
-            <textarea className="autofocusCustom" autofocus onChange={(e) => handleProgramChange(e)}></textarea>
+            <Form.Label>Programma</Form.Label> <br/>
+            <textarea style={{width:"100%", minHeight:"5rem"}} className="autofocusCustom" autofocus onChange={(e) => handleProgramChange(e)}></textarea>
           </Form.Group>
           </>
           }
@@ -116,9 +116,9 @@ function InsertDataModal({show, setShow, getter, type})
       <Modal.Footer>
         {success &&
           <span style={{color:"green"}}>Musicista aggiunto con successo!</span>
-        }
-        <button className="btn btn-danger" onClick={()=>{setShow(false); setSuccess(false)}}>Close</button>
+        }  
         <button className="btn btnCustom" onClick={postMusician}>Salva</button>
+        <button className="btn btn-danger" onClick={()=>{setShow(false); setSuccess(false)}}>Chiudi</button>
       </Modal.Footer>
     </Modal>
   );

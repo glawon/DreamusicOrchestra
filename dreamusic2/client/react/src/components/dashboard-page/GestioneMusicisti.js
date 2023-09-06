@@ -96,9 +96,12 @@ export default function GestioneMusicisti(){
 
     return(
         <div className = "container-fluid py-4 px-0 mt-5" id="#about">
-            <h3 className = "title text">Musicisti <i className="bi bi-music-note-beamed"></i></h3>
+            {!musicians ?
+                "Caricamento..."
+            :
+            <><h3 className = "title text">Musicisti <i className="bi bi-music-note-beamed"></i></h3>
             <button className ="btn btnCustom mb-3" onClick={()=>{setShowModal(true); console.log("Modal:"+showModal)}}>Aggiungi</button>
-            <InsertDataModal show={showModal} setShow={setShowModal} getMusicians={getMusicians}/>
+            <InsertDataModal show={showModal} setShow={setShowModal} getMusicians={getMusicians} type={"musician"}/>
             <Table responsive striped bordered variant="dark">
                 <thead>
                     <tr>
@@ -170,7 +173,8 @@ export default function GestioneMusicisti(){
                     );
                 })}
                 </tbody>
-            </Table>   
+            </Table></>  
+            }        
         </div>
     );
 }

@@ -3,11 +3,11 @@ import { useState } from 'react';
 import GestioneMusicisti from './dashboard-page/GestioneMusicisti';
 import GestioneEventi from './dashboard-page/GestioneEventi';
 import GestioneBiglietti from './dashboard-page/GestioneBiglietti';
+import GestioneUtenti from './dashboard-page/GestioneUtenti';
 import Lista from './dashboard-page/Lista';
-import eventsBack from '../externals/gallery2.jpg';
 
 function Dashboard(){
-    const [state, setState] = useState({aboutShow: false, eventShow: false, ticketShow: false});
+    const [state, setState] = useState({aboutShow: false, eventShow: false, ticketShow: false, userShow: false});
     
     return(
         <div className="container-fluid pt-5">
@@ -21,7 +21,9 @@ function Dashboard(){
             {state.ticketShow &&
                 <GestioneBiglietti/>
             }
-            
+            {state.userShow &&
+                <GestioneUtenti/>
+            }    
         </div>
         
     );

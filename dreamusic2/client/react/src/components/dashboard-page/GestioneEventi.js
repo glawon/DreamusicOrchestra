@@ -1,6 +1,7 @@
 import Table from 'react-bootstrap/esm/Table';
 import Alert from 'react-bootstrap/Alert';
 import { useEffect, useState } from 'react';
+import moment from 'moment';
 import { fetchConcerts } from '../services/concerts';
 import { updateEvent, deleteEvents } from '../services/admin';
 import InsertDataModal from './DataModal';
@@ -22,10 +23,9 @@ export default function GestioneEventi(){
             ({ id: event.id, modifica: false, alertShow: false })
             ));
         } catch (error) {
-            alert("Errore nel caricare i musicisti: ", error);
+            alert("Errore nel caricare gli eventi: ", error);
         }
       }
-
       
     function handleModificaToggle(event, stato) {
         setEventStates((prevStates) =>
@@ -36,8 +36,7 @@ export default function GestioneEventi(){
         {
             console.log("Sto aggiornando: ", eventData);
             updateEvent(eventData);
-        }
-            
+        }            
     }
       
     function handleNameChange(event, id)
@@ -45,7 +44,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.nome = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, immagine: updated.immagine});
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
         setEvents([...events, updated]);
     }
 
@@ -54,7 +53,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.data = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, immagine: updated.immagine});
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
         setEvents([...events, updated]);
     }
     
@@ -63,7 +62,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.ora = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, immagine: updated.immagine});
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
         setEvents([...events, updated]);
     }
 
@@ -77,7 +76,7 @@ export default function GestioneEventi(){
             console.log(updated);
             setEvents([...events, updated]);
             setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-                citta: updated.citta, teatro: updated.teatro, immagine: file});
+                citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: file});
         }
     }
 
@@ -86,7 +85,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.citta = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, immagine: updated.immagine});
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
         setEvents([...events, updated]);
     }
 
@@ -95,7 +94,16 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.teatro = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, immagine: updated.immagine});
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEvents([...events, updated]);
+    }
+
+    function handleProgramChange(event, id)
+    {
+        let updated = events.find((m) => m.id === id);
+        updated.programma = event.target.value;
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
         setEvents([...events, updated]);
     }
 
@@ -120,10 +128,12 @@ export default function GestioneEventi(){
     }, []);
 
     return(
-        <div className = "container-fluid py-4 px-0 mt-5" id="#about">
-            <h3 className = "title text">Eventi <i className="bi bi-music-note-beamed"></i></h3>
+        <div className = "container-fluid py-4 px-0 mt-5" id="#events">
+            {!events ? "Caricamento..."
+            :
+            <><h3 className = "title text">Eventi <i className="bi bi-mic-fill"></i></h3>
             <button className ="btn btnCustom mb-3" onClick={()=>{setShowModal(true); console.log("Modal:"+showModal)}}>Aggiungi</button>
-            <InsertDataModal show={showModal} setShow={setShowModal} getter={getEvents}/>
+            <InsertDataModal show={showModal} setShow={setShowModal} getter={getEvents} type={"event"}/>
             <Table responsive striped bordered variant="dark">
                 <thead>
                     <tr>
@@ -131,6 +141,7 @@ export default function GestioneEventi(){
                         <th>Data</th>
                         <th>Ora</th>
                         <th colspan="2">Luogo</th> {/*città-teatro*/}
+                        <th>Programma</th>
                         <th>Locandina</th>
                         <th colSpan={3}></th>
                     </tr>
@@ -146,25 +157,25 @@ export default function GestioneEventi(){
                                     onChange={(e) => {handleNameChange(e, event.id)}}
                                     value={event.nome}/>
                                     ) : (
-                                    <span className='names'>{event.nome}</span>
+                                    <span>{event.nome}</span>
                                 )}
                             </td>
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
                                     onChange={(e) => {handleDateChange(e, event.id)}}
-                                    value={event.data}/>
+                                    value={moment(event.data, 'yyyy/mm/DD').format('DD/mm/yyyy')}/>
                                     ) : (
-                                    <span className='names'>{event.data}</span>
+                                    <span>{moment(event.data, 'yyyy/mm/DD').format('DD/mm/yyyy')}</span>
                                 )}
                             </td>
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
                                     onChange={(e) => {handleTimeChange(e, event)}}
-                                    value={event.ora}/>
+                                    value={moment(event.ora, 'HH:mm:ss').format('HH:mm')}/>
                                     ) : (
-                                    <span className='names'>{event.ora}</span>
+                                    <span>{moment(event.ora, 'HH:mm:ss').format('HH:mm')}</span>
                                 )}
                             </td>
                             <td>
@@ -183,6 +194,15 @@ export default function GestioneEventi(){
                                     value={event.teatro}/>
                                     ) : (
                                     <span className='names'>{event.teatro}</span>
+                                )}
+                            </td>
+                            <td>
+                                {eventState.modifica ? (
+                                    <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
+                                    onChange={(e) => {handleProgramChange(e, event)}}
+                                    value={event.programma}/>
+                                    ) : (
+                                    <span>[...]</span>
                                 )}
                             </td>
                             <td>
@@ -214,7 +234,8 @@ export default function GestioneEventi(){
                     );
                 })}
                 </tbody>
-            </Table>   
+            </Table></>
+            }   
         </div>
     );
 }

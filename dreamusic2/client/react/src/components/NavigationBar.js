@@ -54,9 +54,9 @@ function NavigationBar({setUser, setLogged, user, login}){
                         <li className="nav-item">
                             <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="gallery" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Gallery</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                         <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="shop" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Shop</Link>
-                        </li>
+                        </li> */}
                     </Nav>
                     <Nav className="navbar-nav ms-auto">
                         {login && user.ruolo == "admin" &&
@@ -69,11 +69,11 @@ function NavigationBar({setUser, setLogged, user, login}){
                                 <Nav.Link href="/user" className="nav-link">{user.nome} {user.cognome}</Nav.Link>
                             </li>
                         }
-                        {login && user.ruolo == "user" &&
+                        {/* {login && user.ruolo == "user" &&
                             <li className="nav-item">
                                 <Nav.Link href="/cart" className="nav-link"><i className="bi bi-cart2"></i></Nav.Link>
                             </li>
-                        }
+                        } */}
                         
                         {login &&
                             <li className="nav-item">

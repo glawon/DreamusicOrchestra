@@ -26,19 +26,14 @@ export async function loginUser(credentials, type) {
     })
 }
 
-
-export function getLogin(){
-    console.log("Sistemare");
-    /*fetch('http://localhost:8000/api/user/login', {method:"GET"})
-        .then((response) => response.json())*/
+export async function fetchUsers() {
+    try {
+        const response = await fetch('http://localhost:8000/api/user/index', { method: "GET" });
+        const data = await response.json();
+        console.log(data.users);
+        return data.users;
+    } catch (error) {
+        alert("Errore nel caricare gli utenti: ", error);
+        return null;
+    }
 }
-
-/*function Users()
-{
-    const [users, setUsers] = useState();
-    return(
-
-    );
-}
-
-export default Users;*/

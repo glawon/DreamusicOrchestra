@@ -37,10 +37,10 @@ function Home({eventi, logo, setEventId, setCambia, musicians}){
               <section className="section bg-image py-5" id="gallery">
                 <Gallery />
               </section>
-              <section className="section bg-image py-5" id="shop" style={{backgroundImage:`linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1)), url(${image}`, backgroundPosition:"center",
+              {/* <section className="section bg-image py-5" id="shop" style={{backgroundImage:`linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1)), url(${image}`, backgroundPosition:"center",
         backgroundSize:"cover", backgroundRepeat:"no-repeat", height:"500px"}}>
                 <ShopPreview />
-              </section>
+              </section> */}
         </>
       )
 }

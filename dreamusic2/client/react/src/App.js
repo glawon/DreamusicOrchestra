@@ -64,19 +64,8 @@ function App(){
     //gestione utenti
     const [user, setUser] = useState({id:"", nome:"", cognome:"", email:"", password:""});
     const [logged, setLogged] = useState(false);
-    
-    /*function handleLogin()
-    {
-      console.log("Primo ingresso nella handleLogin");
-      setUser(newUser);
-      setLogged(true);
-      console.log(user);
-      console.log(logged);
-    }*/
 
     return (
-    //controllo dal back-end: loading fin quando non è arrivato tutto OPPURE progression nelle immagini degli eventi finché non arriva il messaggio
-
     <>
       <div className="page">
         <NavigationBar
