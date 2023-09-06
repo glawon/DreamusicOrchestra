@@ -13,22 +13,20 @@ export async function fetchMusicians()
 export async function updateMusician(musician)
 {   
     const id = musician.id;
-    //const FormData = require('form-data');
     const form = new FormData();
-
     form.append('id', musician.id);
     form.append('nome', musician.nome);
     form.append('cognome', musician.cognome);
     form.append('strumento', musician.strumento);
     form.append('immagine', musician.immagine);
 
+    console.log([...form.entries()]);
+
+
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/musicians/${id}/update`,
+        fetch(`http://localhost:8000/api/musicians/${id}/update?_method=PUT`,
         {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
+            method: "POST",
             body: form
         })
         .then(response => {
@@ -72,14 +70,18 @@ export async function deleteMusician(musician)
 
 export async function createMusician(musician)
 {
+    const form = new FormData();
+    form.append('id', musician.id);
+    form.append('nome', musician.nome);
+    form.append('cognome', musician.cognome);
+    form.append('strumento', musician.strumento);
+    form.append('immagine', musician.immagine);
+
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8000/api/musicians/store',
+        fetch('http://localhost:8000/api/musicians/store?_method=PUT',
         {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(musician)
+            body: form
         })
         .then(response => {
             if(!response.ok) 
