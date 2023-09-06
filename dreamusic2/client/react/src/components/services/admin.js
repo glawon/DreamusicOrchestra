@@ -13,14 +13,14 @@ export async function fetchMusicians()
 export async function updateMusician(musician)
 {   
     const id = musician.id;
-    const FormData = require('form-data');
+    //const FormData = require('form-data');
     const form = new FormData();
 
     form.append('id', musician.id);
     form.append('nome', musician.nome);
     form.append('cognome', musician.cognome);
     form.append('strumento', musician.strumento);
-    form.append('immagine', musician.immagine, { filename: 'nome_file.jpg' });
+    form.append('immagine', musician.immagine);
 
     return new Promise((resolve, reject) => {
         fetch(`http://localhost:8000/api/musicians/${id}/update`,
@@ -178,7 +178,7 @@ export async function fetchImages()
     try {
         const response = await fetch('http://localhost:8000/api/images/gallery', { method: "GET" });
         const data = await response.json();
-        console.log("Dati:", data.gallery);
+        //console.log("Dati:", data.gallery);
         return data.gallery;
     } catch (error) {
         alert("Errore nel caricare i musicisti: ", error);

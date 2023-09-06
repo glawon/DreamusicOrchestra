@@ -30,11 +30,15 @@ function InsertDataModal({show, setShow, getter, type})
 
   function handlePicChange(e)
   {
+    
     const file = e.target.files[0];
     let foto;
     if(file)
         foto = URL.createObjectURL(file);
-    setMusician({...musician, foto: e.target.value});
+    if(type === "musician")
+      setMusician({...musician, foto: file});
+    else if(type === "event")
+      setEvento({...evento, locandina: file});
   }
 
   function handleCityChange(e)
@@ -72,7 +76,7 @@ function InsertDataModal({show, setShow, getter, type})
   return(
     <Modal show={show} onHide={()=>setShow(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Nuovo musicista</Modal.Title>
+        <Modal.Title>{type === "musician" ? <span>Nuovo musicista</span> : <span>Nuovo evento</span>}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -104,7 +108,7 @@ function InsertDataModal({show, setShow, getter, type})
           </>
           }
           <Form.Group className="mb-3" controlId="foto" onChange={(e) => handlePicChange(e)}>
-            <Form.Label>Foto</Form.Label>
+            <Form.Label>{type === "musician" ? <span>Foto</span> : <span>Locandina</span>}</Form.Label>
             <Form.Control type="file" name="foto" accept="image/png, image/jpeg"/>
           </Form.Group>
         </Form>

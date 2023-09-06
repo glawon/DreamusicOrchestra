@@ -57,7 +57,9 @@ export default function GestioneMusicisti(){
     function handleInstrumentChange(event, id)
     {
         let updated = musicians.find((m) => m.id === id);
+        console.log("Trovato:", updated);
         updated.strumento = event.target.value;
+        console.log("Sto cambiando");
         setMusicianData({id: updated.id, nome: updated.nome, cognome: updated.cognome, strumento: updated.strumento, immagine: updated.immagine});
         setMusicians([...musicians, updated]);
     }
@@ -135,7 +137,7 @@ export default function GestioneMusicisti(){
                             <td>
                                 {musicianState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
-                                    onChange={(e) => {handleInstrumentChange(e, musician)}}
+                                    onChange={(e) => {handleInstrumentChange(e, musician.id)}}
                                     value={musician.strumento}/>
                                     ) : (
                                     <span className='names'>{musician.strumento}</span>

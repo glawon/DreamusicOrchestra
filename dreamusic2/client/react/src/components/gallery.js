@@ -38,8 +38,8 @@ function Gallery(){
                 } catch (error) {
                     alert("Errore nel caricare le immagini: ", error);
                 }
-              }
-              getImages();
+            }
+                getImages();
         }, [])
 
     return (
@@ -51,7 +51,7 @@ function Gallery(){
             {
                 return (
                     <Carousel.Item>
-                        <img src={i} className="img-fluid w-25 text-center" alt=""/>
+                        <img src={i.percorso} className="img-fluid w-50 text-center" alt=""/>
                     </Carousel.Item>
                 )
             })
