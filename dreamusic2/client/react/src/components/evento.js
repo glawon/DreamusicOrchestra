@@ -1,18 +1,15 @@
 import React, {Component, useState, useEffect, useContext} from 'react';
 import moment from 'moment';
-import { fetchSingle } from './services/concerts';
+import { fetchConcerts, fetchSingle } from './services/concerts';
 import { useNavigate } from 'react-router-dom';
 import EventContext from './services/EventHandler';
 import "../App.css";
 
-function Evento({evento, setEventId, setCambia}){
+function Evento({evento}){
     const navigate = useNavigate();
     const { setEvent } = useContext(EventContext);
-    //sistemare con un'altra funzione di App che cambia direttamente lì lo stato
-    function handleClick(id){
-        /*setEventId(id);
-        setCambia(true);*/
 
+    function handleClick(id){
         setEvent(id);
         sessionStorage.setItem('id', id);
         id && navigate("/event");
@@ -35,7 +32,20 @@ function Evento({evento, setEventId, setCambia}){
     );
 }
 
-function Eventi({eventi, setEventId, setCambia}){
+function Eventi(){
+    
+    const [eventi, setEventi] = useState([]);
+    useEffect(() => {
+      async function getConcerts() {
+        try {
+            const concerts = await fetchConcerts();
+            setEventi(concerts);
+        } catch (error) {
+            alert("Errore nel caricare i concerti: ", error);
+        }
+      }
+      getConcerts();
+    }, []);
 
     return(
         <>
@@ -45,9 +55,7 @@ function Eventi({eventi, setEventId, setCambia}){
             {eventi.map(event => {
                 return <Evento
                 key={event.id}
-                evento={event}
-                setCambia={setCambia}
-                setEventId={setEventId}/>
+                evento={event}/>
             })}
             </div>
         </div></>);

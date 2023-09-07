@@ -3,12 +3,14 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-scroll/modules';
 import { useLocation, useNavigate } from "react-router-dom";
-import { getLogin } from './services/user';
-import { useState } from 'react';
+import { fetchOneUser, getLogin } from './services/user';
+import { useState, useEffect } from 'react';
 
 
-function NavigationBar({setUser, setLogged, user, login}){
-    const navigate = useNavigate();
+function NavigationBar({login, setLogin}){
+    //const navigate = useNavigate();
+    //const [login, setLogin] = useState(false);
+    const [user, setUser] = useState()
     
     function handleClick(sectionId){
         if(splitLocation[1] !== "")
@@ -27,11 +29,25 @@ function NavigationBar({setUser, setLogged, user, login}){
 
     function handleLogout(){
         sessionStorage.removeItem("userID");
+        setUser(null);
+        setLogin(false);
     }
 
     const location = useLocation();
     const {pathname} = location;
     const splitLocation = pathname.split("/");
+
+    useEffect(()=>{
+            const id = sessionStorage.getItem('userID');
+            if(id)
+                setLogin(true);
+            if(login === true)
+            {
+                fetchOneUser(id)
+                .then(data=>{setUser(data)});
+            }   
+        //setLogin(true);
+    }, [login, setUser])
 
     return(
         <Navbar expand="lg" className="sticky-top bg-body-tertiary mb-0" data-bs-theme="dark">
@@ -59,12 +75,12 @@ function NavigationBar({setUser, setLogged, user, login}){
                         </li> */}
                     </Nav>
                     <Nav className="navbar-nav ms-auto">
-                        {login && user.ruolo == "admin" &&
+                        {login===true && user && user.ruolo == "admin" &&
                             <li className="nav-item">
                                 <Nav.Link href="/dashboard" className="nav-link">Dashboard</Nav.Link>
                             </li>
                         }
-                        {login && user.ruolo == "user" &&
+                        {login===true && user && user.ruolo == "user" &&
                             <li className="nav-item">
                                 <Nav.Link href="/user" className="nav-link">{user.nome} {user.cognome}</Nav.Link>
                             </li>
@@ -75,17 +91,16 @@ function NavigationBar({setUser, setLogged, user, login}){
                             </li>
                         } */}
                         
-                        {login &&
+                        {login===true && user &&
                             <li className="nav-item">
                                 <Nav.Link href="/" className="nav-link" onClick={handleLogout}>Esci</Nav.Link>
                             </li>
                         }
-                        {!login &&
+                        {!login&&
                             <li className="nav-item">
                                 <Nav.Link href="/login" className="nav-link">Accedi</Nav.Link>
                             </li>
                         }
-                        
                     </Nav> 
                 </Navbar.Collapse>  
             </div>

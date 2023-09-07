@@ -37,7 +37,7 @@ function SignIn({setUser, setLogged}){
                 setUser(user.user);
                 accessToken = user.token;
                 setAuth({user, accessToken});
-                setLogged(user.token);
+                setLogged(true);
                 if(user.token)
                 {
                     sessionStorage.setItem("userID", user.user.id);

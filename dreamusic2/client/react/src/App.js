@@ -20,33 +20,27 @@ import dreamLogo from "./externals/logo_dreamusic.png";
 import UserArea from './components/UserArea';
 
 function App(){
-  const navigate = useNavigate();
+  //CODICE COMMENTATO: POSSIBILE ELIMINARE
+  //const navigate = useNavigate();
   //gestione eventi
-    const [eventi, setEventi] = useState([]);
-    useEffect(() => {
-      async function getConcerts() {
-        try {
-            const concerts = await fetchConcerts();
-            setEventi(concerts);
-        } catch (error) {
-            alert("Errore nel caricare i concerti: ", error);
-        }
-      }
-      getConcerts();
-    }, []);
+    // const [eventi, setEventi] = useState([]);
+    // useEffect(() => {
+    //   async function getConcerts() {
+    //     try {
+    //         const concerts = await fetchConcerts();
+    //         setEventi(concerts);
+    //     } catch (error) {
+    //         alert("Errore nel caricare i concerti: ", error);
+    //     }
+    //   }
+    //   getConcerts();
+    // }, []);
 
-    const[eventId, setEventId] = useState(-1);
-    const[event, setEvent] = useState();
-    const[cambia, setCambia] = useState(false);
-
-    /*SISTEMARE QUESTA FUNZIONE
-    function getId(id)
-    {
-      setEventId(id);
-      console.log("Id:");
-    }*/
+    // const[eventId, setEventId] = useState(-1);
+    // const[event, setEvent] = useState();
+    // const[cambia, setCambia] = useState(false);
     
-    if(cambia)
+    /*if(cambia)
     {
       setCambia(false);
       async function getSingle(eventId) {
@@ -60,7 +54,7 @@ function App(){
         }
       }
       getSingle(eventId);
-    }
+    }*/
 
     //gestione utenti
     const [user, setUser] = useState({id:"", nome:"", cognome:"", email:"", password:""});
@@ -70,16 +64,16 @@ function App(){
     <>
       <div className="page">
         <NavigationBar
-        user={user} login={logged} setUser={setUser} setLogged={setLogged}/>
+        login={logged} setLogin={setLogged}/>
         <div className="bigContainer">
           <Routes>
-            <Route path="/" element={<Home logo={dreamLogo} eventi={eventi} setEventId={setEventId} setCambia={setCambia}/>}/>  
+            <Route path="/" element={<Home logo={dreamLogo}/>}/>  
             <Route path="/cart" element={<Cart user={user}/>}/>
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/user" element={<UserArea/>}/>
-            <Route path="/event" element={<EventProgram evento={event}/>}/>
+            <Route path="/event" element={<EventProgram/>}/>
           </Routes>
         </div>
         <div className="container-fluid">
