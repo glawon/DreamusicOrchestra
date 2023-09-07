@@ -36,9 +36,9 @@ function InsertDataModal({show, setShow, getter, type})
     if(file)
         foto = URL.createObjectURL(file);
     if(type === "musician")
-      setMusician({...musician, foto: file});
+      setMusician({...musician, immagine: foto});
     else if(type === "event")
-      setEvento({...evento, locandina: file});
+      setEvento({...evento, locandina: foto});
   }
 
   function handleCityChange(e)
@@ -70,7 +70,8 @@ function InsertDataModal({show, setShow, getter, type})
   {
     createMusician(musician)
     .then(() => {setSuccess(true); getter()})
-    .catch(error => {setSuccess(false); alert("Errore nella creazione: ", error)});
+    .catch(error => {setSuccess(false); console.error("Errore nella creazione:", error); // Logga l'errore effettivo
+    alert("Errore nella creazione: " + error.message); });
   }
 
   return(

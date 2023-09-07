@@ -17,6 +17,7 @@ import Login from './components/Login';
 
 import logo from "./externals/logo2.png";
 import dreamLogo from "./externals/logo_dreamusic.png";
+import UserArea from './components/UserArea';
 
 function App(){
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ function App(){
             <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/shop" />
+            <Route path="/user" element={<UserArea/>}/>
             <Route path="/event" element={<EventProgram evento={event}/>}/>
           </Routes>
         </div>

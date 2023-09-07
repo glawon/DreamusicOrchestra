@@ -6,8 +6,6 @@ import Table from "react-bootstrap/esm/Table";
 export default function GestioneBiglietti()
 {
     const [tickets, setTickets] = useState();
-    const [admins, setAdmins] = useState(0);
-    const [stdtickets, setStdtickets] = useState(0);
 
     async function getTickets() {
         try {
@@ -15,7 +13,7 @@ export default function GestioneBiglietti()
             console.log(tickets);
             setTickets(tickets);
         } catch (error) {
-            alert("Errore nel caricare gli utenti: ", error);
+            alert("Errore nel caricare i biglietti: ", error);
         }
       }
     
@@ -27,9 +25,8 @@ export default function GestioneBiglietti()
         <div className = "container-fluid py-4 px-0 mt-5" id="#tickets">
             <h3 className = "title text">Biglietti <i className="bi bi-ticket-detailed"></i></h3>
             {!tickets ? (
-                <span>Caricamento</span>
+                <span>Caricamento...</span>
             ) : (
-                
                 <Table responsive striped bordered variant="dark">
                     <tbody>
                     <tr>
@@ -46,6 +43,7 @@ export default function GestioneBiglietti()
                         </tr>
                         {tickets.map((ticket) => {
                         return (
+                            ticket.ticket.concert &&
                             <tr className="rowCustom mb-0 pb-0" key={ticket.id}>
                                 <td>
                                     {ticket.ticket.concert.nome}
@@ -65,7 +63,7 @@ export default function GestioneBiglietti()
                                 <td>
                                     {ticket.quantita}
                                 </td>
-                            </tr>        
+                            </tr> 
                         );
                     })}
                     </tbody>

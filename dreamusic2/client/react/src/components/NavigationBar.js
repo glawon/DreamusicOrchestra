@@ -25,8 +25,8 @@ function NavigationBar({setUser, setLogged, user, login}){
         });      
     }
 
-    function setNavBar(){
-
+    function handleLogout(){
+        sessionStorage.removeItem("userID");
     }
 
     const location = useLocation();
@@ -77,7 +77,7 @@ function NavigationBar({setUser, setLogged, user, login}){
                         
                         {login &&
                             <li className="nav-item">
-                                <Nav.Link href="/" className="nav-link">Esci</Nav.Link>
+                                <Nav.Link href="/" className="nav-link" onClick={handleLogout}>Esci</Nav.Link>
                             </li>
                         }
                         {!login &&

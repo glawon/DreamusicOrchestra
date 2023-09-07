@@ -121,7 +121,6 @@ function EventProgram(){
         fetchSingle(id)
         .then(response => {console.log("Dati dalla fetch: ", response); setEvento(response)})
         .catch(err => alert("Errore nel caricamento del concerto", err));
-
       }, []);
       
     return(

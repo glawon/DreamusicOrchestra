@@ -3,6 +3,7 @@ import Alert from 'react-bootstrap/Alert';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { fetchConcerts } from '../services/concerts';
+import { urlToBlob } from '../services/admin';
 import { updateEvent, deleteEvents } from '../services/admin';
 import InsertDataModal from './DataModal';
 import "../../App.css";
@@ -10,22 +11,37 @@ import "../../App.css";
 export default function GestioneEventi(){
     const [events, setEvents] = useState([]);
     const [eventStates, setEventStates] = useState([]);
-    const [eventData, setEventData] = useState({id: -1, nome:"", data:"", ora:"", immagine: null});
+    const [eventData, setEventData] = useState({id: -1, nome:"", data:"", ora:"", locandina: null});
     const [show, setShow] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
     async function getEvents() {
         try {
             const events = await fetchConcerts();
-            console.log(events);
+            //console.log(events);
             setEvents(events);
             setEventStates(events.map((event) =>
             ({ id: event.id, modifica: false, alertShow: false })
             ));
+
+            const convertedEvents = await Promise.all(events.map(async (event) => {
+                if (event && event.locandina) {
+                    const imageUrl = event.locandina;
+                    let converted = await urlToBlob(imageUrl); // Attendiamo la conversione
+                    console.log("Convertita: ", converted);
+                    return { ...event, locandina: converted, locandinaUrl: imageUrl };
+                } else {
+                    console.log("URL immagine non presente nei dati.");
+                    return event;
+                }
+            }));
+            console.log("Eventi dopo la conversione:", convertedEvents);
+            setEvents(convertedEvents);
+
         } catch (error) {
             alert("Errore nel caricare gli eventi: ", error);
         }
-      }
+    }
       
     function handleModificaToggle(event, stato) {
         setEventStates((prevStates) =>
@@ -43,8 +59,8 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.nome = event.target.value;
-        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+            teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
         setEvents([...events, updated]);
     }
 
@@ -52,8 +68,8 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.data = event.target.value;
-        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
         setEvents([...events, updated]);
     }
     
@@ -61,8 +77,8 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.ora = event.target.value;
-        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
         setEvents([...events, updated]);
     }
 
@@ -72,11 +88,12 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         if(file)
         {
-            updated.immagine = URL.createObjectURL(file);
+            updated.locandina = URL.createObjectURL(file);
+            updated.locandinaUrl = updated.locandina;
             console.log(updated);
             setEvents([...events, updated]);
             setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-                citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: file});
+            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, locandina: file, locandinaUrl: updated.locandina});
         }
     }
 
@@ -84,8 +101,8 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.citta = event.target.value;
-        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
         setEvents([...events, updated]);
     }
 
@@ -93,8 +110,8 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.teatro = event.target.value;
-        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
         setEvents([...events, updated]);
     }
 
@@ -102,8 +119,8 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.programma = event.target.value;
-        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, immagine: updated.immagine});
+        setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
         setEvents([...events, updated]);
     }
 
@@ -172,7 +189,7 @@ export default function GestioneEventi(){
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
-                                    onChange={(e) => {handleTimeChange(e, event)}}
+                                    onChange={(e) => {handleTimeChange(e, event.id)}}
                                     value={moment(event.ora, 'HH:mm:ss').format('HH:mm')}/>
                                     ) : (
                                     <span>{moment(event.ora, 'HH:mm:ss').format('HH:mm')}</span>
@@ -181,7 +198,7 @@ export default function GestioneEventi(){
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
-                                    onChange={(e) => {handleCityChange(e, event)}}
+                                    onChange={(e) => {handleCityChange(e, event.id)}}
                                     value={event.citta}/>
                                     ) : (
                                     <span className='names'>{event.citta}</span>
@@ -190,7 +207,7 @@ export default function GestioneEventi(){
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
-                                    onChange={(e) => {handleTheaterChange(e, event)}}
+                                    onChange={(e) => {handleTheaterChange(e, event.id)}}
                                     value={event.teatro}/>
                                     ) : (
                                     <span className='names'>{event.teatro}</span>
@@ -199,7 +216,7 @@ export default function GestioneEventi(){
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
-                                    onChange={(e) => {handleProgramChange(e, event)}}
+                                    onChange={(e) => {handleProgramChange(e, event.id)}}
                                     value={event.programma}/>
                                     ) : (
                                     <span>[...]</span>
@@ -207,10 +224,10 @@ export default function GestioneEventi(){
                             </td>
                             <td>
                                 {eventState.modifica ? (
-                                    <><img src={event.immagine} style={{ width: "8em", height: "5em" }} alt="foto"/><br/>
-                                    <input type="file" name="foto" accept="image/png, image/jpeg" onChange={(e)=>handlePicChange(e, event.id)}/></>
+                                    <><img src={event.locandinaUrl} style={{ width: "8em", height: "5em" }} alt="foto"/><br/>
+                                    <input type="file" name="locandina" accept="image/png, image/jpeg" onChange={(e)=>handlePicChange(e, event.id)}/></>
                                     ) : (
-                                    <img src={event.immagine} alt="foto" style={{ width: "8em", height: "5em" }}/>
+                                    <img src={event.locandinaUrl} alt="locandina" style={{ width: "8em", height: "5em" }}/>
                                 )}
                                 
                             </td>

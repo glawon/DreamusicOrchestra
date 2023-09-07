@@ -39,7 +39,11 @@ function SignIn({setUser, setLogged}){
                 setAuth({user, accessToken});
                 setLogged(user.token);
                 if(user.token)
+                {
+                    sessionStorage.setItem("userID", user.user.id);
                     navigate("/");
+                }
+                    
                 else
                     setShow(true);
             })

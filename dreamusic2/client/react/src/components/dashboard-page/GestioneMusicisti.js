@@ -30,6 +30,7 @@ export default function GestioneMusicisti(){
             prevStates.map((state) =>
             state.id === musician.id ? { ...state, modifica: !state.modifica } : state
         ));
+        setMusicianData({id: musician.id, nome:musician.nome, cognome: musician.cognome, strumento: musician.strumento, immagine: musician.immagine});
         if(stato === "salva")
         {
             console.log("Sto aggiornando: ", musicianData);

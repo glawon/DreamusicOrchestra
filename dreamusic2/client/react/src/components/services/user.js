@@ -26,6 +26,19 @@ export async function loginUser(credentials, type) {
     })
 }
 
+export async function fetchOneUser(id)
+{
+    try {
+        const response = await fetch(`http://localhost:8000/api/user/${id}/show`, { method: "GET" });
+        const data = await response.json();
+        console.log(data.user);
+        return data.user;
+    } catch (error) {
+        alert("Errore nel caricare l'utente: ", error);
+        return null;
+    }
+}
+
 export async function fetchUsers() {
     try {
         const response = await fetch('http://localhost:8000/api/user/index', { method: "GET" });
@@ -36,4 +49,25 @@ export async function fetchUsers() {
         alert("Errore nel caricare gli utenti: ", error);
         return null;
     }
+}
+
+export async function deleteReservation(id){
+    return new Promise((resolve, reject) => {
+        fetch(`http://localhost:8000/api/ticket-user/${id}/delete`,
+        {
+            method: "DELETE"
+        })
+        .then(response => {
+            console.log("Risposta dal server:", response);
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
+    })
 }
