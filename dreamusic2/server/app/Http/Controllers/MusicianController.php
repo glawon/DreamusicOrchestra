@@ -66,21 +66,27 @@ class MusicianController extends Controller
     {
         // Caricamento e salvataggio di un'immagine
         // return $request;
-        $uploaded = $request->file('immagine');
-        
-        if ($uploaded !== null) {
-            // $uploadedFile->getClientOriginalName();
-            $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
-            $pathToStorage = 'public/musicisti/' . $imageName;
-            $uploaded->storeAs($pathToStorage);
-        } else {
-            return response()->json([
-                'message' => 'Nessun file caricato.',
-            ], 400);
+        if(is_string($request->input('immagine'))) {
+            // Si tratta di una stringa, assumi che sia già un percorso di immagine
+            $imagePath = $request->input('immagine');
+        }
+        else{
+            $uploaded = $request->file('immagine');
+            
+            if ($uploaded !== null) {
+                // $uploadedFile->getClientOriginalName();
+                $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
+                $pathToStorage = 'public/musicisti/' . $imageName;
+                $uploaded->storeAs($pathToStorage);
+                $imagePath = 'http://localhost:8000/storage/musicisti/' . $imageName;
+            } else {
+                return response()->json([
+                    'message' => 'Nessun file caricato.',
+                ], 400);
+            }
         }
 
         //creo il path da mettere nell'attributo 'immagine'
-        $imagePath = 'http://localhost:8000/storage/musicisti/' . $imageName;
         $musician = Musician::find($id);
         $musician->nome = $request->input('nome');
         $musician->cognome = $request->input('cognome');
