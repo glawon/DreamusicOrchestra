@@ -30,7 +30,6 @@ class MusicianController extends Controller
         $uploaded = $request->file('immagine');
         
         if ($uploaded !== null) {
-            // $uploadedFile->getClientOriginalName();
             $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
             $pathToStorage = 'public/musicisti/' . $imageName;
             $uploaded->storeAs($pathToStorage);

@@ -34,8 +34,8 @@ Route::controller(ConcertController::class)->prefix('concert')->group(function($
     Route::get('index', 'index'); //fatta
     Route::get('{id}/show', 'show'); //fatta
     Route::get('{id}/edit', 'edit'); //fatta
-    Route::put('{id}/update', 'update'); //NO
-    Route::post('store', 'store'); //NO
+    Route::put('{id}/update', 'update'); //fatta
+    Route::post('store', 'store'); //fatta
     Route::delete('{id}/delete', 'destroy'); //fatta
 });
 
