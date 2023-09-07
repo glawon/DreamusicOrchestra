@@ -1,8 +1,23 @@
 import { useState, useEffect } from "react";
-import { deleteReservation, fetchOneUser } from "./services/user";
+import { useNavigate } from "react-router-dom";
+import { deleteReservation, deleteUser, fetchOneUser } from "./services/user";
+import moment from 'moment';
 import Table from 'react-bootstrap/Table';
+import Alert from 'react-bootstrap/Alert';
+import SuccessNotify from "./login-page/Success";
 import "../App.css";
 import { fetchTickets } from "./services/admin";
+import { updateUser } from "./services/user";
+
+function Control({show, setShow, handleDelete, text}){
+    return(
+        <Alert className="container-fluid d-block m-0" show={show} style={{backgroundColor:"black", border:"rgb(1,1,1)"}}>
+            <Alert.Heading className="title">{text}</Alert.Heading>
+            <button className="btn btnCustom me-3" onClick={handleDelete}>Conferma</button>
+            <button className="btn btn-danger ms-3" onClick={()=>setShow(false)}>Annulla</button>
+        </Alert>
+    );
+}
 
 export default function UserArea(){
     const [user, setUser] = useState(null);
@@ -10,6 +25,9 @@ export default function UserArea(){
     const id = sessionStorage.getItem('userID');
     const [modifica, setModifica] = useState(false);
     const [show, setShow] = useState(false);
+    const [toastShow, setToastShow] = useState(false);
+
+    const navigate = useNavigate();
 
     async function getUser()
         {
@@ -31,14 +49,35 @@ export default function UserArea(){
             .catch(err => alert("Errore nel caricamento dell'utente", err));
         }
 
-    function deleteRes(id){
+    function handleDeleteRes(id){
+        setShow(true);
         deleteReservation(id)
         .then(()=>getTickets())
         .catch(err => console.error("Errore nella cancellazione della prenotazione", err));
     }
 
-    function handlePasswordChange(){
+    function handlePasswordChange(e){
+        setUser({...user, password: e.target.value});
+    }
 
+    function handleEmailChange(e){
+        setUser({...user, email: e.target.value});
+    }
+
+    function handleModifica(){
+        setModifica(!modifica);
+        if(modifica)
+        {    
+            updateUser(user)
+            .then(()=>setToastShow(true));
+        }
+    }
+
+    function handleDelete(){
+        setShow(false);
+        deleteUser(user.id);
+        sessionStorage.removeItem('user');
+        navigate("/");
     }
 
     useEffect(()=>{
@@ -52,62 +91,86 @@ export default function UserArea(){
     return(
         user && tickets &&
         <><h1 className="header pt-5">Benvenuto, {user.nome} {user.cognome}</h1>
-        <div className="col d-flex align-items-center justify-content-center py-3">
-            
-            <Table responsive>
-                <thead>
-                    <th colSpan={4}>I tuoi dati</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Nome</strong></td>
-                        <td><strong>Cognome</strong></td>
-                        <td><strong>E-mail</strong></td>
-                        <td><strong>Password</strong></td>
-                    </tr>
-                    <tr className="align-middle">
-                        <td>{user.nome}</td>
-                        <td>{user.cognome}</td>
-                        <td>{user.email}</td>
-                        <td><button type="button" className="btn btn-link text-wrap" style={{color:"black"}} onClick={handlePasswordChange}>Modifica password</button></td>
-                    </tr>
-                    <tr>
-                        <td colSpan={3}></td>
-                        <td><button type="button" className="btn btnCustom" onClick={() => setModifica(!modifica)}>{modifica? "Salva" : "Modifica"}</button></td>
-                    </tr>
-                </tbody>
-            </Table>
+        <div className="row">
+            {/* <div className="col-4 d-flex align-items-center justify-content-center py-3">
+                <SuccessNotify show={toastShow} setShow={setToastShow} header={"Profilo aggiornato"} body={""}/>
+            </div> */}
+            <div className="col d-flex align-items-center justify-content-center py-3">
+                <Table responsive bordered>
+                    <thead>
+                        <th colSpan={4}>I tuoi dati</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nome</strong></td>
+                            <td><strong>Cognome</strong></td>
+                            <td><strong>E-mail</strong></td>
+                            <td><strong>Password</strong></td>
+                        </tr>
+                        <tr className="align-middle">
+                            <td>{user.nome}</td>
+                            <td>{user.cognome}</td>
+                            {modifica ?
+                                <><td><input type="email" value={user.email} onChange={e => handleEmailChange(e)}/></td>
+                                <td><input type="password" placeholder="Nuova password"/></td></>
+                                
+                            :    
+                                <><td>{user.email}</td>
+                                <td><button type="button" className="btn btn-link text-wrap" style={{color:"black"}} onClick={e => handlePasswordChange(e)}>Modifica password</button></td></> 
+                            }
+                            
+                        </tr>
+                        <tr>
+                            {show===true ?
+                            <td colSpan={4}>
+                                <Control show={show} setShow={setShow} handleDelete={handleDelete} text="Stai eliminando l'account!"/>
+                            </td>
+                            :
+                                <><td colSpan={2}></td>
+                                <td><button type="button" className="btn btnCustom" onClick={handleModifica}>{modifica? "Salva" : "Modifica"}</button></td>
+                                <td><button type="button" className="btn btn-danger" onClick={()=>setShow(true)}>Cancella</button></td></>
+                            }                               
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
         </div>
+        
         {tickets &&
         <div className="col d-flex align-items-center justify-content-center py-3">
             
-            <Table responsive>
+            <Table responsive bordered>
                 <thead>
-                    <th colSpan={4}>Le tue prenotazioni</th>
+                    <th colSpan={5}>Le tue prenotazioni</th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Evento</strong></td>
-                        <td><strong>N. biglietti</strong></td>
+                        <td colSpan={3}><strong>Evento</strong></td>
+                        <td><strong>N.biglietti</strong></td>
+                        <td></td>
                     </tr>
-                    {tickets.map((t) =>
-                        {t.ticket.concert &&
-                            <tr className="align-middle">
-                                <td>{tickets.ticket.concert.nome}</td>
-                                <td>{tickets.quantita}</td>
-                                <td><button type="button" className="btn btn-danger" onClick={() => deleteRes(tickets.idTicket)}>Rimuovi</button></td>
-                            </tr>
-                        })
+                    { tickets.map((t) =>
+                        t.ticket.concert &&
+                        <><tr className="align-middle">
+                            <td>{t.ticket.concert.nome}</td>
+                            <td>{t.ticket.concert.citta}</td>
+                            <td>{moment(t.ticket.concert.data, 'yyyy/mm/DD').format('DD/mm/yyyy')}</td>
+                            <td>{t.quantita}</td>
+                        {show===true ?
+                            <td colSpan={4}>
+                                <Control show={show} setShow={setShow} handleDelete={()=>handleDeleteRes(t.id)} text="Stai eliminando la prenotazione"/>
+                            </td>
+                        :
+                            <td><button type="button" className="btn btn-danger" onClick={()=>setShow(true)}>Rimuovi</button></td>
+                        }                               
+                        </tr></>
+                        )
                     }
-                    <tr>
-                        <td colSpan={3}></td>
-                        <td><button type="button" className="btn btnCustom" onClick={() => setModifica(!modifica)}>{modifica? "Salva" : "Modifica"}</button></td>
-                    </tr>
+                    
                 </tbody>
             </Table>
         </div>
         }
-        
         </>
     );
 }

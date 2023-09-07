@@ -51,6 +51,54 @@ export async function fetchUsers() {
     }
 }
 
+export async function updateUser(user) {
+
+    const id = user.id;
+
+    return new Promise((resolve, reject) => {
+        fetch(`http://localhost:8000/api/user/${id}/update?_method=PUT`,
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
+    })
+}
+
+export async function deleteUser(id){
+    return new Promise((resolve, reject) => {
+        fetch(`http://localhost:8000/api/user/${id}/delete`,
+        {
+            method: "DELETE"
+        })
+        .then(response => {
+            console.log("Risposta dal server:", response);
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
+    })
+}
+
 export async function deleteReservation(id){
     return new Promise((resolve, reject) => {
         fetch(`http://localhost:8000/api/ticket-user/${id}/delete`,
