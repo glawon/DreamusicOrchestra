@@ -7,6 +7,11 @@ import { sendReservation } from "./services/concerts";
 import SuccessNotify from "./login-page/Success";
 import EventContext from "./services/EventHandler";
 import { fetchSingle } from "./services/concerts";
+import Spinner from 'react-bootstrap/Spinner';
+
+function Caricamento() {
+  return <Spinner animation="grow" variant="warning"/>;
+}
 
 function Prenotazione({id, prezzo}){
     const [success, setSuccess] = useState(false);
@@ -74,7 +79,7 @@ function Prenotazione({id, prezzo}){
             <div className="row justify-content-center pb-3">
                 <span className="text-white">Totale: {totale} €</span>
             </div>
-            <button type="button" className="btn btnCustom" onClick={handleSubmit}>Invia</button>
+            <button type="submit" className="btn btnCustom" onClick={handleSubmit}>Invia</button>
             <div className="row justify-content-center pt-3">
                 <SuccessNotify show={success} setShow={setSuccess} header={header} body={body}/>
             </div>
@@ -126,20 +131,17 @@ function EventProgram(){
     return(
         <div className="container-fluid">
         {evento.dettagli ? (
-            <Program evento={evento} />
-            ) : (
-            <p className="text-white">Caricamento in corso...</p>
-        )}
+            <><Program evento={evento} />
             <section className="bg-image m-0 px-0 py-5"
             style={{backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url(${background}`,
             backgroundPosition:"center", backgroundSize:"cover", height:"450px"}}>
-                {evento.dettagli ? (
-            <Prenotazione id={event} prezzo={evento.prezzo}/>
+                <Prenotazione id={event} prezzo={evento.prezzo}/>
+            </section></>
             ) : (
-            <p className="text-white">Caricamento in corso...</p>
-        )}
-                
-            </section>
+            <div className = "container-fluid align-content-center">
+                <Caricamento />
+            </div>
+        )}  
         </div>    
     );
 }

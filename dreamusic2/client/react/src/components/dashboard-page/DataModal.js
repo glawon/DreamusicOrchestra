@@ -118,7 +118,7 @@ function InsertDataModal({show, setShow, getter, type})
         {success &&
           <span style={{color:"green"}}>Musicista aggiunto con successo!</span>
         }  
-        <button className="btn btnCustom" onClick={postMusician}>Salva</button>
+        <button type="submit" className="btn btnCustom" onClick={postMusician}>Salva</button>
         <button className="btn btn-danger" onClick={()=>{setShow(false); setSuccess(false)}}>Chiudi</button>
       </Modal.Footer>
     </Modal>
