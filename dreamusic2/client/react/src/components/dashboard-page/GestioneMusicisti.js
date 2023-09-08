@@ -117,7 +117,7 @@ export default function GestioneMusicisti(){
                     {musicianStates.map((musicianState) => {
                     const musician = musicians.find((m) => m.id === musicianState.id);
                     return (
-                        <tr className="rowCustom mb-0 pb-0" key={musician.id}>
+                        <tr className="rowCustom mb-0 pb-0 align-middle" key={musician.id}>
                             <td>
                                 {musicianState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}

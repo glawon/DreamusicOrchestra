@@ -37,7 +37,7 @@ function SignIn({setUser, setLogged}){
                 setUser(user.user);
                 accessToken = user.token;
                 setAuth({user, accessToken});
-                setLogged(user.token);
+                setLogged(true);
                 if(user.token)
                 {
                     sessionStorage.setItem("userID", user.user.id);
@@ -85,7 +85,7 @@ function SignIn({setUser, setLogged}){
                     </div>
                     <div className="row justify-content-center">
                         <div className="col-auto mt-3 justify-content-center">
-                            <button type="button" className="btn" style={{backgroundColor:"#1d2124", color:"white"}} onClick={submitControl}>Conferma</button>
+                            <button type="submit" className="btn" style={{backgroundColor:"#1d2124", color:"white"}} onClick={submitControl}>Conferma</button>
                         </div>
                     </div>
                 </form>

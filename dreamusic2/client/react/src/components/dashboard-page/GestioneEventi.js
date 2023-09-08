@@ -167,7 +167,7 @@ export default function GestioneEventi(){
                     {eventStates.map((eventState) => {
                     const event = events.find((m) => m.id === eventState.id);
                     return (
-                        <tr className="rowCustom mb-0 pb-0" key={event.id}>
+                        <tr className="rowCustom mb-0 pb-0 align-middle" key={event.id}>
                             <td>
                                 {eventState.modifica ? (
                                     <textarea style={{resize: "none", border: "none", backgroundColor: "rgba(255,255,255,0.1)", color: "white"}}
