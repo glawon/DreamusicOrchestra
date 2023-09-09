@@ -19,12 +19,14 @@ function Control({show, setShow, handleDelete, text}){
     );
 }
 
-export default function UserArea(){
+export default function UserArea({setLogin}){
     const [user, setUser] = useState(null);
     const [tickets, setTickets] = useState([]);
     const id = sessionStorage.getItem('userID');
     const [modifica, setModifica] = useState(false);
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
+    const [showUser, setShowUser] = useState(false);
+    const [showRes, setShowRes] = useState(false);
     const [toastShow, setToastShow] = useState(false);
 
     const navigate = useNavigate();
@@ -50,7 +52,7 @@ export default function UserArea(){
         }
 
     function handleDeleteRes(id){
-        setShow(true);
+        setShowRes(true);
         deleteReservation(id)
         .then(()=>getTickets())
         .catch(err => console.error("Errore nella cancellazione della prenotazione", err));
@@ -74,9 +76,12 @@ export default function UserArea(){
     }
 
     function handleDelete(){
-        setShow(false);
+        setShowUser(false);
         deleteUser(user.id);
-        sessionStorage.removeItem('user');
+        // sessionStorage.removeItem('user');
+        sessionStorage.removeItem("userID");
+        setUser(null); 
+        setLogin(false);
         navigate("/");
     }
 
@@ -121,14 +126,14 @@ export default function UserArea(){
                             
                         </tr>
                         <tr>
-                            {show===true ?
+                            {showUser===true ?
                             <td colSpan={4}>
-                                <Control show={show} setShow={setShow} handleDelete={handleDelete} text="Stai eliminando l'account!"/>
+                                <Control show={showUser} setShow={setShowUser} handleDelete={handleDelete} text="Stai eliminando l'account!"/>
                             </td>
                             :
                                 <><td colSpan={2}></td>
                                 <td><button type="button" className="btn btnCustom" onClick={handleModifica}>{modifica? "Salva" : "Modifica"}</button></td>
-                                <td><button type="button" className="btn btn-danger" onClick={()=>setShow(true)}>Cancella</button></td></>
+                                <td><button type="button" className="btn btn-danger" onClick={()=>setShowUser(true)}>Cancella</button></td></>
                             }                               
                         </tr>
                     </tbody>
@@ -156,12 +161,12 @@ export default function UserArea(){
                             <td>{t.ticket.concert.citta}</td>
                             <td>{moment(t.ticket.concert.data, 'yyyy/mm/DD').format('DD/mm/yyyy')}</td>
                             <td>{t.quantita}</td>
-                        {show===true ?
+                        {showRes===true ?
                             <td colSpan={4}>
-                                <Control show={show} setShow={setShow} handleDelete={()=>handleDeleteRes(t.id)} text="Stai eliminando la prenotazione"/>
+                                <Control show={showRes} setShow={setShowRes} handleDelete={()=>handleDeleteRes(t.id)} text="Stai eliminando la prenotazione"/>
                             </td>
                         :
-                            <td><button type="button" className="btn btn-danger" onClick={()=>setShow(true)}>Rimuovi</button></td>
+                            <td><button type="button" className="btn btn-danger" onClick={()=>setShowRes(true)}>Rimuovi</button></td>
                         }                               
                         </tr></>
                         )

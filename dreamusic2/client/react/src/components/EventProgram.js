@@ -79,7 +79,7 @@ function Prenotazione({id, prezzo}){
             <div className="row justify-content-center pb-3">
                 <span className="text-white">Totale: {totale} €</span>
             </div>
-            <button type="submit" className="btn btnCustom" onClick={handleSubmit}>Invia</button>
+            <button type="button" className="btn btnCustom" onClick={handleSubmit}>Invia</button>
             <div className="row justify-content-center pt-3">
                 <SuccessNotify show={success} setShow={setSuccess} header={header} body={body}/>
             </div>

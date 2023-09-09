@@ -71,9 +71,9 @@ export default function GestioneUtenti(){
                                 </td>
                                 <td>
                                     {user.ruolo === "admin" ? 
-                                        <span className="names text">{user.email}</span>
+                                        <span className="text">{user.email}</span>
                                         :
-                                        <span className="names">{user.email}</span>
+                                        <span className="text">{user.email}</span>
                                     }
                                 </td>
                             </tr>        
