@@ -9,6 +9,7 @@ class Ticket extends Model
 {
     use HasFactory;
     protected $table = 'tickets';
+    protected $fillable = ['idConcerto', 'prezzo'];
     public function concert(){
         return $this->hasOne(Concert::class, 'id', 'idConcerto');
     }

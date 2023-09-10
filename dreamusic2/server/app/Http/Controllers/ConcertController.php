@@ -61,11 +61,18 @@ class ConcertController extends Controller
             'nome' => $request->input('nome'),
             'programma' => $request->input('programma'),
             'tot_posti' => $request->input('tot_posti'),
-            'biglietti_prenotati' => $request->input('biglietti_prenotati'),
+            'biglietti_prenotati' => 0,
             'locandina' => $imagePath
         ]);
+
+        $ticket = Ticket::create([
+            'idConcerto' => $concerto->id,
+            'prezzo' => $request->input('prezzo')
+        ]);
+
         return response()->json([
-            'concerto creato'=>$concerto
+            'concerto creato'=>$concerto,
+            'ticket relativo'=>$ticket
         ]);
     }
 
