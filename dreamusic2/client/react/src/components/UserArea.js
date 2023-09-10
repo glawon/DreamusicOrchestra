@@ -117,11 +117,11 @@ export default function UserArea({setLogin}){
                             <td>{user.cognome}</td>
                             {modifica ?
                                 <><td><input type="email" value={user.email} onChange={e => handleEmailChange(e)}/></td>
-                                <td><input type="password" placeholder="Nuova password"/></td></>
+                                <td><input type="password" placeholder="Nuova password" onChange={e => handlePasswordChange(e)}/></td></>
                                 
                             :    
                                 <><td>{user.email}</td>
-                                <td><button type="button" className="btn btn-link text-wrap" style={{color:"black"}} onClick={e => handlePasswordChange(e)}>Modifica password</button></td></> 
+                                <td><button type="button" className="btn btn-link text-wrap" style={{color:"black"}} onClick={()=>setModifica(!modifica)}>Modifica password</button></td></> 
                             }
                             
                         </tr>

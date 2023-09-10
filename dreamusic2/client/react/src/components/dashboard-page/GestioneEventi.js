@@ -24,19 +24,19 @@ export default function GestioneEventi(){
             ({ id: event.id, modifica: false, alertShow: false })
             ));
 
-            const convertedEvents = await Promise.all(events.map(async (event) => {
-                if (event && event.locandina) {
-                    const imageUrl = event.locandina;
-                    let converted = await urlToBlob(imageUrl); // Attendiamo la conversione
-                    console.log("Convertita: ", converted);
-                    return { ...event, locandina: converted, locandinaUrl: imageUrl };
-                } else {
-                    console.log("URL immagine non presente nei dati.");
-                    return event;
-                }
-            }));
-            console.log("Eventi dopo la conversione:", convertedEvents);
-            setEvents(convertedEvents);
+            // const convertedEvents = await Promise.all(events.map(async (event) => {
+            //     if (event && event.locandina) {
+            //         const imageUrl = event.locandina;
+            //         let converted = await urlToBlob(imageUrl); // Attendiamo la conversione
+            //         console.log("Convertita: ", converted);
+            //         return { ...event, locandina: converted, locandinaUrl: imageUrl };
+            //     } else {
+            //         console.log("URL immagine non presente nei dati.");
+            //         return event;
+            //     }
+            // }));
+            // console.log("Eventi dopo la conversione:", convertedEvents);
+            // setEvents(convertedEvents);
 
         } catch (error) {
             alert("Errore nel caricare gli eventi: ", error);
@@ -48,6 +48,8 @@ export default function GestioneEventi(){
             prevStates.map((state) =>
             state.id === event.id ? { ...state, modifica: !state.modifica } : state
         ));
+        setEventData({id: event.id, nome:event.nome, data: event.data, ora: event.ora, citta: event.citta, teatro:event.teatro, 
+            programma:event.programma, locandina: event.locandina});
         if(stato === "salva")
         {
             console.log("Sto aggiornando: ", eventData);
@@ -60,7 +62,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.nome = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-            teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
         setEvents([...events, updated]);
     }
 
@@ -69,7 +71,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.data = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
         setEvents([...events, updated]);
     }
     
@@ -78,7 +80,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.ora = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
         setEvents([...events, updated]);
     }
 
@@ -89,11 +91,11 @@ export default function GestioneEventi(){
         if(file)
         {
             updated.locandina = URL.createObjectURL(file);
-            updated.locandinaUrl = updated.locandina;
-            console.log(updated);
+            //updated.locandinaUrl = URL.createObjectURL(file);
+            console.log("Immagine:", updated);
             setEvents([...events, updated]);
-            setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora,
-            citta: updated.citta, teatro: updated.teatro, programma: updated.programma, locandina: file, locandinaUrl: updated.locandina});
+            setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+            teatro: updated.teatro, programma: updated.programma, locandina: file });
         }
     }
 
@@ -102,7 +104,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.citta = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
         setEvents([...events, updated]);
     }
 
@@ -111,7 +113,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.teatro = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
         setEvents([...events, updated]);
     }
 
@@ -120,7 +122,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.programma = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl: updated.locandinaUrl});
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
         setEvents([...events, updated]);
     }
 
@@ -157,7 +159,7 @@ export default function GestioneEventi(){
                         <th>Nome</th>
                         <th>Data</th>
                         <th>Ora</th>
-                        <th colspan="2">Luogo</th> {/*città-teatro*/}
+                        <th colspan="2">Luogo</th>
                         <th>Programma</th>
                         <th>Locandina</th>
                         <th colSpan={3}></th>
@@ -224,10 +226,10 @@ export default function GestioneEventi(){
                             </td>
                             <td>
                                 {eventState.modifica ? (
-                                    <><img src={event.locandinaUrl} style={{ width: "8em", height: "5em" }} alt="foto"/><br/>
+                                    <><img src={event.locandina} style={{ width: "8em", height: "5em" }} alt="foto"/><br/>
                                     <input type="file" name="locandina" accept="image/png, image/jpeg" onChange={(e)=>handlePicChange(e, event.id)}/></>
                                     ) : (
-                                    <img src={event.locandinaUrl} alt="locandina" style={{ width: "8em", height: "5em" }}/>
+                                    <img src={event.locandina} alt="locandina" style={{ width: "8em", height: "5em" }}/>
                                 )}
                                 
                             </td>

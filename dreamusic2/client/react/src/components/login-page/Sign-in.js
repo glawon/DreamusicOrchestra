@@ -28,12 +28,9 @@ function SignIn({setUser, setLogged}){
         }
      
         function setter(){
-            console.log("Email:"+email);
-            console.log("Password:"+password);
             let accessToken = 0;
             loginUser({email, password}, "login")
             .then(user =>{
-                console.log(user);
                 setUser(user.user);
                 accessToken = user.token;
                 setAuth({user, accessToken});

@@ -109,7 +109,6 @@ export async function createMusician(musician)
     form.append('immagine', musician.immagine);
 
     console.log("Dati inviati:", [...form.entries()]);
-    console.log(form);
 
     return new Promise((resolve, reject) => {
         fetch('http://localhost:8000/api/musicians/store',
@@ -128,7 +127,6 @@ export async function createMusician(musician)
         })
         .then(data => {
             console.log(data);
-            console.log('Musicista creato:', data.musician);
             resolve(data);
         })
         .catch(error => {reject(error)});
@@ -139,16 +137,20 @@ export async function createMusician(musician)
 export async function createEvent(event)
 {
     const form = new FormData();
-    form.append('id', event.id);
     form.append('nome', event.nome);
     form.append('data', event.data);
     form.append('ora', event.ora);
     form.append('citta', event.citta);
     form.append('teatro', event.teatro);
     form.append('programma', event.programma);
+    form.append('tot_posti', event.tot_posti);
+    form.append('prezzo', event.prezzo);
     form.append('locandina', event.locandina);
+    console.log("Dati inviati:", [...form.entries()]);
+
+
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8000/api/concert/store?_method=PUT',
+        fetch('http://localhost:8000/api/concert/store',
         {
             method: 'POST',
             body: form

@@ -102,7 +102,7 @@ export default function GestioneMusicisti(){
             :
             <><h3 className = "title text">Musicisti <i className="bi bi-music-note-beamed"></i></h3>
             <button className ="btn btnCustom mb-3" onClick={()=>{setShowModal(true); console.log("Modal:"+showModal)}}>Aggiungi</button>
-            <InsertDataModal show={showModal} setShow={setShowModal} getMusicians={getMusicians} type={"musician"}/>
+            <InsertDataModal show={showModal} setShow={setShowModal} getter={getMusicians} type={"musician"}/>
             <Table responsive striped bordered variant="dark">
                 <thead>
                     <tr>

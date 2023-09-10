@@ -39,6 +39,7 @@ function Eventi(){
       async function getConcerts() {
         try {
             const concerts = await fetchConcerts();
+            console.log("Eventi: ", concerts);
             setEventi(concerts);
         } catch (error) {
             alert("Errore nel caricare i concerti: ", error);
@@ -51,7 +52,7 @@ function Eventi(){
         <>
         <div className="container" >
             <h1 className="header align-text-center">Prossimi eventi</h1>
-            <div className = "row align-text-center mt-20">
+            <div className = "row row-cols-3 align-text-center mt-20">
             {eventi.map(event => {
                 return <Evento
                 key={event.id}

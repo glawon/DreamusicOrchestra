@@ -2,12 +2,13 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import "../../App.css";
 import { useState } from 'react';
-import { createMusician } from '../services/admin';
+import { createEvent, createMusician } from '../services/admin';
+import moment from 'moment';
 
 function InsertDataModal({show, setShow, getter, type})
 {
   const [musician, setMusician] = useState({nome:"", cognome:"", strumento:""});
-  const [evento, setEvento] = useState({nome:"", cognome:"", data:"", ora:"", citta:"", luogo:""})
+  const [evento, setEvento] = useState({nome:"", data:"", ora:"", citta:"", teatro:"", tot_posti:0, prezzo:0, programma:""})
   const [success, setSuccess] = useState(false);
 
   function handleNameChange(e)
@@ -29,16 +30,15 @@ function InsertDataModal({show, setShow, getter, type})
   }
 
   function handlePicChange(e)
-  {
-    
+  { 
     const file = e.target.files[0];
     let foto;
     if(file)
         foto = URL.createObjectURL(file);
     if(type === "musician")
-      setMusician({...musician, immagine: foto});
+      setMusician({...musician, immagine:file});
     else if(type === "event")
-      setEvento({...evento, locandina: foto});
+      setEvento({...evento, locandina: file});
   }
 
   function handleCityChange(e)
@@ -58,7 +58,8 @@ function InsertDataModal({show, setShow, getter, type})
 
   function handleTimeChange(e)
   {
-    setEvento({...evento, ora:e.target.value});
+    const ora = moment(e.target.value, 'HH:mm').format('HH:mm:ss');
+    setEvento({...evento, ora:ora});
   }
 
   function handleProgramChange(e)
@@ -66,12 +67,33 @@ function InsertDataModal({show, setShow, getter, type})
     setEvento({...evento, programma:e.target.value});
   }
 
-  function postMusician() 
+  function handleQuantityChange(e)
   {
-    createMusician(musician)
-    .then(() => {setSuccess(true); getter()})
-    .catch(error => {setSuccess(false); console.error("Errore nella creazione:", error); // Logga l'errore effettivo
-    alert("Errore nella creazione: " + error.message); });
+    setEvento({...evento, tot_posti:e.target.value});
+  }
+
+  function handlePriceChange(e)
+  {
+    setEvento({...evento, prezzo:e.target.value});
+  }
+
+  function postRes(type) 
+  {
+    if(type === "musician")
+    {
+      createMusician(musician)
+      .then(() => {setSuccess(true); getter()})
+      .catch(error => {setSuccess(false); console.error("Errore nella creazione:", error);
+      alert("Errore nella creazione: " + error.message); });
+    }
+    else if(type === "event")
+    {
+      console.log("Evento da creare: ", evento);
+      createEvent(evento)
+      .then(() => {setSuccess(true); getter()})
+      .catch(error => {setSuccess(false); console.error("Errore nella creazione:", error);
+      alert("Errore nella creazione: " + error.message); });
+    }
   }
 
   return(
@@ -94,15 +116,23 @@ function InsertDataModal({show, setShow, getter, type})
             <Form.Control className="autofocusCustom" type="text" placeholder={type === "musician" ? "Strumento" : "Luogo"} autofocus onChange={type === "musician" ? (e) => handleInstrumentChange(e) : e=> handleLocationChange(e)}/>
           </Form.Group>
           {type === "event" &&
-          <><Form.Group className="mb-3" controlId="input4">
+          <><Form.Group className="mb-3" controlId="totPosti">
+            <Form.Label>Totale posti</Form.Label> <br/>
+            <Form.Control className="autofocusCustom" type="number" placeholder="0" autofocus onChange={(e) => handleQuantityChange(e)}/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="prezzo">
+            <Form.Label>Prezzo</Form.Label>
+            <Form.Control className="autofocusCustom" type="number" autofocus onChange={(e) => handlePriceChange(e)}/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="data">
             <Form.Label>Data</Form.Label>
             <Form.Control className="autofocusCustom" type="date" autofocus onChange={(e) => handleDateChange(e)}/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="input5">
+          <Form.Group className="mb-3" controlId="ora">
             <Form.Label>Ora</Form.Label>
             <Form.Control className="autofocusCustom" type="time" autofocus onChange={(e) => handleTimeChange(e)}/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="input6">
+          <Form.Group className="mb-3" controlId="programma">
             <Form.Label>Programma</Form.Label> <br/>
             <textarea style={{width:"100%", minHeight:"5rem"}} className="autofocusCustom" autofocus onChange={(e) => handleProgramChange(e)}></textarea>
           </Form.Group>
@@ -116,9 +146,9 @@ function InsertDataModal({show, setShow, getter, type})
       </Modal.Body>
       <Modal.Footer>
         {success &&
-          <span style={{color:"green"}}>Musicista aggiunto con successo!</span>
+          <span style={{color:"green"}}>{type === "musician" ? "Musicista" : "Evento"} aggiunto con successo!</span>
         }  
-        <button type="submit" className="btn btnCustom" onClick={postMusician}>Salva</button>
+        <button type="submit" className="btn btnCustom" onClick={() => postRes(type)}>Salva</button>
         <button className="btn btn-danger" onClick={()=>{setShow(false); setSuccess(false)}}>Chiudi</button>
       </Modal.Footer>
     </Modal>

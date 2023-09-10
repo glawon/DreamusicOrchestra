@@ -35,7 +35,6 @@ function SignUp(){
         function setter(){
             let r = loginUser(credentials, "register")
             .then(user =>{
-                console.log(user);
                 setShow(true);
             })
             .catch(error =>
