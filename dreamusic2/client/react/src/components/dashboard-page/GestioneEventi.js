@@ -3,7 +3,6 @@ import Alert from 'react-bootstrap/Alert';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { fetchConcerts } from '../services/concerts';
-import { urlToBlob } from '../services/admin';
 import { updateEvent, deleteEvents } from '../services/admin';
 import InsertDataModal from './DataModal';
 import "../../App.css";
@@ -18,7 +17,7 @@ export default function GestioneEventi(){
     async function getEvents() {
         try {
             const events = await fetchConcerts();
-            //console.log(events);
+            console.log(events);
             setEvents(events);
             setEventStates(events.map((event) =>
             ({ id: event.id, modifica: false, alertShow: false })
@@ -48,6 +47,8 @@ export default function GestioneEventi(){
             prevStates.map((state) =>
             state.id === event.id ? { ...state, modifica: !state.modifica } : state
         ));
+        // setEventData({id: event.id, nome:event.nome, data: event.data, ora: event.ora, citta: event.citta, teatro:event.teatro, 
+        //     programma:event.programma, locandina: event.locandina, locandinaUrl: event.locandinaUrl});
         setEventData({id: event.id, nome:event.nome, data: event.data, ora: event.ora, citta: event.citta, teatro:event.teatro, 
             programma:event.programma, locandina: event.locandina});
         if(stato === "salva")
@@ -61,8 +62,10 @@ export default function GestioneEventi(){
     {
         let updated = events.find((m) => m.id === id);
         updated.nome = event.target.value;
+        // setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
+        // teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina, locandinaUrl:updated.locandinaUrl});
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
+            teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina});
         setEvents([...events, updated]);
     }
 
@@ -71,7 +74,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.data = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
+            teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina});
         setEvents([...events, updated]);
     }
     
@@ -80,7 +83,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.ora = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
+            teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina});
         setEvents([...events, updated]);
     }
 
@@ -90,12 +93,12 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         if(file)
         {
-            updated.locandina = URL.createObjectURL(file);
-            //updated.locandinaUrl = URL.createObjectURL(file);
+            //updated.locandina = URL.createObjectURL(file);
+            updated.locandinaUrl = URL.createObjectURL(file);
             console.log("Immagine:", updated);
             setEvents([...events, updated]);
             setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-            teatro: updated.teatro, programma: updated.programma, locandina: file });
+                teatro: updated.teatro, programma: updated.programma, locandina: file});
         }
     }
 
@@ -104,7 +107,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.citta = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina});
         setEvents([...events, updated]);
     }
 
@@ -113,7 +116,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.teatro = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina});
         setEvents([...events, updated]);
     }
 
@@ -122,7 +125,7 @@ export default function GestioneEventi(){
         let updated = events.find((m) => m.id === id);
         updated.programma = event.target.value;
         setEventData({id: updated.id, nome: updated.nome, data: updated.data, ora: updated.ora, citta: updated.citta,
-        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina });
+        teatro: updated.teatro, programma: updated.programma, locandina: updated.locandina});
         setEvents([...events, updated]);
     }
 
@@ -162,6 +165,7 @@ export default function GestioneEventi(){
                         <th colspan="2">Luogo</th>
                         <th>Programma</th>
                         <th>Locandina</th>
+                        <th>Biglietti prenotati</th>
                         <th colSpan={3}></th>
                     </tr>
                 </thead>
@@ -231,7 +235,9 @@ export default function GestioneEventi(){
                                     ) : (
                                     <img src={event.locandina} alt="locandina" style={{ width: "8em", height: "5em" }}/>
                                 )}
-                                
+                            </td>
+                            <td>
+                                <span className="text">{event.biglietti_prenotati}</span>
                             </td>
                             <td>
                                 <button className="btn btnCustom" onClick={

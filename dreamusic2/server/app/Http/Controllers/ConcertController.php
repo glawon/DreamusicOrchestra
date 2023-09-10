@@ -80,21 +80,27 @@ class ConcertController extends Controller
     {
         // return $request;
         // locandina
-        $uploaded = $request->file('locandina');
-        // return $uploaded;
-        if ($uploaded !== null) {
-
-            // $uploadedFile->getClientOriginalName();
-            $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
-            $pathToStorage = 'public/eventi/' . $imageName;
-            $uploaded->storeAs($pathToStorage);
-        } else {
-            return response()->json([
-                'message' => 'Nessun file caricato.',
-            ], 400);
+        if(is_string($request->input('locandina'))) {
+            // Si tratta di una stringa, assumi che sia già un percorso di immagine
+            $imagePath = $request->input('locandina');
         }
-        //creo il path da mettere nell'attributo 'immagine'
-        $imagePath = 'http://localhost:8000/storage/eventi/' . $imageName;
+        else {
+            $uploaded = $request->file('locandina');
+            // return $uploaded;
+            if ($uploaded !== null) {
+
+                // $uploadedFile->getClientOriginalName();
+                $imageName = $request->nome.Carbon::now()->format('Y-m-d_H-i-s') . ".jpg";
+                $pathToStorage = 'public/eventi/' . $imageName;
+                $uploaded->storeAs($pathToStorage);
+            } else {
+                return response()->json([
+                    'message' => 'Nessun file caricato.',
+                ], 400);
+            }
+            //creo il path da mettere nell'attributo 'immagine'
+            $imagePath = 'http://localhost:8000/storage/eventi/' . $imageName;
+        }
 
         $concerto = Concert::find($id);
         // $concerto->data = $request->input('data');
