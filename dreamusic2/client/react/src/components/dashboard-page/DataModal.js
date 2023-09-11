@@ -149,7 +149,7 @@ function InsertDataModal({show, setShow, getter, type})
           <span style={{color:"green"}}>{type === "musician" ? "Musicista" : "Evento"} aggiunto con successo!</span>
         }  
         <button type="submit" className="btn btnCustom" onClick={() => postRes(type)}>Salva</button>
-        <button className="btn btn-danger" onClick={()=>{setShow(false); setSuccess(false)}}>Chiudi</button>
+        <button className="btn btnDanger" onClick={()=>{setShow(false); setSuccess(false)}}>Chiudi</button>
       </Modal.Footer>
     </Modal>
   );

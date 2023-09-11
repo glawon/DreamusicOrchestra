@@ -17,19 +17,19 @@ export default function Lista({state, setState}) {
   return (
     <><h2 className="title">Pagine</h2>
     <ListGroup horizontal defaultActiveKey="#lista" className="d-flex">
-      <ListGroup.Item key="about" action href="#musicians" style={{backgroundColor: selected === "about" ? "orange" : "", border: selected === "about" ? "orange" : ""}}
+      <ListGroup.Item key="about" action href="#musicians" style={{backgroundColor: selected === "about" ? "#b57c1c" : "", border: selected === "about" ? "#b57c1c" : ""}}
       onClick={()=>{handleShow("about")}}>
         Musicisti
       </ListGroup.Item>
-      <ListGroup.Item key="event"action href="#events" style={{backgroundColor: selected === "event" ? "orange" : "", border: selected === "event" ? "orange" : ""}}
+      <ListGroup.Item key="event"action href="#events" style={{backgroundColor: selected === "event" ? "#b57c1c" : "", border: selected === "event" ? "#b57c1c" : ""}}
       onClick={()=>{handleShow("event")}}>
         Eventi
       </ListGroup.Item>
-      <ListGroup.Item key="tickets" action href="#tickets" style={{backgroundColor: selected === "tickets" ? "orange" : "", border: selected === "tickets" ? "orange" : ""}}
+      <ListGroup.Item key="tickets" action href="#tickets" style={{backgroundColor: selected === "tickets" ? "#b57c1c" : "", border: selected === "tickets" ? "#b57c1c" : ""}}
       onClick={()=>{handleShow("tickets")}}>
         Biglietti
       </ListGroup.Item>
-      <ListGroup.Item key="tickets" action href="#users" style={{backgroundColor: selected === "users" ? "orange" : "", border: selected === "users" ? "orange" : ""}}
+      <ListGroup.Item key="tickets" action href="#users" style={{backgroundColor: selected === "users" ? "#b57c1c" : "", border: selected === "users" ? "#b57c1c" : ""}}
       onClick={()=>{handleShow("users")}}>
         Utenti
       </ListGroup.Item>

@@ -25,11 +25,11 @@
 }
 
 .bi{
-  color:#e3841f;
+  color:#c3841c;
 }
 
 .text{
-  color:#e3841f;
+  color:#db9421;
   margin-bottom: 2rem;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .divider{
-  border: 1px solid #e3841f;
+  border: 1px solid #c3841c;
 }
 
 .Event{
@@ -59,13 +59,25 @@
 }
 
 .btnCustom{
-  background-color: #e3841f;
-  border: #e3841f;
-  color:black;
+  background-color: #b57c1c;
+  border: #b57c1c;
+  color:white;
 }
 
 .btnCustom:hover{
-  background-color:#e3841f8d;
+  background-color:#926316;
+}
+
+.btnDanger{
+  background-color: #873615;
+  border: #873615;
+  color: white;
+}
+
+.btnDanger:hover{
+  background-color: #c35022;
+  border: #f9a526;
+  color: white;
 }
 
 textArea:hover{
@@ -73,9 +85,9 @@ textArea:hover{
 }
 
 th{
-  background-color: #e3841f;
+  background-color: #c3841c;
 }
 
 .modalHeader{
-  background-color: #e3841f;
+  background-color: #c3841c;
 }

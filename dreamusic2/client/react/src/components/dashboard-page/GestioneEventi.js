@@ -247,12 +247,12 @@ export default function GestioneEventi(){
                             </td>
                             <td>
                                 {show &&
-                                    <button className="btn btn-danger" onClick={() => handleAlertShow(event.id)}>Rimuovi</button>
+                                    <button className="btn btnDanger" onClick={() => handleAlertShow(event.id)}>Rimuovi</button>
                                 }
                                 <Alert className="container-fluid d-block mb-0" show={eventState.alertShow} style={{backgroundColor:"rgba(0,0,0,0.9)", border:"rgba(0,0,0,0.9)"}}>
                                     <Alert.Heading className="title">Stai eliminando:<br/>{event.nome}, {event.ora}</Alert.Heading>
                                     <button className="btn btnCustom me-3" onClick={()=> {confirmDelete(event); setShow(!show)}}>Conferma</button>
-                                    <button className="btn btn-danger ms-3" onClick={()=> handleAlertShow(event.id)}>Annulla</button>
+                                    <button className="btn btnDanger ms-3" onClick={()=> handleAlertShow(event.id)}>Annulla</button>
                                 </Alert>
                             </td>
                         </tr>        

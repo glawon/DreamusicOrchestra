@@ -85,7 +85,7 @@ function SignUp(){
                 </div>    
                 <div className="row justify-content-center">
                     <div className="col-auto mt-3">
-                        <button type="button" className="btn" style={{color: "black", backgroundColor: "#e3841f", border:"#e3841f"}}
+                        <button type="button" className="btn" style={{color: "black", backgroundColor: "#e6e3d6", border:"#fbc32b"}}
                         onClick={submitControl}>Conferma</button>
                     </div>
                 </div>

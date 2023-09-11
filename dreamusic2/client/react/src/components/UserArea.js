@@ -15,7 +15,7 @@ function Control({show, setShow, handleDelete, text}){
         <Alert className="container-fluid d-block m-0" show={show} style={{backgroundColor:"black", border:"rgb(1,1,1)"}}>
             <Alert.Heading className="title">{text}</Alert.Heading>
             <button className="btn btnCustom me-3" onClick={handleDelete}>Conferma</button>
-            <button className="btn btn-danger ms-3" onClick={()=>setShow(false)}>Annulla</button>
+            <button className="btn btnDanger ms-3" onClick={()=>setShow(false)}>Annulla</button>
         </Alert>
     );
 }
@@ -153,7 +153,7 @@ export default function UserArea({setLogin}){
                                     <><td colSpan={2} style={{color:"green"}}><SuccessNotify show={toastShow} setShow={setToastShow} header={"Utente aggiornato"} body={""}/></td>
                                     
                                     <td><button type="button" className="btn btnCustom" onClick={handleModifica}>{modifica? "Salva" : "Modifica"}</button></td>
-                                    <td><button type="button" className="btn btn-danger" onClick={()=>setShowUser(true)}>Cancella</button></td></>
+                                    <td><button type="button" className="btn btnDanger" onClick={()=>setShowUser(true)}>Cancella</button></td></>
                                 }                               
                             </tr>
                         </tbody>
@@ -187,7 +187,7 @@ export default function UserArea({setLogin}){
                                     <Control show={showRes} setShow={setShowRes} handleDelete={()=>handleDeleteRes(t)} text="Stai eliminando la prenotazione"/>
                                 </td>
                             :
-                                <td><button type="button" className="btn btn-danger" onClick={()=>confirmDeleteRes(ticketState)}>Rimuovi</button></td>
+                                <td><button type="button" className="btn btnDanger" onClick={()=>confirmDeleteRes(ticketState)}>Rimuovi</button></td>
                             }                               
                             </tr></>
                         );})

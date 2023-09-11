@@ -13,21 +13,21 @@ class BottomBar extends Component{
             </div>
             <div className="col text-center" style={{width:"33.33%"}}>
                 <h5 className="title mb-1">Contatti:</h5>
-                <button type="button" className="btn btn-link text-wrap" style={{color:"#e3841f"}}>groupname@mail.com</button>
+                <button type="button" className="btn btn-link text-wrap text mb-0">groupname@mail.com</button>
                 <br/>
                 <button type="button" className="btn">
                     <a href="https://www.facebook.com/">
-                        <i className="bi bi-facebook" style={{color:"#e3841f"}}></i>
+                        <i className="bi bi-facebook"></i>
                     </a>
                 </button>
                 <button type="button" className="btn">
                     <a href="https://www.instagram.com/">
-                        <i className="bi bi-instagram" style={{color:"#e3841f"}}></i>
+                        <i className="bi bi-instagram"></i>
                     </a>
                 </button>
                 <button type="button" className="btn">
                     <a href="https://www.youtube.com/">
-                        <i className="bi bi-youtube"style={{color:"#e3841f"}}></i>
+                        <i className="bi bi-youtube"></i>
                     </a> 
                 </button>
             </div></div></>

@@ -162,12 +162,12 @@ export default function GestioneMusicisti(){
                             </td>
                             <td>
                                 {show &&
-                                    <button className="btn btn-danger" onClick={() => handleAlertShow(musician.id)}>Rimuovi</button>
+                                    <button className="btn btnDanger" onClick={() => handleAlertShow(musician.id)}>Rimuovi</button>
                                 }
                                 <Alert className="container-fluid d-block mb-0" show={musicianState.alertShow} style={{backgroundColor:"rgba(0,0,0,0.9)", border:"rgba(0,0,0,0.9)"}}>
                                     <Alert.Heading className="title">Stai eliminando:<br/>{musician.nome}, {musician.strumento}</Alert.Heading>
                                     <button className="btn btnCustom me-3" onClick={()=> {confirmDelete(musician); setShow(!show)}}>Conferma</button>
-                                    <button className="btn btn-danger ms-3" onClick={()=> handleAlertShow(musician.id)}>Annulla</button>
+                                    <button className="btn btnDanger ms-3" onClick={()=> handleAlertShow(musician.id)}>Annulla</button>
                                 </Alert>
                             </td>
                         </tr>        
