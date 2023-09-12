@@ -69,10 +69,8 @@ function App(){
           <Routes>
             <Route path="/" element={<Home logo={dreamLogo}/>}/>  
             <Route path="/cart" element={<Cart user={user}/>}/>
-            <Route path="/gallery" element={<Gallery/>}/>
             <Route path="/login" element={<div className="container-fluid"><Login setUser={setUser} setLogged={setLogged}/></div>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
-            {/* <Route path="/user" element={<UserArea/>}/> */}
             <Route path="/user" element={<UserArea setLogin={setLogged}/>}/>
             <Route path="/event" element={<EventProgram/>}/>
           </Routes>

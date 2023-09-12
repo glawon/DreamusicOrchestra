@@ -24,6 +24,12 @@
   text-transform: capitalize;
 }
 
+.scrollContainer{
+  margin-top:0;
+  scroll-behavior: smooth;
+  scroll-margin-block-start: 0;
+}
+
 .bi{
   color:#c3841c;
 }

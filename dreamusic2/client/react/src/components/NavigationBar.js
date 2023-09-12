@@ -1,11 +1,11 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-scroll/modules';
+//import { Link } from 'react-scroll/modules';
 import { useLocation, useNavigate } from "react-router-dom";
 import { fetchOneUser, getLogin } from './services/user';
 import { useState, useEffect } from 'react';
-
+import {Link } from 'react-router-dom';
 
 function NavigationBar({login, setLogin}){
     //const navigate = useNavigate();
@@ -15,16 +15,9 @@ function NavigationBar({login, setLogin}){
     function handleClick(sectionId){
         if(splitLocation[1] !== "")
         {
-            window.location.href = '/';
-            
-        }
-        window.addEventListener('load', () => {
-            const targetElement = document.getElementById(sectionId);
-            console.log("Elemento: "+targetElement);
-            if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-        });      
+            console.log("/#"+sectionId);
+            window.location.href = "/#" + sectionId;  
+        }     
     }
 
     function handleLogout(){
@@ -57,18 +50,17 @@ function NavigationBar({login, setLogin}){
                 <Navbar.Collapse id="basic-navbar-nav px-1">
                     <Nav className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="home" spy={true}
+                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="#home" spy={true}
                             smooth={true} offset={-10} duration={500} onClick={()=>handleClick("home")}>Home</Link>          
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="eventscroll" spy={true}
-                            smooth={true} offset={-10} duration={500} onClick={()=>handleClick("eventscroll")}>Eventi</Link>          
+                        <li>
+                            <a className="nav-link" href="#eventscroll" onClick={()=>handleClick("eventscroll")}>Eventi</a>          
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="about" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Chi siamo</Link>
+                            <a className="nav-link" href="#about" onClick={()=>handleClick("about")}>Chi siamo</a>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="gallery" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Gallery</Link>
+                            <a className="nav-link" href="#gallery" onClick={()=>handleClick("gallery")}>Gallery</a>
                         </li>
                         {/* <li className="nav-item">
                         <Link className="nav-link" style={{cursor:"pointer"}} activeClassName='active' to="shop" spy={true} smooth={true} offset={0} duration={500} onClick={handleClick}>Shop</Link>

@@ -6,12 +6,8 @@ import "../App.css";
 import { sendReservation } from "./services/concerts";
 import SuccessNotify from "./login-page/Success";
 import EventContext from "./services/EventHandler";
+import Caricamento from "./Loader";
 import { fetchSingle } from "./services/concerts";
-import Spinner from 'react-bootstrap/Spinner';
-
-function Caricamento() {
-  return <Spinner animation="grow" variant="warning"/>;
-}
 
 function Prenotazione({id, prezzo}){
     const [success, setSuccess] = useState(false);
