@@ -18,49 +18,19 @@ function About(){
           getMusicians();
     }, []);
 
-    function renderEvenMusician(musician){
-        if(musician.id % 2 == 0)
-        {
-          return(
-            <Musician
-            key={musician.id}
-              picture={musician.immagine}
-              noun={musician.nome}
-              instrument={musician.strumento}
-            />
-          );
-        }
-      }
-    
-    function renderOddMusician(musician){
-        if(musician.id % 2 == 1)
-        {
-            return(
-            <Musician
-                key={musician.id}
-                picture={musician.immagine}
-                noun={musician.nome}
-                instrument={musician.strumento}
-            />
-            );
-        }
-    }
-
         return(
             <>
                 <div className="container text-center">
                     <h1 className="header">Chi siamo</h1>
-                    <div className="row justify-content-md-center">
-                        <div className="col justify-content-center">
-                            {musicians.map(musician=>(
-                                renderOddMusician(musician)      
-                            ))}
-                        </div>
-                        <div className="col justify-content-center">
-                            {musicians.map(musician=>(
-                                renderEvenMusician(musician)
-                            ))}
-                        </div>
+                    <div className="row row-cols-2 justify-content-md-center">
+                        {musicians.map((musician=>
+                                (<Musician
+                            key={musician.id}
+                                picture={musician.immagine}
+                                noun={musician.nome}
+                                instrument={musician.strumento}
+                            />)
+                        ))}
                     </div>
                     </div>
             </>
