@@ -1,7 +1,9 @@
+import {getHost} from "./service_host"
+
 export async function fetchImages()
 {
     try {
-        const response = await fetch('http://localhost:8000/api/images/gallery', { method: "GET" });
+        const response = await fetch(getHost()+'/images/gallery', { method: "GET" });
         const data = await response.json();
         //console.log("Dati:", data.gallery);
         return data.gallery;
@@ -33,7 +35,7 @@ export async function urlToBlob(imageUrl)
 export async function fetchMusicians()
 {
     try {
-        const response = await fetch('http://localhost:8000/api/musicians/index', { method: "GET" });
+        const response = await fetch(getHost()+'/musicians/index', { method: "GET" });
         const data = await response.json();
         return data.musicisti;
     } catch (error) {
@@ -55,7 +57,7 @@ export async function updateMusician(musician)
     console.log([...form.entries()]);
 
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/musicians/${id}/update?_method=PUT`,
+        fetch(getHost()+`/musicians/${id}/update?_method=PUT`,
         {
             method: "POST",
             body: form
@@ -78,7 +80,7 @@ export async function deleteMusician(musician)
 {
     const id = musician.id;
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/musicians/${id}/delete`,
+        fetch(getHost()+`/musicians/${id}/delete`,
         {
         method: "DELETE",
         headers: {
@@ -111,7 +113,7 @@ export async function createMusician(musician)
     console.log("Dati inviati:", [...form.entries()]);
 
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8000/api/musicians/store',
+        fetch(getHost()+'/musicians/store',
         {
             method: 'POST',
             body: form

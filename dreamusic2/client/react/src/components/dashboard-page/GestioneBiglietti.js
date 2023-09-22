@@ -33,6 +33,7 @@ export default function GestioneBiglietti()
                         <th colSpan={3}>Concerto</th>
                         <th colSpan={2}>Utente</th>
                         <th rowSpan={2} className="align-middle">Quantità</th>
+                        <th rowSpan={2} className="align-middle">Data prenotazione</th>
                     </tr>
                         <tr>
                             <td>Nome</td>
@@ -43,7 +44,7 @@ export default function GestioneBiglietti()
                         </tr>
                         {tickets.map((ticket) => {
                         return (
-                            ticket.ticket.concert &&
+                            ticket.ticket.concert && ticket.user &&
                             <tr className="rowCustom mb-0 pb-0" key={ticket.id}>
                                 <td>
                                     {ticket.ticket.concert.nome}
@@ -62,6 +63,9 @@ export default function GestioneBiglietti()
                                 </td>
                                 <td>
                                     {ticket.quantita}
+                                </td>
+                                <td>
+                                    {ticket.created_at ? moment(ticket.created_at, 'YYYY-MM-DD/THH:mm:ss').format('DD/MM/YYYY HH:mm:ss') : "13/08/2023 21:47:32"}
                                 </td>
                             </tr> 
                         );

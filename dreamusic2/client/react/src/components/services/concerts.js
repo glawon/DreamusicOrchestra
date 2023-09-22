@@ -1,6 +1,8 @@
+
+import { getHost  } from "./service_host";
 export async function fetchConcerts() {
     try {
-        const response = await fetch('http://localhost:8000/api/concert/index', { method: "GET" });
+        const response = await fetch(getHost()+'/concert/index', { method: "GET" });
         const data = await response.json();
         return data.concerto;
     } catch (error) {
