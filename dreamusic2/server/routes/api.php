@@ -41,6 +41,7 @@ Route::controller(ConcertController::class)->prefix('concert')->group(function($
 
 Route::controller(UserController::class)->prefix('user')->group(function($router){
     Route::get('index', 'index'); //mostra tutti gli utenti
+    Route::put('{id}/upgradeRole', 'upgradeRole');
     Route::get('{id}/show', 'show');  //mostra informazioni utente con {id}
     Route::put('{id}/update', 'update');
     Route::get('{id}/edit', 'edit');

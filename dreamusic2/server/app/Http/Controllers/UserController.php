@@ -20,8 +20,7 @@ class UserController extends Controller
         );
     }
 
-    public function register(Request $request)
-    {
+    public function register(Request $request){
         // $user = User::create([
         //     'nome'=>$request->nome,
         //     'cognome'=>$request->cognome,
@@ -34,26 +33,32 @@ class UserController extends Controller
                 'cognome'=>'required|string',
                 'email'=>'required|email|unique:users',
                 'password'=>'required|string',
+                'confirm_password'=>'required|string',
                 'ruolo'=>'required|string'
-            ]);
-
-            $user = User::create($request->all());
-            $token = Auth::attempt($request->all());
-            return response()->json([
-            'user'=>$user,
-            'token'=>$token
             ]);
         } 
         catch(\Exception $e){
             return response()->json([
-                'message'=>"c'è stato un errore",
+                'message'=>"validazione errata, mail già in database",
                 'token'=>false
                 ]);
         }
+
+        if($request->password ===  $request->confirm_password){
+            $user = User::create($request->all());
+            // $token = Auth::attempt($request->all());
+            return response()->json([
+            'user'=>$user,
+            // 'token'=>$token
+            ]);
+        }else{
+            return response()->json([
+                'message'=>"validazione errata",
+            ]);
+        }
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         // $request->password = Hash::make($request->password);
         // $user = User::where('email', $request->email)->first();
 
@@ -67,8 +72,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(string $id)
-    {
+    public function show(string $id){
         $user = User::find($id);
         return response()->json(
             [
@@ -77,43 +81,73 @@ class UserController extends Controller
         );
     }
 
-    public function update(Request $request, string $id)
-    {
+    public function update(Request $request, string $id){
+        // $request->validate([
+        //     'nome'=>'required|string',
+        //     'cognome'=>'required|string',
+        //     'email'=>'required|email',  //|unique:users
+        //     'password'=>'required|string'
+        // ]);
         $request->validate([
-            'nome'=>'required|string',
-            'cognome'=>'required|string',
-            'email'=>'required|email',  //|unique:users
-            'password'=>'required|string'
+            'old_password'=>'required|string',
+            'new_password'=>'required|string',
+            'confirm_password'=>'required|string'
         ]);
+
+        $credentials = [
+            'id' => $id,
+            'password' => $request->input('old_password')
+        ];
 
         $user = User::find($id);
         // $olduser = $user->replicate();
-
-        $user->nome = $request->nome;
-        $user->cognome = $request->cognome;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
-
-        return response()->json(
-            [
-                'messaggio' => 'user aggiornato con successo',
-                // 'old user' => $olduser,
-                'new user' => $user
-            ]
-        );
+        
+        // $user->nome = $request->nome;
+        // $user->cognome = $request->cognome;
+        // $user->email = $request->email;
+        if(Auth::attempt($credentials)){
+            if($request->new_password ===  $request->confirm_password){
+                $user->password = $request->new_password;
+                $user->save();
+                return response()->json(
+                    [
+                        'messaggio' => 'user aggiornato con successo',
+                        'new user' => $user
+                    ]
+                );
+            }
+            else{
+                return response()->json(
+                    [
+                        'errore' => 'le nuove password non matchano'
+                    ]
+                );
+            }            
+        }else{
+            return response()->json(
+                [
+                    'errore' => 'vecchia password sbagliata'
+                ]
+            );
+        }
     }
+public function upgradeRole(string $id){
+    $user = User::find($id);
+    $user->ruolo = "admin";
+    $user->save();
+    return response()->json([
+        'messaggio'=> 'user ' . $id . ' promosso ad admin'
+    ]);
+}
 
-    public function edit(string $id)
-    {
+    public function edit(string $id){
         $user = User::find($id);
         return response()->json([
             'user selezionato per la modifica'=>$user
         ]);
     }
 
-    public function destroy(string $id)
-    {
+    public function destroy(string $id){
         $user = User::find($id);
         $user->delete();
         return response()->json(
