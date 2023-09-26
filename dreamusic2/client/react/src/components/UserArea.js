@@ -10,13 +10,21 @@ import { fetchTickets } from "./services/admin";
 import { updateUser } from "./services/user";
 import background from "../externals/AreaPersonale.jpg";
 
-function Control({show, setShow, handleDelete, text}){
+function Control({show, setShow, handleDelete, text, reservation}){
     return(
+    reservation ? (
+        <Alert className="container-fluid d-block m-0" show={show} style={{backgroundColor:"black", border:"rgb(1,1,1)"}}>
+            <Alert.Heading className="title">{text}{reservation.ticket.concert.nome}</Alert.Heading>
+            <button className="btn btnCustom me-3" onClick={handleDelete}>Conferma</button>
+            <button className="btn btnDanger ms-3" onClick={()=>setShow(false)}>Annulla</button>
+        </Alert>
+    ) : (
         <Alert className="container-fluid d-block m-0" show={show} style={{backgroundColor:"black", border:"rgb(1,1,1)"}}>
             <Alert.Heading className="title">{text}</Alert.Heading>
             <button className="btn btnCustom me-3" onClick={handleDelete}>Conferma</button>
             <button className="btn btnDanger ms-3" onClick={()=>setShow(false)}>Annulla</button>
         </Alert>
+    )
     );
 }
 
@@ -27,19 +35,22 @@ export default function UserArea({setLogin}){
     const id = sessionStorage.getItem('userID');
     const [modifica, setModifica] = useState(false);
     const [showUser, setShowUser] = useState(false);
-    const [showRes, setShowRes] = useState(false);
-    const [toastShow, setToastShow] = useState(false);
+    const [showRes, setShowRes] = useState(false); //gestisce la visibilità della conferma eliminazione per l'evento
+    const [toastShow, setToastShow] = useState(false); //gestisce la visibilità della conferma eliminazione per lo user
+    const [success, setSuccess] = useState(false);
+    const [text, setText] = useState({header:"", body:""});
+    const [reservation, setReservation] = useState();
 
     const navigate = useNavigate();
 
     async function getUser()
-        {
-            fetchOneUser(id)
-            .then(response => {
-                //console.log("Dati dalla fetch: ", response);
-                setUser(response)})
-            .catch(err => alert("Errore nel caricamento dell'utente", err));
-        }
+    {
+        fetchOneUser(id)
+        .then(response => {
+            //console.log("Dati dalla fetch: ", response);
+            setUser(response)})
+        .catch(err => alert("Errore nel caricamento dell'utente", err));
+    }
     async function getTickets(){
         let userRes;
         fetchTickets()
@@ -57,17 +68,17 @@ export default function UserArea({setLogin}){
     }
 
     function confirmDeleteRes(ticket){
- 
+        setReservation(ticket);
         setTicketStates((prevStates) =>
             prevStates.map((state) =>
             state.id === ticket.id ? { ...state, showRes: !state.showRes } : state
         ));
-
+        
         setShowRes(true);
         if(showRes===false)
-        setTicketStates((prevStates) =>
-        prevStates.map((state) =>
-        state.id === ticket.id ? { ...state, showRes: !state.showRes } : state
+            setTicketStates((prevStates) =>
+            prevStates.map((state) =>
+            state.id === ticket.id ? { ...state, showRes: !state.showRes } : state
     ));
     }
 
@@ -79,12 +90,15 @@ export default function UserArea({setLogin}){
         .catch(err => console.error("Errore nella cancellazione della prenotazione", err));
     }
 
+    function oldPasswordCheck(e){
+        setUser({...user, old_password: e.target.value});
+    }
     function handlePasswordChange(e){
-        setUser({...user, password: e.target.value});
+        setUser({...user, new_password: e.target.value});
     }
 
-    function handleEmailChange(e){
-        setUser({...user, email: e.target.value});
+    function checkPasswordChange(e){
+        setUser({...user, confirm_password: e.target.value});
     }
 
     function handleModifica(){
@@ -92,7 +106,15 @@ export default function UserArea({setLogin}){
         if(modifica)
         {    
             updateUser(user)
-            .then(()=>setToastShow(true));
+            .then(()=>{
+                setSuccess(true);
+                setText({header: "Utente aggiornato"});
+                setToastShow(true)
+            })
+            .catch((error) => {
+                setToastShow(true)
+                setText({header: "Errore"});
+            })
         }
     }
 
@@ -120,6 +142,10 @@ export default function UserArea({setLogin}){
         <h1 className="header text-black pt-5">Benvenuto, {user.nome} {user.cognome}</h1>
         <div className="container">
                 <div className="container-fluid align-items-center justify-content-center py-3">
+                    <SuccessNotify show={toastShow} setShow={setToastShow} success={success} header={text.header} body={text.body}/>
+                    {showUser===true &&
+                        <Control show={showUser} setShow={setShowUser} handleDelete={handleDelete} text="Stai eliminando l'account!"/>
+                    }
                     <Table responsive bordered variant="dark">
                         <thead>
                             <th colSpan={4}>I tuoi dati</th>
@@ -134,27 +160,21 @@ export default function UserArea({setLogin}){
                             <tr className="align-middle">
                                 <td>{user.nome}</td>
                                 <td>{user.cognome}</td>
+                                <td>{user.email}</td>
                                 {modifica ?
-                                    <><td><input type="email" value={user.email} onChange={e => handleEmailChange(e)}/></td>
-                                    <td><input type="password" placeholder="Nuova password" onChange={e => handlePasswordChange(e)}/></td></>
-                                    
+                                    <><td><input type="password" className="px-2" placeholder="Vecchia password" onChange={e => oldPasswordCheck(e)}/>
+                                        <input type="password" className="px-2" placeholder="Nuova password" onChange={e => handlePasswordChange(e)}/>
+                                    <input type="password" className="px-2" placeholder="Conferma password" onChange={e => checkPasswordChange(e)}/>
+                                    </td>
+                                    </>
                                 :    
-                                    <><td>{user.email}</td>
-                                    <td>********</td></> 
+                                    <td>********</td>
                                 }
                                 
                             </tr>
-                            <tr>
-                                {showUser===true ?
-                                <td colSpan={4}>
-                                    <Control show={showUser} setShow={setShowUser} handleDelete={handleDelete} text="Stai eliminando l'account!"/>
-                                </td>
-                                :
-                                    <><td colSpan={2} style={{color:"green"}}><SuccessNotify show={toastShow} setShow={setToastShow} header={"Utente aggiornato"} body={""}/></td>
-                                    
-                                    <td><button type="button" className="btn btnCustom" onClick={handleModifica}>{modifica? "Salva" : "Modifica"}</button></td>
-                                    <td><button type="button" className="btn btnDanger" onClick={()=>setShowUser(true)}>Cancella</button></td></>
-                                }                               
+                            <tr>  
+                                <td colSpan={3}><button type="button" className="btn btnDanger" onClick={()=>setShowUser(true)}>Elimina account</button></td>
+                                <td colSpan={2}><button type="button" className="btn btnCustom" onClick={handleModifica}>{modifica? "Salva" : "Modifica password"}</button></td>                           
                             </tr>
                         </tbody>
                     </Table>
@@ -163,33 +183,36 @@ export default function UserArea({setLogin}){
         
         {ticketStates &&
         <div className="container-fluid d-block align-items-center justify-content-center py-3">
-            
+            {showRes===true &&
+                <Control show={showRes} setShow={setShowRes} handleDelete={()=>handleDeleteRes(reservation)} reservation={reservation} text="Stai eliminando la prenotazione: "/>
+            } 
             <Table responsive bordered variant="dark">
                 <thead>
-                    <th colSpan={5}>Le tue prenotazioni</th>
+                    <th colSpan={6}>Le tue prenotazioni</th>
                 </thead>
                 <tbody>
                     <tr>
                         <td colSpan={3}><strong>Evento</strong></td>
                         <td><strong>N.biglietti</strong></td>
+                        <td><strong>Data prenotazione</strong></td>
                         <td></td>
                     </tr>
                     { ticketStates.map((ticketState) => {
                         const t = tickets.find((ticket) => ticket.id === ticketState.id);
                         return(
-                            <><tr className="align-middle">
+                            <tr className="align-middle">
                                 <td>{t.ticket.concert.nome}</td>
                                 <td>{t.ticket.concert.citta}</td>
                                 <td>{moment(t.ticket.concert.data, 'yyyy/mm/DD').format('DD/mm/yyyy')}</td>
                                 <td>{t.quantita}</td>
-                            {ticketState.showRes === true && showRes===true?
-                                <td colSpan={4}>
-                                    <Control show={showRes} setShow={setShowRes} handleDelete={()=>handleDeleteRes(t)} text="Stai eliminando la prenotazione"/>
-                                </td>
-                            :
-                                <td><button type="button" className="btn btnDanger" onClick={()=>confirmDeleteRes(ticketState)}>Rimuovi</button></td>
-                            }                               
-                            </tr></>
+                                {t.created_at ?
+                                (
+                                    <td>{moment(t.created_at, 'YYYY/MM/DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss')}</td>
+                                ) : (
+                                    <td>10/08/2023</td>
+                                )}
+                                <td><button type="button" className="btn btnDanger" onClick={()=>confirmDeleteRes(ticketState)}>Rimuovi</button></td>                              
+                            </tr>
                         );})
                     }
                     

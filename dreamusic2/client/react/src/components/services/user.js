@@ -1,10 +1,12 @@
+import { getHost } from "./service_host";
+
 export async function loginUser(credentials, type) {
     let api;
     return new Promise((resolve, reject) =>{
         if(type==="register")
-            api='http://localhost:8000/api/user/register';
+            api=getHost()+'/user/register';
         else if(type==="login")
-            api='http://localhost:8000/api/user/login';
+            api=getHost()+'/user/login';
         fetch(api, {
         method: 'POST',
         headers: {
@@ -29,7 +31,7 @@ export async function loginUser(credentials, type) {
 export async function fetchOneUser(id)
 {
     try {
-        const response = await fetch(`http://localhost:8000/api/user/${id}/show`, { method: "GET" });
+        const response = await fetch(getHost()+`/user/${id}/show`, { method: "GET" });
         const data = await response.json();
         console.log(data.user);
         return data.user;
@@ -41,7 +43,7 @@ export async function fetchOneUser(id)
 
 export async function fetchUsers() {
     try {
-        const response = await fetch('http://localhost:8000/api/user/index', { method: "GET" });
+        const response = await fetch(getHost()+'/user/index', { method: "GET" });
         const data = await response.json();
         console.log(data.users);
         return data.users;
@@ -56,7 +58,7 @@ export async function updateUser(user) {
     const id = user.id;
 
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/user/${id}/update?_method=PUT`,
+        fetch(getHost()+`/user/${id}/update?_method=PUT`,
         {
             method: "POST",
             headers: {
@@ -78,9 +80,34 @@ export async function updateUser(user) {
     })
 }
 
+export async function upgradeRole(user){
+    const id = user.id;
+    return new Promise((resolve, reject) => {
+        fetch(getHost()+`/user/${id}/upgradeRole`,
+        {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
+    })
+}
+
 export async function deleteUser(id){
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/user/${id}/delete`,
+        fetch(getHost()+`/user/${id}/delete`,
         {
             method: "DELETE"
         })
@@ -101,7 +128,7 @@ export async function deleteUser(id){
 
 export async function deleteReservation(id){
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/ticket-user/${id}/delete`,
+        fetch(getHost()+`/ticket-user/${id}/delete`,
         {
             method: "DELETE"
         })

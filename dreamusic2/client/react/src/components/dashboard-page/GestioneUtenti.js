@@ -1,11 +1,9 @@
-import { fetchUsers } from "../services/user";
+import { fetchUsers, upgradeRole } from "../services/user";
 import { useState, useEffect } from "react";
 import Table from "react-bootstrap/esm/Table";
 
 export default function GestioneUtenti(){
     const [users, setUsers] = useState();
-    const [admins, setAdmins] = useState(0);
-    const [stdUsers, setStdUsers] = useState(0);
 
     async function getUsers() {
         try {
@@ -15,17 +13,18 @@ export default function GestioneUtenti(){
         } catch (error) {
             alert("Errore nel caricare gli utenti: ", error);
         }
-      }
+    }
     
+    function manageUser(id){
+        let updated = users.find(u => u.id === id);
+        console.log("User da modificare:", updated);
+            updated.ruolo = "user";
+        upgradeRole(updated);
+        setUsers([...users, updated]);
+    }
+
     useEffect(()=>{
         getUsers();
-        users &&
-            users.map((user) => {
-            if(user.ruolo === "admin")
-                setAdmins(admins+1);
-            else if(user.ruolo === "user")
-                setStdUsers(stdUsers+1);
-            })
     }, []);
 
     return(
@@ -42,6 +41,7 @@ export default function GestioneUtenti(){
                             <th>Nome</th>
                             <th>Cognome</th>
                             <th>E-mail</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,7 +73,14 @@ export default function GestioneUtenti(){
                                     {user.ruolo === "admin" ? 
                                         <span className="text">{user.email}</span>
                                         :
-                                        <span className="text">{user.email}</span>
+                                        <span className="text text-white">{user.email}</span>
+                                    }
+                                </td>
+                                <td>
+                                    {user.ruolo === "user" ?
+                                        <button className="btn btnCustom" onClick={() => manageUser(user.id)}>Rendi admin</button>
+                                        :
+                                        <span></span>
                                     }
                                 </td>
                             </tr>        

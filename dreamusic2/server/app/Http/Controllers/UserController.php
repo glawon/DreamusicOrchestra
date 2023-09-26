@@ -131,14 +131,15 @@ class UserController extends Controller
             );
         }
     }
-public function upgradeRole(string $id){
-    $user = User::find($id);
-    $user->ruolo = "admin";
-    $user->save();
-    return response()->json([
-        'messaggio'=> 'user ' . $id . ' promosso ad admin'
-    ]);
-}
+    
+    public function upgradeRole(string $id){
+        $user = User::find($id);
+        $user->ruolo = "admin";
+        $user->save();
+        return response()->json([
+            'messaggio'=> 'user ' . $id . ' promosso ad admin'
+        ]);
+    }
 
     public function edit(string $id){
         $user = User::find($id);

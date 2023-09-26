@@ -152,7 +152,7 @@ export async function createEvent(event)
 
 
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8000/api/concert/store',
+        fetch(getHost()+'/concert/store',
         {
             method: 'POST',
             body: form
@@ -187,7 +187,7 @@ export async function updateEvent(event)
     console.log("Invio:", [...form.entries()]);
 
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/concert/${id}/update?_method=PUT`,
+        fetch(getHost()+`/concert/${id}/update?_method=PUT`,
         {
             method: "POST",
             body: form
@@ -210,7 +210,7 @@ export async function deleteEvents(event)
 {
     const id = event.id;
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/api/concert/${id}/delete`,
+        fetch(getHost()+`/concert/${id}/delete`,
         {
         method: "DELETE",
         headers: {
@@ -235,7 +235,7 @@ export async function deleteEvents(event)
 export async function fetchTickets()
 {
     try {
-        const response = await fetch('http://localhost:8000/api/ticket-user/index', { method: "GET" });
+        const response = await fetch(getHost()+'/ticket-user/index', { method: "GET" });
         const data = await response.json();
         console.log("Dati:", data);
         return data;
