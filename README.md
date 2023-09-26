@@ -1,7 +1,7 @@
 # Dreamusic Orchestra
 Dreamusic Orchestra è un sito web per prenotare biglietti per eventi dell'orchestra Dreamusic e gestire le prenotazioni tramite un'area personale. 
 
-![Stato del Progetto](https://img.shields.io/badge/Stato-Completato-blue)
+![Stato del Progetto](https://img.shields.io/badge/Stato-In_sviluppo-blue)
 ## Dettagli
 Ogni utente possiede un ruolo che può essere di tipo *admin* o *user*, in base a questo vengono stabiliti dei privilegi.
 
@@ -34,4 +34,4 @@ Per quanto riguarda il lato client, bisogna installare React JS ed eseguire `npm
 ## Utilizzo
 
 Prima di avviare il server, eseguire il comando `php artisan migrate:fresh --seed` per popolare il database con i dati nei seeder.
-Dopodichè si può procedere con l'avvio del server Laravel con `php artisan serve` e il server di React JS con `npm start`.
+Dopodichè si può procedere con l'avvio del server Laravel con `php artisan serve`.

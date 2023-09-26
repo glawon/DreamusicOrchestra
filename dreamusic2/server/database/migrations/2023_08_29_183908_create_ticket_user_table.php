@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger("idUser");
             $table->integer("quantita")->default(1);
             $table->string("posto")->nullable(); //per adesso nullable
+            $table->string("stato")->default("prenotato");
             
             $table->foreign("idTicket")->references("id")->on("tickets");
             $table->foreign("idUser")->references("id")->on("users");

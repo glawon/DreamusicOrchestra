@@ -16,9 +16,6 @@ class TicketUserController extends Controller
         return $tickets;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try{
@@ -68,17 +65,15 @@ class TicketUserController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    public function purchase(string $id){
+        $ticketuser = TicketUser::find($id);
+        $ticketuser->stato = 'acquistato';
+        $ticketuser->save();
+        return response()->json([
+            'message'=>'biglietto acquistato'
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $ticketuser = TicketUser::find($id);
@@ -87,9 +82,6 @@ class TicketUserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $ticketuser = TicketUser::find($id);
@@ -108,9 +100,6 @@ class TicketUserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $ticket = TicketUser::find($id);
