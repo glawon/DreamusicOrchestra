@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c8fe4df0.css",
+    "main.js": "/static/js/main.71cfbe03.js",
+    "static/js/787.6e44ad01.chunk.js": "/static/js/787.6e44ad01.chunk.js",
+    "static/media/posterVideo.png": "/static/media/posterVideo.72b6b332f8f1d17d6514.png",
+    "static/media/AreaPersonale.jpg": "/static/media/AreaPersonale.665908f3799959e316c0.jpg",
+    "static/media/galleryBack.jpg": "/static/media/galleryBack.d8a7b8b2c4c8e258118b.jpg",
+    "static/media/score.jpg": "/static/media/score.05fc5fac01f24da0521f.jpg",
+    "static/media/logo2.png": "/static/media/logo2.69c9b4ee0dad5e97fdf8.png",
+    "static/media/bioBackground.jpg": "/static/media/bioBackground.c537326e18da7f17cb1e.jpg",
+    "static/media/radio.png": "/static/media/radio.b08caa1d5505108b4d9f.png",
+    "static/media/microphone.png": "/static/media/microphone.b39fda5312832826796b.png",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
+    "static/media/gallery2.jpg": "/static/media/gallery2.bac6bb3a2489b45483c8.jpg",
+    "static/media/gallery1.jpg": "/static/media/gallery1.5441bb34ebaca28a8341.jpg",
+    "static/media/locandina.png": "/static/media/locandina.da612b7d5fbe3d220776.png",
+    "static/media/Cart.png": "/static/media/Cart.ea0c6a72bb0909fdacc5.png",
+    "static/media/logo_dreamusic.png": "/static/media/logo_dreamusic.b583c2c89a7f9388056e.png",
+    "index.html": "/index.html",
+    "main.c8fe4df0.css.map": "/static/css/main.c8fe4df0.css.map",
+    "main.71cfbe03.js.map": "/static/js/main.71cfbe03.js.map",
+    "787.6e44ad01.chunk.js.map": "/static/js/787.6e44ad01.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c8fe4df0.css",
+    "static/js/main.71cfbe03.js"
+  ]
+}

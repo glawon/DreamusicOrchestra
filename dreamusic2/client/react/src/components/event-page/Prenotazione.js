@@ -2,6 +2,7 @@ import SuccessNotify from "../login-page/Success";
 import { useState, useEffect } from "react";
 import { sendReservation } from "../services/concerts";
 import { fetchOneUser } from "../services/user";
+import {Link } from 'react-router-dom';
 
 
 function Prenotazione({id, prezzo}){
@@ -90,7 +91,7 @@ function Prenotazione({id, prezzo}){
                 <SuccessNotify show={success} setShow={setSuccess} success={success} header={header} body={body}/>
             </div></>
             ) : (
-                <a href="/login" className="text">Effettua l'accesso</a>
+                <Link to="/login" className="text">Effettua l'accesso</Link>
             )
 
             }

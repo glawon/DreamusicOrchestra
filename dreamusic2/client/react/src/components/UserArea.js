@@ -7,10 +7,11 @@ import Alert from 'react-bootstrap/Alert';
 import SuccessNotify from "./login-page/Success";
 import "../App.css";
 import { fetchTickets } from "./services/admin";
-import { updateUser } from "./services/user";
+import { updateUser, purchase } from "./services/user";
 import background from "../externals/AreaPersonale.jpg";
 
 function Control({show, setShow, handleDelete, text, reservation}){
+    console.log(reservation);
     return(
     reservation ? (
         <Alert className="container-fluid d-block m-0" show={show} style={{backgroundColor:"black", border:"rgb(1,1,1)"}}>
@@ -67,6 +68,18 @@ export default function UserArea({setLogin}){
         
     }
 
+    function purchaseTicket(ticket){
+        purchase(ticket)
+        .then(data => {
+            console.log(data.message);
+            if(data.message != null){
+                let updated = tickets.find(t => t.id === ticket.id);
+                setTickets([...tickets,updated]);
+            }
+        });
+        // .catch(err => alert("Errore nell'acquisto", err));
+    }
+
     function confirmDeleteRes(ticket){
         setReservation(ticket);
         setTicketStates((prevStates) =>
@@ -80,11 +93,11 @@ export default function UserArea({setLogin}){
             prevStates.map((state) =>
             state.id === ticket.id ? { ...state, showRes: !state.showRes } : state
     ));
-    }
+    } 
 
     function handleDeleteRes(ticket){
         setTicketStates(ticketStates.filter(t=>t.id !== ticket.id));
-        //setShowRes(true);
+        setShowRes(false);
         deleteReservation(ticket.id)
         .then(()=>getTickets())
         .catch(err => console.error("Errore nella cancellazione della prenotazione", err));
@@ -129,11 +142,10 @@ export default function UserArea({setLogin}){
     }
 
     useEffect(()=>{
-        
         getUser();
         getTickets();
         console.log("TicketStates:", ticketStates);
-    }, [])
+    }, []);
 
     return(
         user && ticketStates &&
@@ -188,17 +200,19 @@ export default function UserArea({setLogin}){
             } 
             <Table responsive bordered variant="dark">
                 <thead>
-                    <th colSpan={6}>Le tue prenotazioni</th>
+                    <th colSpan={7}>Le tue prenotazioni</th>
                 </thead>
                 <tbody>
                     <tr>
                         <td colSpan={3}><strong>Evento</strong></td>
                         <td><strong>N.biglietti</strong></td>
                         <td><strong>Data prenotazione</strong></td>
+                        <td><strong>Data acquisto</strong></td>
                         <td></td>
                     </tr>
                     { ticketStates.map((ticketState) => {
                         const t = tickets.find((ticket) => ticket.id === ticketState.id);
+                        console.log(t);
                         return(
                             <tr className="align-middle">
                                 <td>{t.ticket.concert.nome}</td>
@@ -211,7 +225,17 @@ export default function UserArea({setLogin}){
                                 ) : (
                                     <td>10/08/2023</td>
                                 )}
-                                <td><button type="button" className="btn btnDanger" onClick={()=>confirmDeleteRes(ticketState)}>Rimuovi</button></td>                              
+                                {t.stato === "prenotato" ? 
+                                (
+                                    <>
+                                    <td><button type="button" className="btn btnCustom" onClick={()=>purchaseTicket(t.id)}>Acquista</button></td>
+                                    <td><button type="button" className="btn btnDanger" onClick={()=>confirmDeleteRes(t)}>Cancella prenotazione</button></td>                              
+                                </>) : (
+                                    <>
+                                    <td>{moment(t.updated_at, 'YYYY/MM/DDTHH:mm:ss').format('DD/MM/YYYY HH:mm:ss')}</td>
+                                    <td></td>
+                                    </>
+                                )}
                             </tr>
                         );})
                     }

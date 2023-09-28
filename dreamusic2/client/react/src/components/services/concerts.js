@@ -4,6 +4,7 @@ export async function fetchConcerts() {
     try {
         const response = await fetch(getHost()+'/concert/index', { method: "GET" });
         const data = await response.json();
+        console.log(data)
         return data.concerto;
     } catch (error) {
         alert("Errore nel caricare i concerti: ", error);

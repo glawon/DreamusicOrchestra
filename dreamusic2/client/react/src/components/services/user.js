@@ -146,3 +146,24 @@ export async function deleteReservation(id){
         .catch(error => {reject(error)});
     })
 }
+
+export async function purchase(id){
+    return new Promise((resolve, reject) => {
+        fetch(getHost()+`/ticket-user/${id}/purchase`,
+        {
+            method: "PUT"
+        })
+        .then(response => {
+            console.log("Risposta dal server:", response);
+            if (!response.ok) {
+                throw new Error("Errore nella richiesta");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Risposta dal server:", data);
+            resolve(data);
+        })
+        .catch(error => {reject(error)});
+    })
+}

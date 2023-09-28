@@ -17,7 +17,7 @@ class MusicianSeeder extends Seeder
                 'nome'=>'Cristiana',
                 'cognome'=>'Cunsolo',
                 'strumento'=>'flauto',
-                'immagine'=>'http://localhost:8000/storage/musicisti/Cristiana.jpg'
+                'immagine'=>'storage/musicisti/Cristiana.jpg'
             ],
             [
                 'nome'=>'Carlotta',

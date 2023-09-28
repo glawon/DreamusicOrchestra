@@ -69,12 +69,12 @@ function NavigationBar({login, setLogin}){
                     <Nav className="navbar-nav ms-auto">
                         {login===true && user && user.ruolo == "admin" &&
                             <li className="nav-item">
-                                <Nav.Link href="/dashboard" className="nav-link">Dashboard</Nav.Link>
+                                <Link to="/dashboard" className="nav-link">Dashboard</Link>
                             </li>
                         }
-                        {login===true && user && user.ruolo == "user" &&
+                        {login===true && user &&
                             <li className="nav-item">
-                                <Nav.Link href="/user" className="nav-link">{user.nome} {user.cognome}</Nav.Link>
+                                <Link to="/user" className="nav-link">{user.nome} {user.cognome}</Link>
                             </li>
                         }
                         {/* {login && user.ruolo == "user" &&
@@ -90,7 +90,7 @@ function NavigationBar({login, setLogin}){
                         }
                         {!login&&
                             <li className="nav-item">
-                                <Nav.Link href="/login" className="nav-link">Accedi</Nav.Link>
+                                <Link to="/login" className="nav-link">Accedi</Link>
                             </li>
                         }
                     </Nav> 
