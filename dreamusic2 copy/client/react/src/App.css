@@ -1,0 +1,99 @@
+.page {
+  text-align: center;
+  min-height:100vh;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.bigContainer {
+  background-color: #1d2124;
+  min-height:80vh;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: inherit;
+}
+
+.backCustom {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+  background-position:"center";
+  background-size:"cover";
+  height:"400px"
+}
+
+.names{
+  text-transform: capitalize;
+}
+
+.scrollContainer{
+  margin-top:0;
+  scroll-behavior: smooth;
+  scroll-margin-block-start: 0;
+}
+
+.bi{
+  color:#c3841c;
+}
+
+.text{
+  color:#db9421;
+  margin-bottom: 2rem;
+}
+
+.textProgram{
+  font-size: 1.5rem;
+  color: white;
+  text-justify: center;
+}
+
+.title{
+  color:#ffffff;
+  margin-bottom: 2rem;
+}
+
+.header{
+  text-transform:capitalize;
+  color:white;
+  margin-bottom: 2rem;
+}
+
+.divider{
+  border: 1px solid #c3841c;
+}
+
+.Event{
+  width:30rem;
+}
+
+.btnCustom{
+  background-color: #b57c1c;
+  border: #b57c1c;
+  color:white;
+}
+
+.btnCustom:hover{
+  background-color:#926316;
+}
+
+.btnDanger{
+  background-color: #873615;
+  border: #873615;
+  color: white;
+}
+
+.btnDanger:hover{
+  background-color: #c35022;
+  border: #f9a526;
+  color: white;
+}
+
+textArea:hover{
+  opacity: 0.5;
+}
+
+th{
+  background-color: #c3841c;
+}
+
+.modalHeader{
+  background-color: #c3841c;
+}
