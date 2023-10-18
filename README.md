@@ -12,6 +12,10 @@ Tutti gli utenti possono navigare nel sito una volta loggati ma si distinguono d
 
 Il ruolo è possibile impostarlo dai seeder di Laravel, poichè alla registrazione ci si può solamente registrare come normali user.
 
+#### Tecnologie
+
+Per questo progetto è stato utilizzato **React JS** per implementare il front-end del sito, e **Laravel** per realizzare il back-end.
+
 ## Installazione
 
 Per installare il progetto, dopo aver clonato questa repository, bisogna modificare il file `.env` e inserire i propri parametri di ambiente locale:
@@ -34,4 +38,4 @@ Per quanto riguarda il lato client, bisogna installare React JS ed eseguire `npm
 ## Utilizzo
 
 Prima di avviare il server, eseguire il comando `php artisan migrate:fresh --seed` per popolare il database con i dati nei seeder.
-Dopodichè si può procedere con l'avvio del server Laravel con `php artisan serve`.
+Dopodichè si può procedere con l'avvio del server Laravel con `php artisan serve`, aprire il browser e collegarsi all'indirizzo [http://localhost:8000](http://localhost:8000) .
